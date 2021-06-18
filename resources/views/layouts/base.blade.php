@@ -2,7 +2,7 @@
     @livewireStyles
 </head>
 <body>
-    {{ $slot ?? '' }}
+    {{ $slot }}
 
     @livewireScripts
 </body>

@@ -24,3 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
 
 Route::get('/admin_home', [App\Http\Controllers\Admin\HomeController::class, 'index'])
 ->middleware(["role:admin"]);
+
+Route::view('login','livewire.home');
+
+Route::get('/livewire-pagination', App\Http\Livewire\SearchPagination::class)->name('livewire-pagination')->middleware('auth');
