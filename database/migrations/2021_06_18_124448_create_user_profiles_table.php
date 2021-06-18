@@ -15,10 +15,11 @@ class CreateUserProfilesTable extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable();
             $table->string('pekerjaan')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_telp')->nullable();
+            $table->string('npwp_foto')->nullable();
+            $table->string('ktp_foto')->nullable();
             $table->timestamps();
         });
     }
