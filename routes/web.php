@@ -20,4 +20,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-->name('home')->middleware(["verified"]);
+->name('home')->middleware(["role:user"]);
+
+Route::get('/admin_home', [App\Http\Controllers\Admin\HomeController::class, 'index'])
+->middleware(["role:admin"]);
