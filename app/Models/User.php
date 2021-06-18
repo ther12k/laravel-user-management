@@ -10,7 +10,13 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
-
+    
+    protected $with = ['profile'];
+ 
+    public function profile()
+    {
+      return $this->morphTo();
+    }
     /**
      * The attributes that are mass assignable.
      *

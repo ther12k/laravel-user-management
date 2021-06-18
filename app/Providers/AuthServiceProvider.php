@@ -29,9 +29,9 @@ class AuthServiceProvider extends ServiceProvider
 
         VerifyEmail::toMailUsing(function ($notifiable, $url) {
             return (new MailMessage)
-                ->subject('Verify Email Address')
-                ->line('Klik link dibawah ini.')
-                ->action('Verify Email Address', $url);
+                ->subject('Aktivasi Registrasi')
+                ->line('TERIMA KASIH TELAH MELAKUKAN PENDAFTARAN USER!, Klik link dibawah ini.')
+                ->action('Aktivasi Registrasi', $url);
         });
     }
 }
