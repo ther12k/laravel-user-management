@@ -1,6 +1,6 @@
 <div>    
-    <input type=”text”  class=”form-control” placeholder=”Search” wire:model=”search” />                
-    <table id=”tbl_list” class=”table table-striped table-bordered” cellspacing=”0″ width=”100%”>
+    <input type="text"  class="form-control" placeholder="Search" wire:model="search" />                
+    <table id="tbl_list" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>ID</th>
