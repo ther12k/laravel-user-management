@@ -23,7 +23,7 @@ class NppbkcFactory extends Factory
     {
         return [
             'nama_pemilik' => $this->faker->name,
-            'status_nppbkc' =>  $this->faker->randomElement(['1', '2', '3',]),
+            'status_nppbkc' =>  $this->faker->randomElement(['Pengajuan', 'Pemeriksaan Lokasi', 'Ditolak','Disetujui']),
             'status_pemohon' =>  $this->faker->randomElement(['sendiri', 'dikuasakan']),
             'email_pemilik' => $this->faker->unique()->safeEmail,
             'email_perusahaan' => $this->faker->unique()->safeEmail,
