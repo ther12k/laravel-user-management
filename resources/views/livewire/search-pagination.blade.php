@@ -17,7 +17,7 @@
                 <td>{{$row->nama_pemilik}}</td>
                 <td>{{$row->lokasi}}</td>
                 <td>{{$row->id}}</td>
-                <td>{{$row->status}}</td>
+                <td>{{$row->status_nppbkc}}</td>
             </tr>
             @endforeach 
         </tbody>            
