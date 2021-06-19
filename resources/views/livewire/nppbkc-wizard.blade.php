@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <label for="nama_pemilik">Nama Pemilik :</label>
                     <input type="text" wire:model="nama_pemilik" class="form-control"/>
-                    @error('nama_pemilik') <span class="text-danger error">{{ $message }}</span> @enderror
+                    @error('nama_pemilik') <span class="error">{{ $message }}</span> @enderror
                 </div>    
                 
                 <div class="form-group">
