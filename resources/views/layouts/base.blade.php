@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{-- {{ config('app.name', 'Laravel') }} --}}
-    <title>@yield('title', 'Laravel Blog')</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.6/tailwind.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.2.x/dist/typography.min.css" />
-    @livewireStyles
-</head>
-<body>
-    <x-header></x-header>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        @hasSection('title')
 
-    @yield('content')
+            <title>@yield('title') - {{ config('app.name') }}</title>
+        @else
+            <title>{{ config('app.name') }}</title>
+        @endif
 
-    @livewireScripts
+        <!-- Favicon -->
+		<link rel="shortcut icon" href="{{ url(asset('favicon.ico')) }}">
 
-</body>
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="{{ url(mix('css/app.css')) }}">
+        @livewireStyles
+
+        <!-- Scripts -->
+        <script src="{{ url(mix('js/app.js')) }}" defer></script>
+
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    </head>
+
+    <body>
+        @yield('body')
+
+        @livewireScripts
+    </body>
 </html>
