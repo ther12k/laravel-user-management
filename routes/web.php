@@ -27,7 +27,12 @@ Route::get('/admin_home', [App\Http\Controllers\Admin\HomeController::class, 'in
 
 Route::view('login','livewire.home');
 
-Route::get('/livewire-pagination', App\Http\Livewire\SearchPagination::class)->name('livewire-pagination')->middleware('auth');
+Route::get('/nppbkc-wizard', function () {
+    return view('crud');
+});
+// Route::get('/nppbkc-datatable', App\Http\Livewire\SearchPagination::class)
+// ->name('nppbkc-datatable')->middleware('auth');
+
 Route::get('nppbkc-datatables', function () {
     return view('admin.home');
 })->middleware('auth');
