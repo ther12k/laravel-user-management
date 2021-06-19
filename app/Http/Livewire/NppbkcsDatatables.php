@@ -1,13 +1,45 @@
 <?php
-
+  
 namespace App\Http\Livewire;
-
+   
 use Livewire\Component;
-
-class NppbkcsDatatables extends Component
+use App\Models\Nppbkc;
+use Illuminate\Support\Str;
+use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\NumberColumn;
+use Mediconesystems\LivewireDatatables\DateColumn;
+use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+  
+class NppbkcsDatatables extends LivewireDatatable
 {
-    public function render()
+    public $model = Nppbkc::class;
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function columns()
     {
-        return view('livewire.nppbkcs-datatables');
+        return [
+            NumberColumn::name('id')
+                ->label('ID')
+                ->sortBy('id'),
+  
+            Column::name('nama_pemilik')
+                ->label('Nama')
+                ->sortBy('nama_pemilik'),
+            
+            Column::name('lokasi')
+                    ->label('Lokasi')
+                    ->sortBy('lokasi'),
+
+            Column::name('status_nppbkc')
+                ->label('Status')
+                ->sortBy('status_nppbkc'),
+
+            DateColumn::name('created_at')
+                ->label('Tanggal')
+        ];
     }
 }
