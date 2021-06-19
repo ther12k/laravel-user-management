@@ -64,6 +64,16 @@
                                 @endif
                             </div>
                         </div>
+
+                        @if (Route::has('register'))
+                            <p class="text-center mb-3">
+                                Atau
+                            </p>
+                            <div class="col-md-8 offset-md-4">
+                                <a class="btn btn-link" href="{{ route('register') }}">{{ __('Register') }}</a> 
+                                <span>{{ __('Jika tidak memiliki akun') }}</span>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>
