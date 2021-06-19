@@ -14,9 +14,9 @@
         Daftar Pengajuan
       </div>
       <div class="card-body">
-        <livewire:nppbkcs-datatables 
-            searchable="name, email"
-            exportable
+        <livewire:datatable
+            model="App\Models\Nppbkc" 
+            searchable="nama_pemilik, email_pemilik"
          />
   
       </div>

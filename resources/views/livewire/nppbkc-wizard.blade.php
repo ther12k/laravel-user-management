@@ -58,8 +58,7 @@
                     <input type="text" wire:model="nama_pemilik" class="form-control"/>
                     @error('nama_pemilik') <span class="text-danger error">{{ $message }}</span> @enderror
                 </div>    
-            </div>
-            <div class="col-md-6">
+                
                 <div class="form-group">
                     <label for="alamat_pemilik">Alamat Pemilik :</label>
                     <textarea type="text" wire:model="alamat_pemilik" class="form-control">{{{ $alamat_pemilik ?? '' }}}</textarea>
