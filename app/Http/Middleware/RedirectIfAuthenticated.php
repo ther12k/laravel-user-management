@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
                     return redirect('/admin_home');
                     break;
                 default:
-                    return redirect(RouteServiceProvider::HOME);
+                    return redirect('/home');
                     break;
                 }
             }
