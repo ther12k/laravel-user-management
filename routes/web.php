@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\NppbkcWizard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +23,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::redirect('/', '/login');
 
+Route::get('/', function () {
+    return view('home');
+})->middleware(['auth','verified']);
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
@@ -40,7 +44,8 @@ Route::get('password/reset/{token}', Reset::class)
     ->name('password.reset');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/', 'welcome')->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/nppbkc-wizard', NppbkcWizard::class);
     Route::get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
         ->name('verification.notice');

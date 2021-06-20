@@ -1,3 +1,4 @@
+@section('title', 'Perekaman Data NPPBCK')
 <body class="antialiased sans-serif bg-gray-200">
 	<div x-data="app()" x-cloak>
 		<div class="max-w-3xl mx-auto px-4 py-10">

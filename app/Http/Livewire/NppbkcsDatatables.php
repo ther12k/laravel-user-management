@@ -39,7 +39,11 @@ class NppbkcsDatatables extends LivewireDatatable
                 ->sortBy('status_nppbkc'),
 
             DateColumn::name('created_at')
-                ->label('Tanggal')
+                ->label('Tanggal'),
+
+            Column::callback(['id', 'nama_pemilik'], function ($id, $name) {
+                return view('table.nppbkc-actions', ['id' => $id, 'name' => '']);
+            })
         ];
     }
 }

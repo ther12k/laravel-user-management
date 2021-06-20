@@ -23,7 +23,7 @@ class NppbkcWizard extends Component
 
     public function render()
     {
-        return view('livewire.nppbkc-wizard');
+        return view('livewire.wizard')->extends('layouts.auth');
     }
 
     /**
