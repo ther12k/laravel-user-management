@@ -15,25 +15,25 @@ class CreateNppbkcTable extends Migration
     {
         Schema::create('nppbkcs', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('status_nppbkc')->default('1');
-            
+            $table->tinyInteger('status_nppbkc')->default(0);
+            //step1      
             $table->string('status_pemohon');
             $table->string('nama_pemilik');
             $table->string('alamat_pemilik');
             $table->string('npwp_pemilik')->nullable();
             $table->string('telp_pemilik')->nullable();
             $table->string('email_pemilik');
-
+            //step2
             $table->string('jenis_usaha_bkc');
             $table->string('jenis_bkc');
-
+            //step3
             $table->string('nama_perusahaan');
             $table->string('alamat_perusahaan');
             $table->string('npwp_perusahaan')->nullable();
             $table->string('telp_perusahaan')->nullable();
             $table->string('email_perusahaan');
             $table->string('jenis_lokasi');
-
+            //step4
             $table->string('lokasi');
             $table->string('kegunaan');
             $table->string('provinsi');

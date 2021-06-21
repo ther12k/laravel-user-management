@@ -45,7 +45,9 @@ Route::get('password/reset/{token}', Reset::class)
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/nppbkc-wizard', NppbkcWizard::class);
+    Route::get('/nppbkc-wizard', function () {
+        return view('nppbkc-wizard');
+    });
     Route::get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
         ->name('verification.notice');
