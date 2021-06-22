@@ -22,17 +22,13 @@ class NppbkcsDatatables extends LivewireDatatable
     public function columns()
     {
         return [
-            NumberColumn::name('id')
-                ->label('ID')
-                ->sortBy('id'),
-  
             Column::name('nama_pemilik')
                 ->label('Nama')
                 ->sortBy('nama_pemilik'),
             
-            Column::name('lokasi')
-                    ->label('Lokasi')
-                    ->sortBy('lokasi'),
+            NumberColumn::name('id')
+                ->label('No Permohonan')
+                ->sortBy('id'),
 
             Column::name('status_nppbkc')
                 ->label('Status')
