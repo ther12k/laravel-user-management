@@ -3,11 +3,16 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class NppbkcWizard extends Component
 {
+    use WithFileUploads;
+
     public $currentStep = 1;
     public $status_pemohon='sendiri', $nama_pemilik, $alamat_pemilik, $status_nppbkc = 1;
+    public $file_denah_bangunan,$file_denah_lokasi,$file_izin_instansi,$file_surat_kuasa,$file_nib;
+    public $file_npwp_pemilik,$file_npwp_perusahaan,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     public $successMessage = '';
 
     protected $step1_rules = [
