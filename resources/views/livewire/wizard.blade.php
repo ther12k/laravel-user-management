@@ -3,14 +3,22 @@
 <div x-data="app()" x-cloak>
 	<div class="max-w-3xl mx-auto">
 		<div x-show.transition="step === 'complete'">
-			<div class="bg-white rounded-lg p-20 flex items-center shadow justify-between">
+			<div class="bg-white rounded-lg p-5 flex items-center shadow justify-between">
 				<div>
 					<svg class="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
 
-					<h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">Registration Success</h2>
+					<h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">Input Permohonan Success</h2>
 
 					<div class="text-gray-600 mb-8">
-						Thank you. We have sent you an email to demo@demo.test. Please click the link in the message to activate your account.
+						<p>Kasih Telah Menggunakan Layanan BC Palangkaraya.<br/>
+						Bersama ini kami sampaikan tanda terima permohonan yang telah anda lakukan dengan data-data sebagai berikut:
+						</p> 
+						<p class="py-2">
+							Jenis Layanan	: NPPBKC Online<br/>
+							Tanda Terima	: xxxxxx <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">(download)</a> <br/>
+							Tanggal		: (tanggal permohonan)<br/>
+						</p>
+						<p class="py-2">Selanjutnya Saudara dapat memonitoring permohonan dengan memasukan nomor tanda terima pada menu monitoring permohonan pada halaman utama.</p>
 					</div>
 
 					<button
