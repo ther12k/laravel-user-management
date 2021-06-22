@@ -47,7 +47,7 @@
 						</div>
 
 						<div x-show="step === 3">
-							<div class="text-lg font-bold text-gray-700 leading-tight">Data Perusahaan</div>
+							<div class="text-lg font-bold text-gray-700 leading-tight">Data Usaha</div>
 						</div>
 						<div x-show="step === 4">
 							<div class="text-lg font-bold text-gray-700 leading-tight">Lokasi</div>
@@ -151,15 +151,15 @@
 						])
 				</div>
 				<div x-show.transition.in="step === 3">
-					@include('livewire.form.input',['name'=>'nama_perusahaan','text'=>'Nama Perusahaan'])
-					@include('livewire.form.textarea',['name'=>'alamat_perusahaan','text'=>'Alamat Perusahaan'])
-					@include('livewire.form.input',['type'=>'number','name'=>'telp_perusahaan','text'=>'No Telp Perusahaan'])
+					@include('livewire.form.input',['name'=>'nama_perusahaan','text'=>'Nama Usaha'])
+					@include('livewire.form.textarea',['name'=>'alamat_perusahaan','text'=>'Alamat Usaha'])
+					@include('livewire.form.input',['type'=>'number','name'=>'telp_perusahaan','text'=>'No Telp Usaha'])
 					@include('livewire.form.input-format',['type'=>'text','name'=>'npwp_pemilik',
-											'text'=>'NPWP Perusahaan',
+											'text'=>'NPWP Usaha',
 											'format'=>'**.***.***.*-***.***',
 											'mask'=>'xx.xxx.xxx.x-xxx.xxx'
 											])
-					@include('livewire.form.input',['type'=>'email','name'=>'email_perusahaan','text'=>'Email Perusahaan'])
+					@include('livewire.form.input',['type'=>'email','name'=>'email_perusahaan','text'=>'Email Usaha'])
 					
 				</div>
 				<div x-show.transition.in="step === 4">
@@ -217,34 +217,96 @@
 					@include('livewire.form.input',['name'=>'lokasi_geo','text'=>'Koordinat Lokasi'])
 				</div>
 				<div x-show.transition.in="step === 7">
-
-					@include('livewire.form.select',['name'=>'jenis_izin','text'=>'Jenis Izin',
-								'options'=>[
-									'Jakarta Pusat',
-								]
-							])
-
-					@include('livewire.form.input',['name'=>'no_izin','text'=>'No Izin'])
-					
 					@include('livewire.form.input',['name'=>'no_induk_usaha','text'=>'No Induk Berusaha'])
+				
 				</div>
 				<div x-show.transition.in="step === 8">
 					@include('livewire.form.date',['name'=>'tanggal_kesiapan_cek_lokasi','text'=>'Tanggal Kesiapan Cek Lokasi'])
 				</div>
 				<div x-show.transition.in="step === 9">
-					@include('livewire.form.file',['name'=>'file_denah_bangunan','text'=>'Denah di dalam Bangunan'])
-					@include('livewire.form.file',['name'=>'file_denah_lokasi','text'=>'Denah Situasi sekitar lokasi (site map)'])
-					@include('livewire.form.file',['name'=>'file_izin_instansi','text'=>'Izin Instansi Terkait'])
-					@include('livewire.form.file',['name'=>'file_surat_kuasa','text'=>'Surat Kuasa'])
-					@include('livewire.form.file',['name'=>'file_nib','text'=>'Nomor Induk Berusaha'])
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_denah_bangunan" class="font-bold mb-1 text-gray-700 block">Denah di dalam Bangunan</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_denah_bangunan" :file="$file_denah_bangunan" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_denah_lokasi" class="font-bold mb-1 text-gray-700 block">Denah Situasi sekitar lokasi</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_denah_lokasi" :file="$file_denah_lokasi" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_izin_instansi" class="font-bold mb-1 text-gray-700 block">Izin Instansi Terkait</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_izin_instansi" :file="$file_izin_instansi" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_surat_kuasa" class="font-bold mb-1 text-gray-700 block">Surat Kuasa</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_surat_kuasa" :file="$file_surat_kuasa" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_nib" class="font-bold mb-1 text-gray-700 block">Nomor Induk Berusaha</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_nib" :file="$file_nib" />
+                        </div>
+                    </div>
 				</div>
 
 				<div x-show.transition.in="step === 10">
-					@include('livewire.form.file',['name'=>'file_npwp_perusahaan','text'=>'NPWP Perusahaan'])
-					@include('livewire.form.file',['name'=>'file_npwp_pemilik','text'=>'NPWP Pemilik'])
-					@include('livewire.form.file',['name'=>'file_ktp_pemilik','text'=>'KTP Pemilik'])
-					@include('livewire.form.file',['name'=>'file_surat_pernyataan','text'=>'Surat Penyataan'])
-					@include('livewire.form.file',['name'=>'file_data_registrasi','text'=>'Data Registrasi'])
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_npwp_perusahaan" class="font-bold mb-1 text-gray-700 block">NPWP Usaha</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_npwp_perusahaan" :file="$file_npwp_perusahaan" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_npwp_pemilik" class="font-bold mb-1 text-gray-700 block">NPWP Pemilik</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_npwp_pemilik" :file="$file_npwp_pemilik" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_ktp_pemilik" class="font-bold mb-1 text-gray-700 block">KTP Pemilik</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_ktp_pemilik" :file="$file_ktp_pemilik" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_surat_pernyataan" class="font-bold mb-1 text-gray-700 block">Surat Pernyataan</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_surat_pernyataan" :file="$file_surat_pernyataan" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_data_registrasi" class="font-bold mb-1 text-gray-700 block">Data Registrasi</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_data_registrasi" :file="$file_data_registrasi" />
+                        </div>
+                    </div>
 				</div>
 
 				<div x-show.transition.in="step === 11">
