@@ -9,7 +9,7 @@ class UserProfile extends Model
 {
     use HasFactory;
     protected $guarded = [];
-  
+    
     public function user() 
     { 
         return $this->morphOne(User::class, 'profile');
