@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NppbkcController;
+
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -48,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/nppbkc-wizard', function () {
         return view('nppbkc-wizard');
     });
+    Route::get('/nppbkc', [NppbkcController::class, 'index']);
+    Route::get('/nppbkc/permohonan_lokasi_pdf', [NppbkcController::class, 'permohonan_lokasi_pdf']);
     Route::get('/update-profile', function () {
         return view('update-profile');
     });
