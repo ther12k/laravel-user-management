@@ -77,7 +77,7 @@
 
 					<div class="flex items-center md:w-64" x-show.transition="step !== 'complete' && step !== 0 && step!==11">
 						
-						<div class="w-full bg-white rounded-full mr-2">
+						<div class="w-full bg-gray-300 rounded-full mr-2">
 							<div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white" :style="'width: '+ parseInt(step / 10 * 100) +'%'"></div>
 						</div>
 						<div class="text-xs w-10 text-gray-600" x-text="parseInt(step / 10 * 100) +'%'"></div>
@@ -218,10 +218,11 @@
 				</div>
 				<div x-show.transition.in="step === 7">
 					@include('livewire.form.input',['name'=>'no_induk_usaha','text'=>'No Induk Berusaha'])
+					@include('livewire.form.input-fromto-date',['name'=>'masa_berlaku_nik','text'=>'Tanggal masa berlaku'])
 				
 				</div>
 				<div x-show.transition.in="step === 8">
-					@include('livewire.form.date',['name'=>'tanggal_kesiapan_cek_lokasi','text'=>'Tanggal Kesiapan Cek Lokasi'])
+					@include('livewire.form.input-date',['name'=>'tanggal_kesiapan_cek_lokasi','text'=>'Tanggal kesiapan cek lokasi'])
 				</div>
 				<div x-show.transition.in="step === 9">
 					<div class="md:flex md:items-center mb-6">
@@ -398,6 +399,7 @@
 		});
 		format(e)
 		});
+
 		return {
 			step: 0, 
 			passwordStrengthText: '',
