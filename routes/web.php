@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/nppbkc-wizard', function () {
         return view('nppbkc-wizard');
     });
+    Route::get('/update-profile', function () {
+        return view('update-profile');
+    });
     Route::get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
         ->name('verification.notice');
