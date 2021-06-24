@@ -88,7 +88,7 @@
 			<!-- /Top Navigation -->
 
 			<!-- Step Content -->
-			<div class="py-10">	
+			<div class="py-5">	
 				<div x-show.transition.in="step === 0">
 					<div class="mb-6 py-5">
 						@include('livewire.form.disclaimer')
