@@ -18,11 +18,14 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ url(mix('css/app.css')) }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ url(mix('js/app.js')) }}" defer></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
@@ -32,4 +35,10 @@
 
         @livewireScripts
     </body>
+    <script>
+        flatpickr.localize(flatpickr.l10ns.id);
+        flatpickr('.datepicker',{
+            dateFormat: "d-m-Y", 
+        })
+    </script>
 </html>
