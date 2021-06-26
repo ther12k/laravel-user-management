@@ -32,7 +32,7 @@
 		<div x-show.transition="step != 'complete'">	
 			<!-- Top Navigation -->
 			<div class="border-b-2 py-4">
-				<div x-show="step !== 0 && step!=='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight" x-text="`Step: ${step} of 10`"></div>
+				<div x-show="step !== 0 && step!=='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight" x-text="`Step: step of 10`"></div>
 				<div x-show="step==='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Preview Sebelum Kirim</div>
 				
 				<div class="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -121,7 +121,10 @@
 							</div>
 						</div>
 					</div>
-					@include('livewire.form.input',['name'=>'nama_pemilik','text'=>'Nama Pemilik'])
+
+					{{-- @error('nama_pemilik') <span class="w-full py-1 px-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+					>{{ $message }}</span> @enderror --}}
+					@include('livewire.form.input',[$errors,'errors',$errors,'name'=>'nama_pemilik','text'=>'Nama Pemilik'])
 					@include('livewire.form.textarea',['name'=>'alamat_pemilik','text'=>'Alamat Pemilik'])
 					@include('livewire.form.input',['type'=>'number','name'=>'telp_pemilik','text'=>'No Telp'])
 					@include('livewire.form.input-format',['type'=>'text','name'=>'npwp_pemilik',
@@ -153,16 +156,16 @@
 						])
 				</div>
 				<div x-show.transition.in="step === 3||step == 'preview'">
-					@include('livewire.form.input',['name'=>'nama_perusahaan','text'=>'Nama Usaha'])
-					@include('livewire.form.textarea',['name'=>'alamat_perusahaan','text'=>'Alamat Usaha'])
-					@include('livewire.form.input',['type'=>'number','name'=>'telp_perusahaan','text'=>'No Telp Usaha'])
-					@include('livewire.form.input-format',['type'=>'text','name'=>'npwp_pemilik',
+					@include('livewire.form.input',['name'=>'nama_usaha','text'=>'Nama Usaha'])
+					@include('livewire.form.textarea',['name'=>'alamat_usaha','text'=>'Alamat Usaha'])
+					@include('livewire.form.input',['type'=>'number','name'=>'telp_usaha','text'=>'No Telp Usaha'])
+					@include('livewire.form.input-format',['type'=>'text','name'=>'npwp_usaha',
 											'text'=>'NPWP Usaha',
 											'format'=>'**.***.***.*-***.***',
 											'mask'=>'xx.xxx.xxx.x-xxx.xxx'
 											])
-					@include('livewire.form.input',['type'=>'email','name'=>'email_perusahaan','text'=>'Email Usaha'])
-					
+					@include('livewire.form.input',['type'=>'email','name'=>'email_usaha','text'=>'Email Usaha'])
+					<div class="mb-6 py-5" x-show="step===3"></div>
 				</div>
 				<div x-show.transition.in="step === 4||step == 'preview'">
 
@@ -188,29 +191,7 @@
 							])
 				</div>
 				<div x-show.transition.in="step === 5||step == 'preview'">
-					@include('livewire.form.select',['name'=>'provinsi','text'=>'Provinsi',
-								'options'=>[
-									'DKI Jakarta',
-								]
-							])
-							
-					@include('livewire.form.select',['name'=>'kota','text'=>'Kabupaten / Kota',
-								'options'=>[
-									'Jakarta Pusat',
-								]
-							])
-
-					@include('livewire.form.select',['name'=>'kecamatan','text'=>'Kecamatan',
-								'options'=>[
-									'Jakarta Pusat',
-								]
-							])
-
-					@include('livewire.form.select',['name'=>'kelurahaan','text'=>'Kelurahaan / Desa',
-								'options'=>[
-									'Jakarta Pusat',
-								]
-							])
+					@include('livewire.form.location-select')
 							
 				</div>
 				<div x-show.transition.in="step === 6||step == 'preview'">
@@ -279,10 +260,10 @@
 				<div x-show.transition.in="step === 10||step == 'preview'">
 					<div class="md:flex md:items-center mb-6">
                         <div class="md:w-1/3">
-                        <label for="inline-file_npwp_perusahaan" class="font-bold mb-1 text-gray-700 block">NPWP Usaha</label>
+                        <label for="inline-file_npwp_usaha" class="font-bold mb-1 text-gray-700 block">NPWP Usaha</label>
                         </div>
                         <div class="md:w-2/3">
-                            <x-file-attachment wire:model="file_npwp_perusahaan" :file="$file_npwp_perusahaan" />
+                            <x-file-attachment wire:model="file_npwp_usaha" :file="$file_npwp_usaha" />
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -334,25 +315,34 @@
 			<div class="flex justify-between">
 				<div class="w-1/2">
 					<button
-						x-show="step > 0"
-						@click="step--"
+						wire:loading.attr="disabled"
+						x-show="step > 1"
+						wire:click="back()"
 						class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
 					>Previous</button>
+					<button
+						wire:loading.attr="disabled"
+						x-show="step === 1"
+						wire:click="back()"
+						class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+					>Disclaimer</button>
 				</div>
 
 				<div class="w-1/2 text-right">
 					<button
+					wire:loading.attr="disabled"
 						x-show="step < 10"
-						@click="step++"
+						wire:click="stepCheck()"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>Next</button>
 					<button
-						@click="step = 'preview'"
+						wire:click="step = 'preview'"
 						x-show="step === 10"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-500 hover:bg-gray-600 font-medium" 
 					>Preview</button>
 					<button
-						@click="step = 'complete'"
+						wire:loading.attr="disabled"
+						wire:click="step = 'complete'"
 						x-show="step === 'preview'"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>Complete</button>
@@ -411,27 +401,8 @@
 		});
 
 		return {
-			step: 0, 
-			passwordStrengthText: '',
-			togglePassword: false,
-			password: '',
-			gender: 'Male',
-			status_pemohon:'sendiri',
-
-			checkPasswordStrength() {
-				var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-				var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
-
-				let value = this.password;
-
-				if (strongRegex.test(value)) {
-					this.passwordStrengthText = "Strong password";
-				} else if(mediumRegex.test(value)) {
-					this.passwordStrengthText = "Could be stronger";
-				} else {
-					this.passwordStrengthText = "Too weak";
-				}
-			}
+			step : @entangle('step'),
+			status_pemohon:'sendiri'
 		}
 	}
 </script>

@@ -14,6 +14,7 @@ class NppbkcWizard extends Component
     public $jenis_usaha_bkc,$jenis_bkc; 
     public $nama_usaha, $alamat_usaha,$email_usaha,$telp_usaha,$npwp_usaha='xx.xxx.xxx.x-xxx.xxx';
     public $jenis_lokasi,$lokasi,$kegunaan; 
+    public $province_id,$regency_id,$district_id,$village_id; 
     public $file_denah_bangunan,$file_denah_lokasi,$file_izin_instansi,$file_surat_kuasa,$file_nib;
     public $file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     public $successMessage = '';
@@ -46,6 +47,9 @@ class NppbkcWizard extends Component
             'lokasi' => 'required|min:5',
             'kegunaan' => 'required'
         ],
+        [
+            'village_id' => 'required',
+        ],
     ];
 
     protected $messages = [
@@ -73,6 +77,9 @@ class NppbkcWizard extends Component
         'jenis_lokasi.required' => 'Pilih jenis lokasi.',
         'lokasi.required' => 'Lokasi tidak boleh kosong.',
         'kegunaan.required' => 'Pilih kegunaan lokasi.',
+
+
+        'village_id.required' => 'Alamat belum lengkap.',
 
     ];
 
