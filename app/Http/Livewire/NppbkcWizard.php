@@ -26,6 +26,25 @@ class NppbkcWizard extends Component
         'alamat_pemilik.required' => 'Alamat Pemilik tidak boleh kosong.'
     ];
 
+
+    public function mount(){
+
+        //test
+        $this->nama_pemilik='test';
+        $this->alamat_pemilik='teseet';
+        $this->telp_pemilik='12345';
+        $this->npwp_pemilik='11.111.111.1-111.111';
+        $this->email_pemilik='rizkyz@gmail.com';
+
+
+        $this->nama_usaha='test';
+        $this->alamat_usaha='3test';
+        $this->telp_usaha='12345';
+        $this->npwp_usaha='11.111.111.1-111.111';
+        $this->email_usaha='rizkyz@gmail.com';
+        $this->lokasi='lokasi';
+    }
+
     public function render()
     {
         return view('livewire.wizard')->extends('layouts.auth');
