@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/nppbkc', [NppbkcController::class, 'index']);
     Route::get('/nppbkc/permohonan_lokasi_pdf', [NppbkcController::class, 'permohonan_lokasi_pdf']);
+    Route::get('/nppbkc/permohonan_nppbkc_pdf', [NppbkcController::class, 'permohonan_nppbkc_pdf']);
     Route::get('/update-profile', function () {
         return view('update-profile');
     });
