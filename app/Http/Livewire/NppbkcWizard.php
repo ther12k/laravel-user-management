@@ -18,59 +18,81 @@ class NppbkcWizard extends Component
     public $jenis_usaha_bkc,$jenis_bkc; 
     public $nama_usaha, $alamat_usaha,$email_usaha,$telp_usaha,$npwp_usaha='xx.xxx.xxx.x-xxx.xxx';
     public $jenis_lokasi,$lokasi,$kegunaan; 
+    public $province,$regency,$district,$village;
     public $province_id,$regency_id,$district_id,$village_id; 
     public $rt_rw,$alamat,$lokasi_geo,$lokasi_lat,$lokasi_lng;
-    public $no_siup_mb,$masa_berlaku_siup_mb_from,$masa_berlaku_siup_mb_to,$no_itp_mb,$no_izin_nib,$tanggal_nib;
+    public $no_siup_mb,$masa_berlaku_siup_mb_from,$masa_berlaku_siup_mb_to,$masa_berlaku_itp_mb_from,$masa_berlaku_itp_mb_to,$no_itp_mb,$no_izin_nib,$tanggal_nib;
     public $tanggal_kesiapan_cek_lokasi;
     public $file_denah_bangunan,$file_denah_lokasi,$file_siup_mb,$file_itp_mb,$file_surat_kuasa;
     public $file_nib,$file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     public $successMessage = '';
 
-    protected $rules = [
-        [],
-        [
-            'status_pemohon' => 'required',
-            'nama_pemilik' => 'required|min:4',
-            'alamat_pemilik' => 'required|min:5',
-            'telp_pemilik' => 'required',
-            //xx.xxx.xxx.x-xxx.xxx
-            'npwp_pemilik' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
-            'email_pemilik' => 'required|email:filter'
-        ],
-        [
-            'jenis_usaha_bkc' => 'required',
-            'jenis_bkc' => 'required',
-        ],
-        [
-            'nama_usaha' => 'required|min:4',
-            'alamat_usaha' => 'required',
-            'telp_usaha' => 'required',
-            //xx.xxx.xxx.x-xxx.xxx
-            'npwp_usaha' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
-            'email_usaha' => 'required|email:filter'
-        ],
-        [
-            'jenis_lokasi' => 'required',
-            'lokasi' => 'required|min:5',
-            'kegunaan' => 'required'
-        ],
-        [
-            'village_id' => 'required',
-        ],
-        [
-            'rt_rw' =>'required',
-            'alamat' =>'required'
-        ],
-        [
-            'no_siup_mb'=>'required'
-        ],
-        [
-            'tanggal_kesiapan_cek_lokasi'=>'required'
-        ],
-        [
-        ]
-    ];
-
+    // protected $rules = [
+    //     [],
+    //     [
+    //         'status_pemohon' => 'required',
+    //         'nama_pemilik' => 'required|min:4',
+    //         'alamat_pemilik' => 'required|min:5',
+    //         'telp_pemilik' => 'required',
+    //         //xx.xxx.xxx.x-xxx.xxx
+    //         'npwp_pemilik' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
+    //         'email_pemilik' => 'required|email:filter'
+    //     ],
+    //     [
+    //         'jenis_usaha_bkc' => 'required',
+    //         'jenis_bkc' => 'required',
+    //     ],
+    //     [
+    //         'nama_usaha' => 'required|min:4',
+    //         'alamat_usaha' => 'required',
+    //         'telp_usaha' => 'required',
+    //         //xx.xxx.xxx.x-xxx.xxx
+    //         'npwp_usaha' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
+    //         'email_usaha' => 'required|email:filter'
+    //     ],
+    //     [
+    //         'jenis_lokasi' => 'required',
+    //         'lokasi' => 'required|min:5',
+    //         'kegunaan' => 'required'
+    //     ],
+    //     [
+    //         'village_id' => 'required',
+    //     ],
+    //     [
+    //         'rt_rw' =>'required',
+    //         'alamat' =>'required'
+    //     ],
+    //     [
+    //         'no_siup_mb'=>'required',
+    //         'masa_berlaku_siup_mb_from'=>'required',
+    //         'masa_berlaku_siup_mb_to'=>'required',
+    //         'no_itp_mb'=>'required',
+    //         'masa_berlaku_itp_mb_from'=>'required',
+    //         'masa_berlaku_itp_mb_to'=>'required',
+    //         'no_izin_nib'=>'required',
+    //         'tanggal_nib'=>'required'
+    //     ],
+    //     [
+    //         'tanggal_kesiapan_cek_lokasi'=>'required'
+    //     ],
+    //     [
+    //         'file_denah_bangunan'=>'required',
+    //         'file_denah_lokasi'=>'required',
+    //         'file_siup_mb'=>'required',
+    //         'file_itp_mb'=>'required',
+    //         'file_nib'=>'required',
+    //         'file_npwp_usaha'=>'required'
+    //     ],
+    //     [
+    //         'file_npwp_pemilik'=>'required',
+    //         'file_ktp_pemilik'=>'required',
+    //         'file_surat_pernyataan'=>'required',
+    //         'file_data_registrasi'=>'required'
+    //     ],
+    //     //public $file_nib,$file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
+    
+    // ];
+    protected $rules = null;
     protected $messages = [
         'nama_pemilik.required' => 'Nama tidak boleh kosong.',
         'alamat_pemilik.required' => 'Alamat tidak boleh kosong.',
@@ -143,7 +165,7 @@ class NppbkcWizard extends Component
 
 
     public function mount(){
-
+        $this->rules = null;
         //test
         $this->nama_pemilik='test';
         $this->alamat_pemilik='teseet';
@@ -178,10 +200,14 @@ class NppbkcWizard extends Component
      */
     public function stepCheck()
     {   
-        $this->consoleLog('lng, lat -> '.$this->lokasi_lng.','.$this->lokasi_lat);
         $this->consoleLog('step : '.$this->step);
         if(0<$this->step&&$this->step<11){
-            if(count($this->rules[$this->step])>0)
+            if($this->step==9){
+                $this->consoleLog('file : ');
+                //$this->consoleLog($this->file_denah_bangunan->temporaryUrl());
+            }
+            $this->consoleLog($this->rules);
+            if($this->rules!=null&&count($this->rules[$this->step])>0)
                 $validatedData = $this->validate($this->rules[$this->step]);
             $this->step++;
             if($this->step==6){
@@ -190,6 +216,7 @@ class NppbkcWizard extends Component
         }else if($this->step==0){
             $this->step=1;
         }
+        $this->dispatchBrowserEvent('render');
     }
 
     public function stepCheckWMap($lokasi)
@@ -197,12 +224,13 @@ class NppbkcWizard extends Component
         $this->setLokasiGeo($lokasi);
         $this->consoleLog('stepwmap : lng, lat -> '.$this->lokasi_lng.','.$this->lokasi_lat);
         if(0<$this->step&&$this->step<11){
-            if(count($this->rules[$this->step])>0)
+            if($this->rules!=null&&count($this->rules[$this->step])>0)
                 $validatedData = $this->validate($this->rules[$this->step]);
             $this->step++;
         }else if($this->step==0){
             $this->step=1;
         }
+        $this->dispatchBrowserEvent('render');
     }
 
   
@@ -221,20 +249,21 @@ class NppbkcWizard extends Component
             $this->consoleLog('resetted lng, lat -> '.$this->lokasi_lng.','.$this->lokasi_lat);
         }
         if($this->step=='preview'){
-            $this->step=9;  
+            $this->step=10;  
         }else
             $this->step--;    
+        $this->dispatchBrowserEvent('render');
     }
 
     protected function mapCheck(){
         $text='';
         $this->consoleLog('lng, lat -> '.$this->lokasi_lng.','.$this->lokasi_lat);
         if(!isset($this->lokasi_lng)||empty($this->lokasi_lng)){
-            $village = Village::find($this->village_id['value']);
-            $district = District::find($this->district_id['value']);
-            $regency = Regency::find($this->regency_id['value']);
-            $province = Province::find($this->province_id['value']);
-            $text = $village->name.','.$district->name.','.$regency->name.','.$province->name;
+            $this->village = Village::find($this->village_id['value'])->name;
+            $this->district = District::find($this->district_id['value'])->name;
+            $this->regency = Regency::find($this->regency_id['value'])->name;
+            $this->province = Province::find($this->province_id['value'])->name;
+            $text = $this->village.','.$this->district.','.$this->regency.','.$this->province;
         }
         $this->dispatchBrowserEvent('showMap', ['geocodertext' => $text]);
         //$this->emit('showMap',$text);
@@ -242,6 +271,10 @@ class NppbkcWizard extends Component
 
     public function preview()
     {
+        $this->consoleLog('step : '.$this->step);
+        if($this->rules!=null&&count($this->rules[$this->step])>0)
+            $validatedData = $this->validate($this->rules[$this->step]);
+        $this->dispatchBrowserEvent('render',['step'=>'preview']);
         $this->step='preview';
     }
 

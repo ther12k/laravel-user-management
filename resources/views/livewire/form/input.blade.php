@@ -5,7 +5,7 @@
     <div class="md:w-2/3">
     <input 
         name="{{$name}}"
-        wire:model.lazy="{{$name}}"
+        wire:model.defer="{{$name}}"
         type="{{ $type ?? 'text' }}"
         class="@error($name) border-red-500 @enderror w-full py-1 px-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
         placeholder="{{ $placeholder ?? 'Input '.$text.'...' }}"/>

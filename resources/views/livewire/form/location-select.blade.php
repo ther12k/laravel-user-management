@@ -21,12 +21,12 @@
     </div>
     <div class="md:w-2/3 relative">
         <livewire:regency-select
-                name="regency_id"
-                placeholder="Pilih Kabupaten/Kota"
-                :value="request('regency_id')"
-                :depends-on="['province_id']"
-                :depends-on-values="['province_id' => request('province_id')]"
-            />
+            name="regency_id"
+            placeholder="Pilih Kabupaten/Kota"
+            :value="request('regency_id')"
+            :depends-on="['province_id']"
+            :depends-on-values="['province_id' => request('province_id')]"
+        />
         @error('regency_id') 
         <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
 			{{ $message }}

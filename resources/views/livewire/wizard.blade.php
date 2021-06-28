@@ -1,5 +1,65 @@
 @section('title', 'Perekaman Data NPPBCK')
+@push('styles')
+<style>
+	[x-cloak] {
+		display: none;
+	}
 
+	[type="checkbox"] {
+		box-sizing: border-box;
+		padding: 0;
+	}
+
+	.form-checkbox,
+	.form-radio {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		-webkit-print-color-adjust: exact;
+		color-adjust: exact;
+		display: inline-block;
+		vertical-align: middle;
+		background-origin: border-box;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		flex-shrink: 0;
+		color: currentColor;
+		background-color: #fff;
+		border-color: #e2e8f0;
+		border-width: 1px;
+		height: 1.4em;
+		width: 1.4em;
+	}
+
+	.form-checkbox {
+		border-radius: 0.25rem;
+	}
+
+	.form-radio {
+		border-radius: 50%;
+	}
+
+	.form-checkbox:checked {
+		background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+		border-color: transparent;
+		background-color: currentColor;
+		background-size: 100% 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+	
+	.form-radio:checked {
+		background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+		border-color: transparent;
+		background-color: currentColor;
+		background-size: 100% 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+</style>
+@endpush
 <div x-data="app()" x-cloak>
 	<div class="max-w-3xl mx-auto">
 		@if($step=='complete')
@@ -32,9 +92,9 @@
 		@endif
 		<div x-show.transition="step != 'complete'">	
 			<!-- Top Navigation -->
-			<div class="border-b-2 py-4">
+			<div class="border-b-2 py-4" x-show="step!=='preview'">
 				<div x-show="step !== 0 && step!=='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight" x-text="`Step: ${step} of 10`"></div>
-				<div x-show="step==='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Preview Sebelum Kirim</div>
+				{{-- <div x-show="step==='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Preview Sebelum Kirim</div> --}}
 				
 				<div class="flex flex-col md:flex-row md:items-center md:justify-between">
 					<div class="flex-1">
@@ -44,7 +104,6 @@
 						<div x-show="step === 1">
 							<div class="text-lg font-bold text-gray-700 leading-tight">Data Pemohon</div>
 						</div>
-						
 						<div x-show="step === 2">
 							<div class="text-lg font-bold text-gray-700 leading-tight">Barang Kena Cukai (BKC)</div>
 						</div>
@@ -111,8 +170,8 @@
 					</div>
 				</div>
 				@endif
-				@if($step==1||$step=='preview')
-				<div x-show.transition.in="step === 1||step == 'preview'">
+				@if($step==1)
+				<div x-show.transition.in="step === 1">
 					<div class="md:flex md:items-center mb-6">
 						<div class="md:w-1/3">
 							<label for="status_pemohon" class="font-bold mb-1 text-gray-700 block">Status Permohonan</label>
@@ -153,8 +212,8 @@
 					<div class="mb-6 py-5" x-show="step===1"></div>
 				</div>
 				@endif
-				@if($step==2||$step=='preview')
-				<div x-show.transition.in="step === 2||step == 'preview'">
+				@if($step==2)
+				<div x-show.transition.in="step === 2">
 					@include('livewire.form.select',['name'=>'jenis_usaha_bkc','text'=>'Jenis Usaha BKC',
 							'options'=>[
 								'Pengusaha Pabrik',
@@ -174,8 +233,8 @@
 						])
 				</div>
 				@endif
-				@if($step==3||$step=='preview')
-				<div x-show.transition.in="step === 3||step == 'preview'">
+				@if($step==3)
+				<div x-show.transition.in="step === 3">
 					@include('livewire.form.input',['name'=>'nama_usaha','text'=>'Nama Usaha'])
 					@include('livewire.form.textarea',['name'=>'alamat_usaha','text'=>'Alamat Usaha'])
 					@include('livewire.form.input',['type'=>'number','name'=>'telp_usaha','text'=>'No Telp Usaha'])
@@ -188,8 +247,8 @@
 					<div class="mb-6 py-5" x-show="step===3"></div>
 				</div>
 				@endif
-				@if($step==4||$step=='preview')
-				<div x-show.transition.in="step === 4||step == 'preview'">
+				@if($step==4)
+				<div x-show.transition.in="step === 4">
 
 					@include('livewire.form.select',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi',
 							'options'=>[
@@ -213,11 +272,11 @@
 							])
 				</div>
 				@endif
-				<div x-show.transition.in="step === 5||step == 'preview'">
+				<div x-show.transition.in="step === 5">
 					@include('livewire.form.location-select')			
 				</div>
-				@if($step==6||$step=='preview')
-				<div x-show.transition.in="step === 6||step == 'preview'">
+				@if($step==6)
+				<div x-show.transition.in="step === 6">
 					@include('livewire.form.input',['name'=>'rt_rw','text'=>'RT / RW'])
 					@include('livewire.form.textarea',['name'=>'alamat','text'=>'Alamat Lengkap'])
 					{{-- @include('livewire.form.input',['name'=>'lokasi_geo','text'=>'Koordinat Lokasi']) --}}
@@ -241,32 +300,33 @@
 					<div class="mb-6 py-5" x-show="step===6"></div>
 				</div>
 				@endif
-				@if($step==7||$step=='preview')
-				<div x-show.transition.in="step === 7||step == 'preview'">
+				@if($step==7||$step==8)
+				<div x-show.transition.in="step === 7">
 					@include('livewire.form.input',['name'=>'no_siup_mb','text'=>'Nomor Izin SIUP-MB / SKMB'])
-					@include('livewire.form.input-fromto-date',['name'=>'masa_berlaku_siup_mb','text'=>'Tanggal masa berlaku'])
+					@include('livewire.form.input-daterange',['name'=>'masa_berlaku_siup_mb','text'=>'Tanggal masa berlaku'])
 
 					@include('livewire.form.input',['name'=>'no_itp_mb','text'=>'Nomor Izin ITP-MB'])
-					@include('livewire.form.input-fromto-date',['name'=>'masa_berlaku_itp_mb','text'=>'Tanggal masa berlaku'])
+					@include('livewire.form.input-daterange',['name'=>'masa_berlaku_itp_mb','text'=>'Tanggal masa berlaku'])
 
 					@include('livewire.form.input',['name'=>'no_izin_nib','text'=>'No Izin NIB'])
 					@include('livewire.form.input-date',['name'=>'tanggal_nib','text'=>'Tanggal NIB'])
-				
+					
 				</div>
 				@endif
-				@if($step==8||$step=='preview')
-				<div x-show.transition.in="step === 8||step == 'preview'">
+				@if($step==8)
+				<div x-show.transition.in="step === 8">
 					@include('livewire.form.input-date',['name'=>'tanggal_kesiapan_cek_lokasi','text'=>'Tanggal kesiapan cek lokasi'])
 				</div>
 				@endif
-				@if($step==9||$step=='preview')
-				<div x-show.transition.in="step === 9||step == 'preview'">
+				@if($step==9)
+				<div x-show.transition.in="step === 9">
 					<div class="md:flex md:items-center mb-6">
                         <div class="md:w-1/3">
                         <label for="inline-file_denah_bangunan" class="font-bold mb-1 text-gray-700 block">Denah di dalam Bangunan</label>
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_denah_bangunan" :file="$file_denah_bangunan" />
+							@include('livewire.form.error-span',['name'=>'file_denah_bangunan'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -275,6 +335,7 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_denah_lokasi" :file="$file_denah_lokasi" />
+							@include('livewire.form.error-span',['name'=>'file_denah_lokasi'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -283,6 +344,7 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_siup_mb" :file="$file_siup_mb" />
+							@include('livewire.form.error-span',['name'=>'file_siup_mb'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -291,6 +353,7 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_itp_mb" :file="$file_itp_mb" />
+							@include('livewire.form.error-span',['name'=>'file_itp_mb'])
                         </div>
                     </div>
 					{{-- <div class="md:flex md:items-center mb-6">
@@ -308,6 +371,7 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_nib" :file="$file_nib" />
+							@include('livewire.form.error-span',['name'=>'file_nib'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -316,19 +380,21 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_npwp_usaha" :file="$file_npwp_usaha" />
+							@include('livewire.form.error-span',['name'=>'file_npwp_usaha'])
                         </div>
                     </div>
 					<div class="mb-6 py-5" x-show="step===9"></div>
 				</div>
 				@endif
-				@if($step==10||$step=='preview')
-				<div x-show.transition.in="step === 10||step == 'preview'">
+				@if($step==10)
+				<div x-show.transition.in="step === 10">
 					<div class="md:flex md:items-center mb-6" x-show="status_pemohon !=='sendiri'">
                         <div class="md:w-1/3">
                         <label for="inline-file_surat_kuasa" class="font-bold mb-1 text-gray-700 block">Surat Kuasa</label>
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_surat_kuasa" :file="$file_surat_kuasa" />
+							@include('livewire.form.error-span',['name'=>'file_surat_kuasa'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -337,6 +403,7 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_npwp_pemilik" :file="$file_npwp_pemilik" />
+							@include('livewire.form.error-span',['name'=>'file_npwp_pemilik'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -345,6 +412,7 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_ktp_pemilik" :file="$file_ktp_pemilik" />
+							@include('livewire.form.error-span',['name'=>'file_ktp_pemilik'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -353,6 +421,7 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_surat_pernyataan" :file="$file_surat_pernyataan" />
+							@include('livewire.form.error-span',['name'=>'file_surat_pernyataan'])
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -361,13 +430,14 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_data_registrasi" :file="$file_data_registrasi" />
+							@include('livewire.form.error-span',['name'=>'file_data_registrasi'])
                         </div>
                     </div>
 					<div class="mb-6 py-5" x-show="step===10||step==='preview'"></div>
 				</div>
 				@endif
 				@if($step=='preview')
-				<div x-show.transition.in="step === 11">
+				<div x-show.transition.in="step === 'preview'">
 					@include('livewire.wizard-preview')
 				</div>
 				@endif
@@ -411,7 +481,7 @@
 					<button
 						wire:click="preview()"
 						x-show="step === 10"
-						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-500 hover:bg-gray-600 font-medium" 
+						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>Preview</button>
 					<button
 						wire:loading.attr="disabled"
@@ -433,12 +503,15 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
 
 <script>
-	flatpickr.localize(flatpickr.l10ns.id);
-	flatpickr('.datepicker',{
-		dateFormat: "d-m-Y", 
-	})
-</script>
-<script>
+	var lokasi_lng;
+	var lokasi_lat;
+	var defaultLocation =  [106.697, -6.313];
+	var loaded = false;
+
+	//light-v10, outdoors-v11, satellite-v9, streets-v11, dark-v10
+	const style = "streets-v11"
+	var map;
+	var marker;
 	function doFormat(x, pattern, mask) {
 		var strippedValue = x.replace(/[^0-9]/g, "");
 		var chars = strippedValue.split('');
@@ -462,6 +535,43 @@
 		return formatted;
 	}
 	function app() {
+		console.log('init app');
+		return {
+			step : @entangle('step'),
+			lokasi_lng : @entangle($lokasi_lng),
+			lokasi_lat : @entangle($lokasi_lat),
+			status_pemohon:'sendiri'
+		}
+	}
+
+	window.addEventListener('showMap', event => {
+		console.log('listener show map');
+		if(lokasi_lng&&lokasi_lng!==''){
+			defaultLocation =  [lokasi_lng,lokasi_lat];
+		}
+		loadMap();
+		loadGeocoder(event.detail.geocodertext);
+		if(lokasi_lng&&lokasi_lng!==''){
+			marker.setLngLat([lokasi_lng,lokasi_lat])
+		}
+	});
+
+	// window.addEventListener('lokasi_updated', event => {
+	// 	console.log('listener lokasi map updated');
+	// 	loadGeocoder(event.detail.geocodertext);
+	// });
+
+	window.addEventListener('render', event=>{
+		console.log('initiate datepicker and format mask');
+		var elements = document.getElementsByClassName('flatpickr-calendar');
+		while(elements.length > 0){
+			elements[0].parentNode.removeChild(elements[0]);
+		}
+
+		flatpickr.localize(flatpickr.l10ns.id);
+		flatpickr('.datepicker',{
+			dateFormat: "d-m-Y", 
+		})
 		document.querySelectorAll('[data-mask]').forEach(function(e) {
 		function format(elem) {
 			const val = doFormat(elem.value, elem.getAttribute('data-format'));
@@ -484,42 +594,9 @@
 		});
 		format(e)
 		});
-
-		return {
-			step : @entangle('step'),
-			status_pemohon:'sendiri'
+		if(event&&event.detail.step=='preview'){
+			loadPreviewMap();
 		}
-	}
-</script>
-<script>
-	var lokasi_lng;
-	var lokasi_lat;
-	var defaultLocation =  [106.697, -6.313];
-	var loaded = false;
-	var map;
-	var marker;
-
-	window.addEventListener('showMap', event => {
-		console.log('listener show map');
-		if(lokasi_lng&&lokasi_lng!==''){
-			defaultLocation =  [lokasi_lng,lokasi_lat];
-		}
-		loadMap();
-		loadGeocoder(event.detail.geocodertext);
-		if(lokasi_lng&&lokasi_lng!==''){
-			marker.setLngLat([lokasi_lng,lokasi_lat])
-		}
-	});
-
-	// window.addEventListener('lokasi_updated', event => {
-	// 	console.log('listener lokasi map updated');
-	// 	loadGeocoder(event.detail.geocodertext);
-	// });
-
-	document.addEventListener('livewire:load', ()=>{
-		lokasi_lng : @entangle($lokasi_lng);
-		lokasi_lat : @entangle($lokasi_lat);
-		//var defaultLocation =  [lokasi_lng,lokasi_lat];
 	});
 
 	function loadMap(){
@@ -539,7 +616,7 @@
 		map.addControl(new mapboxgl.NavigationControl());
 
 		 //light-v10, outdoors-v11, satellite-v9, streets-v11, dark-v10
-		const style = "outdoors-v11"
+		// const style = "outdoors-v11"
 		map.setStyle(`mapbox://styles/mapbox/${style}`); 
 		
 		marker = new mapboxgl.Marker({
@@ -557,6 +634,28 @@
 			//@this.lokasi_geo = defaultLocation
 			//Livewire.emit('setLokasiGeo', defaultLocation)
 		})
+	}
+
+	function loadPreviewMap(){
+		console.log('render preview map')
+		mapboxgl.accessToken = "{{env('MAPBOX_ACCESS_TOKEN')}}";
+
+		map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/mapbox/light-v10',
+				center: defaultLocation,
+				zoom: 13
+			});
+
+		map.setStyle(`mapbox://styles/mapbox/${style}`); 
+		
+		map.addControl(new mapboxgl.NavigationControl());
+
+		marker = new mapboxgl.Marker({
+			color: '#F84C4C'
+		})
+		.setLngLat(defaultLocation)
+		.addTo(map)
 	}
 
 	function loadGeocoder(geocodeText){
