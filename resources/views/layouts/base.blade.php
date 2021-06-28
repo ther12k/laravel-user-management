@@ -29,10 +29,11 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         
+        @stack('styles')
         @livewireStyles
     </head>
 
-    <body>
+    <body class="bg-gray-200">
         <x-lean::console-log />
         @yield('body')
 
