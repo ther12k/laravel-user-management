@@ -2,6 +2,7 @@
 
 <div x-data="app()" x-cloak>
 	<div class="max-w-3xl mx-auto">
+		@if($step=='complete')
 		<div x-show.transition="step === 'complete'">
 			<div class="bg-white rounded-lg p-5 flex items-center shadow justify-between">
 				<div>
@@ -28,11 +29,11 @@
 				</div>
 			</div>
 		</div>
-
+		@endif
 		<div x-show.transition="step != 'complete'">	
 			<!-- Top Navigation -->
 			<div class="border-b-2 py-4">
-				<div x-show="step !== 0 && step!=='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight" x-text="`Step: step of 10`"></div>
+				<div x-show="step !== 0 && step!=='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight" x-text="`Step: ${step} of 10`"></div>
 				<div x-show="step==='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Preview Sebelum Kirim</div>
 				
 				<div class="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -88,14 +89,29 @@
 				</div>
 			</div>
 			<!-- /Top Navigation -->
-
+			<div wire:loading.delay class="py-5">
+				<div>
+					<div class="mb-6 md:items-center py-5">
+						<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+							<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+							  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+							  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+							</svg>
+							Processing
+						</button>
+					</div>
+				</div>
+			</div>
 			<!-- Step Content -->
-			<div class="py-5">	
+			<div wire:loading.remove.delay class="py-5">
+				@if($step==0)
 				<div x-show.transition.in="step === 0">
 					<div class="mb-6 py-5">
 						@include('livewire.form.disclaimer')
 					</div>
 				</div>
+				@endif
+				@if($step==1||$step=='preview')
 				<div x-show.transition.in="step === 1||step == 'preview'">
 					<div class="md:flex md:items-center mb-6">
 						<div class="md:w-1/3">
@@ -106,7 +122,7 @@
 								<label
 									class="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-2 shadow-sm mr-4">
 									<div class="text-teal-600 mr-3">
-										<input type="radio" x-model="status_pemohon" value="sendiri" class="form-radio focus:outline-none focus:shadow-outline" />
+										<input type="radio" x-model="status_pemohon" wire:model.defer="status_pemohon" value="sendiri" class="form-radio focus:outline-none focus:shadow-outline" />
 									</div>
 									<div class="select-none text-gray-700">Sendiri</div>
 								</label>
@@ -114,7 +130,7 @@
 								<label
 									class="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-2 shadow-sm">
 									<div class="text-teal-600 mr-3">
-										<input type="radio" x-model="status_pemohon" value="dikuasakan" class="form-radio focus:outline-none focus:shadow-outline" />
+										<input type="radio" x-model="status_pemohon" wire:model.defer="status_pemohon" value="dikuasakan" class="form-radio focus:outline-none focus:shadow-outline" />
 									</div>
 									<div class="select-none text-gray-700">Dikuasakan</div>
 								</label>
@@ -136,6 +152,8 @@
 					
 					<div class="mb-6 py-5" x-show="step===1"></div>
 				</div>
+				@endif
+				@if($step==2||$step=='preview')
 				<div x-show.transition.in="step === 2||step == 'preview'">
 					@include('livewire.form.select',['name'=>'jenis_usaha_bkc','text'=>'Jenis Usaha BKC',
 							'options'=>[
@@ -155,6 +173,8 @@
 							]
 						])
 				</div>
+				@endif
+				@if($step==3||$step=='preview')
 				<div x-show.transition.in="step === 3||step == 'preview'">
 					@include('livewire.form.input',['name'=>'nama_usaha','text'=>'Nama Usaha'])
 					@include('livewire.form.textarea',['name'=>'alamat_usaha','text'=>'Alamat Usaha'])
@@ -167,6 +187,8 @@
 					@include('livewire.form.input',['type'=>'email','name'=>'email_usaha','text'=>'Email Usaha'])
 					<div class="mb-6 py-5" x-show="step===3"></div>
 				</div>
+				@endif
+				@if($step==4||$step=='preview')
 				<div x-show.transition.in="step === 4||step == 'preview'">
 
 					@include('livewire.form.select',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi',
@@ -190,15 +212,36 @@
 								]
 							])
 				</div>
+				@endif
 				<div x-show.transition.in="step === 5||step == 'preview'">
-					@include('livewire.form.location-select')
-							
+					@include('livewire.form.location-select')			
 				</div>
+				@if($step==6||$step=='preview')
 				<div x-show.transition.in="step === 6||step == 'preview'">
 					@include('livewire.form.input',['name'=>'rt_rw','text'=>'RT / RW'])
 					@include('livewire.form.textarea',['name'=>'alamat','text'=>'Alamat Lengkap'])
-					@include('livewire.form.input',['name'=>'lokasi_geo','text'=>'Koordinat Lokasi'])
+					{{-- @include('livewire.form.input',['name'=>'lokasi_geo','text'=>'Koordinat Lokasi']) --}}
+					
+					<div class="md:flex mb-6">
+						<div class="md:w-1/3">
+							<label for="inline-geocoder" class="font-bold mb-1 text-gray-700 block">Cari Lokasi</label>
+						</div>
+						<div class="md:w-2/3">
+							<div id="geocoder" class="geocoder h-10"></div>
+						</div>
+					</div>
+
+					<div class="md:flex mb-6 z-0">
+						<div class="md:w-1/3">
+						</div>
+						<div class="md:w-2/3">
+						<div wire:ignore id="map" class='h-72' ></div>
+						</div>
+					</div>
+					<div class="mb-6 py-5" x-show="step===6"></div>
 				</div>
+				@endif
+				@if($step==7||$step=='preview')
 				<div x-show.transition.in="step === 7||step == 'preview'">
 					@include('livewire.form.input',['name'=>'no_siup_mb','text'=>'Nomor Izin SIUP-MB / SKMB'])
 					@include('livewire.form.input-fromto-date',['name'=>'masa_berlaku_siup_mb','text'=>'Tanggal masa berlaku'])
@@ -210,9 +253,13 @@
 					@include('livewire.form.input-date',['name'=>'tanggal_nib','text'=>'Tanggal NIB'])
 				
 				</div>
+				@endif
+				@if($step==8||$step=='preview')
 				<div x-show.transition.in="step === 8||step == 'preview'">
 					@include('livewire.form.input-date',['name'=>'tanggal_kesiapan_cek_lokasi','text'=>'Tanggal kesiapan cek lokasi'])
 				</div>
+				@endif
+				@if($step==9||$step=='preview')
 				<div x-show.transition.in="step === 9||step == 'preview'">
 					<div class="md:flex md:items-center mb-6">
                         <div class="md:w-1/3">
@@ -232,20 +279,29 @@
                     </div>
 					<div class="md:flex md:items-center mb-6">
                         <div class="md:w-1/3">
+                        <label for="inline-file_siup_mb" class="font-bold mb-1 text-gray-700 block">SIUP-MB / SKMB</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_siup_mb" :file="$file_siup_mb" />
+                        </div>
+                    </div>
+					<div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_itp_mb" class="font-bold mb-1 text-gray-700 block">ITP-MB</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_itp_mb" :file="$file_itp_mb" />
+                        </div>
+                    </div>
+					{{-- <div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
                         <label for="inline-file_izin_instansi" class="font-bold mb-1 text-gray-700 block">Izin Instansi Terkait</label>
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_izin_instansi" :file="$file_izin_instansi" />
                         </div>
-                    </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_surat_kuasa" class="font-bold mb-1 text-gray-700 block">Surat Kuasa</label>
-                        </div>
-                        <div class="md:w-2/3">
-                            <x-file-attachment wire:model="file_surat_kuasa" :file="$file_surat_kuasa" />
-                        </div>
-                    </div>
+                    </div> --}}
+
 					<div class="md:flex md:items-center mb-6">
                         <div class="md:w-1/3">
                         <label for="inline-file_nib" class="font-bold mb-1 text-gray-700 block">Nomor Induk Berusaha</label>
@@ -254,16 +310,25 @@
                             <x-file-attachment wire:model="file_nib" :file="$file_nib" />
                         </div>
                     </div>
-					<div class="mb-6 py-5" x-show="step===9"></div>
-				</div>
-
-				<div x-show.transition.in="step === 10||step == 'preview'">
 					<div class="md:flex md:items-center mb-6">
                         <div class="md:w-1/3">
                         <label for="inline-file_npwp_usaha" class="font-bold mb-1 text-gray-700 block">NPWP Usaha</label>
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_npwp_usaha" :file="$file_npwp_usaha" />
+                        </div>
+                    </div>
+					<div class="mb-6 py-5" x-show="step===9"></div>
+				</div>
+				@endif
+				@if($step==10||$step=='preview')
+				<div x-show.transition.in="step === 10||step == 'preview'">
+					<div class="md:flex md:items-center mb-6" x-show="status_pemohon !=='sendiri'">
+                        <div class="md:w-1/3">
+                        <label for="inline-file_surat_kuasa" class="font-bold mb-1 text-gray-700 block">Surat Kuasa</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <x-file-attachment wire:model="file_surat_kuasa" :file="$file_surat_kuasa" />
                         </div>
                     </div>
 					<div class="md:flex md:items-center mb-6">
@@ -300,23 +365,25 @@
                     </div>
 					<div class="mb-6 py-5" x-show="step===10||step==='preview'"></div>
 				</div>
-
+				@endif
+				@if($step=='preview')
 				<div x-show.transition.in="step === 11">
 					@include('livewire.wizard-preview')
 				</div>
+				@endif
 			</div>
 			<!-- / Step Content -->
 		</div>
 	</div>
 
 	<!-- Bottom Navigation -->	
-	<div class="fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md" x-show="step != 'complete'">
+	<div class="fixed bottom-0 z-50 left-0 right-0 py-5 bg-white shadow-md" x-show="step != 'complete'">
 		<div class="max-w-3xl mx-auto px-4">
 			<div class="flex justify-between">
 				<div class="w-1/2">
 					<button
 						wire:loading.attr="disabled"
-						x-show="step > 1"
+						x-show="step > 1 || step==='preview'"
 						wire:click="back()"
 						class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
 					>Previous</button>
@@ -331,18 +398,24 @@
 				<div class="w-1/2 text-right">
 					<button
 					wire:loading.attr="disabled"
-						x-show="step < 10"
+						x-show="step < 10 && step!==6"
 						wire:click="stepCheck()"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>Next</button>
 					<button
-						wire:click="step = 'preview'"
+					wire:loading.attr="disabled"
+						x-show="step === 6"
+						wire:click="stepCheckWMap(defaultLocation)"
+						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+					>Next</button>
+					<button
+						wire:click="preview()"
 						x-show="step === 10"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-gray-500 hover:bg-gray-600 font-medium" 
 					>Preview</button>
 					<button
 						wire:loading.attr="disabled"
-						wire:click="step = 'complete'"
+						wire:click="preview()"
 						x-show="step === 'preview'"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>Complete</button>
@@ -352,7 +425,19 @@
 	</div>
 	<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->	
 </div>
+@push('script')
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+
+<script>
+	flatpickr.localize(flatpickr.l10ns.id);
+	flatpickr('.datepicker',{
+		dateFormat: "d-m-Y", 
+	})
+</script>
 <script>
 	function doFormat(x, pattern, mask) {
 		var strippedValue = x.replace(/[^0-9]/g, "");
@@ -406,3 +491,118 @@
 		}
 	}
 </script>
+<script>
+	var lokasi_lng;
+	var lokasi_lat;
+	var defaultLocation =  [106.697, -6.313];
+	var loaded = false;
+	var map;
+	var marker;
+
+	window.addEventListener('showMap', event => {
+		console.log('listener show map');
+		if(lokasi_lng&&lokasi_lng!==''){
+			defaultLocation =  [lokasi_lng,lokasi_lat];
+		}
+		loadMap();
+		loadGeocoder(event.detail.geocodertext);
+		if(lokasi_lng&&lokasi_lng!==''){
+			marker.setLngLat([lokasi_lng,lokasi_lat])
+		}
+	});
+
+	// window.addEventListener('lokasi_updated', event => {
+	// 	console.log('listener lokasi map updated');
+	// 	loadGeocoder(event.detail.geocodertext);
+	// });
+
+	document.addEventListener('livewire:load', ()=>{
+		lokasi_lng : @entangle($lokasi_lng);
+		lokasi_lat : @entangle($lokasi_lat);
+		//var defaultLocation =  [lokasi_lng,lokasi_lat];
+	});
+
+	function loadMap(){
+		console.log('render map')
+		mapboxgl.accessToken = "{{env('MAPBOX_ACCESS_TOKEN')}}";
+
+		map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/mapbox/light-v10',
+				center: defaultLocation,
+				zoom: 13
+			});
+		//  map.addControl(
+		//      geocoder
+		//  );
+ 
+		map.addControl(new mapboxgl.NavigationControl());
+
+		 //light-v10, outdoors-v11, satellite-v9, streets-v11, dark-v10
+		const style = "outdoors-v11"
+		map.setStyle(`mapbox://styles/mapbox/${style}`); 
+		
+		marker = new mapboxgl.Marker({
+			color: '#F84C4C', // color red
+			draggable: true
+		})
+		.setLngLat(defaultLocation)
+		.addTo(map)
+		marker.on('dragend',function(e){
+			var lngLat = e.target.getLngLat();
+			defaultLocation=[lngLat['lng'],lngLat['lat']]
+			console.log(defaultLocation);
+			lokasi_lng = defaultLocation[0];
+			lokasi_lat = defaultLocation[1];
+			//@this.lokasi_geo = defaultLocation
+			//Livewire.emit('setLokasiGeo', defaultLocation)
+		})
+	}
+
+	function loadGeocoder(geocodeText){
+		var geocoder = new MapboxGeocoder({
+			defaultLocation:defaultLocation,
+			accessToken: mapboxgl.accessToken,
+			mapboxgl: mapboxgl,
+			marker: false,
+			placeholder: 'Masukan kata kunci...',
+			zoom:21
+		});
+
+		geocoder.on('result', e => {
+			defaultLocation=e.result.center
+			//@this.lokasi_geo = defaultLocation
+			//console.log(defaultLocation)
+			//Livewire.emit('setLokasiGeo', defaultLocation)
+			lokasi_lng = defaultLocation[0];
+			lokasi_lat = defaultLocation[1];
+			marker.setLngLat(defaultLocation);
+			// marker = new mapboxgl.Marker({
+			// 	draggable: true
+			// })
+			// .setLngLat(e.result.center)
+			// .addTo(map)
+			// marker.on('dragend',function(e){
+			// 	var lngLat = e.target.getLngLat();
+			// 	defaultLocation=[lngLat['lng'],lngLat['lat']]
+			// 	console.log(defaultLocation);
+			// 	lokasi_lng = defaultLocation[0];
+			// 	lokasi_lat = defaultLocation[1];
+			// 	//@this.lokasi_geo = defaultLocation
+			// 	//Livewire.emit('setLokasiGeo', defaultLocation)
+			// })
+		})
+		
+		el = document.getElementById('geocoder');
+		while (el.hasChildNodes()) {  
+			el.removeChild(el.firstChild);
+		}
+		
+		el.appendChild(geocoder.onAdd(map));
+		if(geocodeText!==''){
+			console.log('geocoder : '+geocodeText);
+			geocoder.query(geocodeText); 
+		}
+	}
+</script>
+@endpush
