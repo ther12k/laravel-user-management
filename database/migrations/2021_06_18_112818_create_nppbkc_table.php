@@ -27,44 +27,49 @@ class CreateNppbkcTable extends Migration
             $table->string('jenis_usaha_bkc');
             $table->string('jenis_bkc');
             //step3
-            $table->string('nama_perusahaan');
-            $table->string('alamat_perusahaan');
-            $table->string('npwp_perusahaan')->nullable();
-            $table->string('telp_perusahaan')->nullable();
-            $table->string('email_perusahaan');
+            $table->string('nama_usaha');
+            $table->string('alamat_usaha');
+            $table->string('npwp_usaha')->nullable();
+            $table->string('telp_usaha')->nullable();
+            $table->string('email_usaha');
             $table->string('jenis_lokasi');
             //step4
             $table->string('lokasi');
             $table->string('kegunaan');
-            $table->string('provinsi');
-            $table->string('kota');
-            $table->string('kecamatan');
-            $table->string('kelurahan');
+            $table->string('province_id');
+            $table->string('regency_id');
+            $table->string('district_id');
+            $table->string('village_id');
             $table->string('rt_rw')->nullable();
             $table->string('alamat');
             $table->double('lokasi_latitude')->nullable();
             $table->double('lokasi_longitude')->nullable();
 
 
-            $table->string('jenis_izin');
-            $table->string('no_izin')->nullable();
-            $table->date('tanggal_izin_from');
-            $table->date('tanggal_izin_to');
-            $table->string('no_induk_usaha')->nullable();
-
+        //     'no_siup_mb','masa_berlaku_siup_mb_from','masa_berlaku_siup_mb_to','no_itp_mb',
+        // 'masa_berlaku_itp_mb_from','masa_berlaku_itp_mb_to','no_izin_nib',
+        // 'tanggal_nib','tanggal_kesiapan_cek_lokasi'
+            $table->string('no_siup_mb')->nullable();
+            $table->date('masa_berlaku_siup_mb_from');
+            $table->date('masa_berlaku_siup_mb_to');
+            $table->string('no_itp_mb')->nullable();
+            $table->date('masa_berlaku_itp_mb_from');
+            $table->date('masa_berlaku_itp_mb_to');
+            $table->string('no_izin_nib')->nullable();
+            $table->date('tanggal_nib');
 
             $table->date('tanggal_kesiapan_cek_lokasi');
 
-            $table->string('file_denah_bangunan')->nullable();
-            $table->string('file_denah_lokasi')->nullable();
-            $table->string('file_izin_instansi')->nullable();
-            $table->string('file_surat_kuasa')->nullable();
-            $table->string('file_nib')->nullable();
-            $table->string('file_npwp_perusahaan')->nullable();
-            $table->string('file_ktp_pemilik')->nullable();
-            $table->string('file_npwp_pemilik')->nullable();
-            $table->string('file_surat_pernyataan')->nullable();
-            $table->string('file_data_registrasi')->nullable();
+            // $table->string('file_denah_bangunan')->nullable();
+            // $table->string('file_denah_lokasi')->nullable();
+            // $table->string('file_izin_instansi')->nullable();
+            // $table->string('file_surat_kuasa')->nullable();
+            // $table->string('file_nib')->nullable();
+            // $table->string('file_npwp_usaha')->nullable();
+            // $table->string('file_ktp_pemilik')->nullable();
+            // $table->string('file_npwp_pemilik')->nullable();
+            // $table->string('file_surat_pernyataan')->nullable();
+            // $table->string('file_data_registrasi')->nullable();
             
             $table->timestamps();
         });
@@ -77,6 +82,7 @@ class CreateNppbkcTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('nppbkc_files');
         Schema::dropIfExists('nppbkcs');
     }
 }
