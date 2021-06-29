@@ -34,6 +34,13 @@ class NppbkcsDatatables extends LivewireDatatable
                 ->label('Status')
                 ->sortBy('status_nppbkc'),
 
+            Column::name('village.name')
+                ->label('Desa'),
+                
+            Column::name('alamat_pemilik')
+                    ->label('Catatan Petugas')
+                    ->sortBy('status_nppbkc'),
+
             DateColumn::name('created_at')
                 ->label('Tanggal'),
 
