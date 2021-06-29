@@ -314,14 +314,15 @@ class NppbkcWizard extends Component
         $data = $this->buildData();
         //dd($data);
         $nppbkc = Nppbkc::create($data);//test
-        foreach(['file_denah_bangunan','file_denah_lokasi'] as $file){
-            if($this->{$file}!=null){
-                $filename = $this->{$file}->storeAs('nppbkc/1', $file.'.'.$this->{$file}->extension());
-                $originalname = $this->{$file}->getClientOriginalName();
-                $size = $this->{$file}->getSize();
+        foreach(['file_denah_bangunan','file_denah_lokasi'] as $name){
+            if($this->{$name}!=null){
+                $filename = $this->{$name}->storeAs('nppbkc/1', $name.'.'.$this->{$name}->extension());
+                $originalname = $this->{$name}->getClientOriginalName();
+                $size = $this->{$name}->getSize();
                 $nppbkc_file = new NppbkcFile([
+                    'name'=>$name,
                     'filename'=>$filename,
-                    'original_name'=>$originalname,
+                    'original_filename'=>$originalname,
                     'size'=>$size
                 ]);
                 $nppbkc->files()->save($nppbkc_file);

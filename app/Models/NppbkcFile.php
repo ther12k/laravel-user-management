@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class NppbkcFile extends Model
 {
     use HasFactory;
-    protected $fillable = ['filename','original_name','size'];
+    protected $fillable = ['name','filename','original_filename','size'];
 }
