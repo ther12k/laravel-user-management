@@ -1,15 +1,32 @@
-<div class="bg-white my-1 px-5 py-2 rounded overflow-hidden shadow-lg hover:shadow">
+<div class="bg-white my-1 px-5 py-2 rounded-t-lg overflow-hidden shadow-lg hover:shadow">
     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
         <span clas="text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
         </span>
-        <span class="tracking-wide">Preview Permohonan</span>
+        <span class="tracking-wide text-lg">Preview Permohonan</span>
     </div>
 </div>
+<div class="bg-white my-1 px-5 py-2 overflow-hidden shadow-lg hover:shadow">
+    
+{{-- <div class="flex flex-row justify-between">
 
-<div class="bg-white my-1 px-5 py-2 rounded overflow-hidden shadow-lg hover:shadow">
+    <a class="p-2 py-2  border-b-4 border-green-400  hover:border-gray-400" 
+      href="#" x-on:click.prevent="tab='#tab1'">Data Pemohon</a>
+      
+    <a class="p-2 py-2  border-b-4 border-gray-500  hover:border-green-400"
+      href="#" x-on:click.prevent="tab='#tab2'">Data Usaha</a>
+      
+    <a class="p-2 py-2  border-b-4 border-gray-500  hover:border-green-400"
+      href="#" x-on:click.prevent="tab='#tab3'">Lokasi</a>
+
+    <a class="p-2 py-2  border-b-4 border-gray-500  hover:border-green-400" 
+        href="#" x-on:click.prevent="tab='#tab3'">Izin</a>
+    <a class="p-2 py-2  border-b-4 border-gray-500  hover:border-green-400"
+      href="#" x-on:click.prevent="tab='#tab3'">Lampiran</a>
+      
+</div> --}}
     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
         <span clas="text-green-500">
             <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -27,10 +44,7 @@
             @include('livewire.form.preview-input',['name'=>'alamat_pemilik','text'=>'Alamat Pemilik']) 
         </div>
     </div>
-</div>
-
-<div class="bg-white my-1 px-5 py-2 rounded overflow-hidden shadow-lg">
-    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+    <div class="flex items-center space-x-2 mt-5  font-semibold text-gray-900 leading-8">
         <span clas="text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -51,10 +65,7 @@
             @include('livewire.form.preview-input',['name'=>'alamat_usaha','text'=>'Alamat Usaha']) 
         </div>
     </div>
-</div>
-
-<div class="bg-white my-1 px-5 py-2 rounded overflow-hidden shadow-lg">
-    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+    <div class="flex items-center space-x-2 mt-5  font-semibold text-gray-900 leading-8">
         <span clas="text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -81,10 +92,7 @@
             <div id="map" class='h-72' ></div>
         </div>
     </div>
-</div>
-
-<div class="bg-white my-1 px-5 py-2 rounded overflow-hidden shadow-lg">
-    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+    <div class="flex items-center space-x-2 mt-5  font-semibold text-gray-900 leading-8">
         <span clas="text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -110,7 +118,7 @@
     </div>
 </div>
 
-<div class="bg-white my-1 px-5 py-2 rounded overflow-hidden shadow-lg hover:shadow">
+<div class="bg-white my-1 px-5 py-2 rounded-b-lg overflow-hidden shadow-lg hover:shadow">
     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
         <span clas="text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -120,10 +128,27 @@
         <span class="tracking-wide">Lampiran</span>
     </div>
     <div class="text-gray-700">
-        <div class="text-sm">
+        <div class="grid md:grid-cols-2 text-sm">
             @include('livewire.form.preview-file',['name'=>'file_denah_bangunan','text'=>'Denah di dalam Bangunan'])
             @include('livewire.form.preview-file',['name'=>'file_denah_lokasi','text'=>'Denah Situasi sekitar lokasi'])
+        
+            @include('livewire.form.preview-file',['name'=>'file_siup_mb','text'=>'SIUP-MB / SKMB'])
+            @include('livewire.form.preview-file',['name'=>'file_itp_mb','text'=>'ITP-MB'])
+       
+            @include('livewire.form.preview-file',['name'=>'file_nib','text'=>'Nomor Induk Berusaha'])
+            @include('livewire.form.preview-file',['name'=>'file_npwp_usaha','text'=>'NPWP Usaha'])
+        
+        @if($status_pemohon=='dikuasakan')
+            @include('livewire.form.preview-file',['name'=>'file_surat_kuasa','text'=>'Surat Kuasa'])    
+        
+        @endif
+            @include('livewire.form.preview-file',['name'=>'file_npwp_pemilik','text'=>'NPWP Pemilik'])
+            @include('livewire.form.preview-file',['name'=>'file_ktp_pemilik','text'=>'KTP Pemilik'])
+            @include('livewire.form.preview-file',['name'=>'file_surat_pernyataan','text'=>'Surat Pernyataan'])
+            @include('livewire.form.preview-file',['name'=>'file_data_registrasi','text'=>'Data Registrasi'])
+            
         </div>
     </div>
 </div>
+
 <div class="mb-6 px-1 w-full py-3" ></div>

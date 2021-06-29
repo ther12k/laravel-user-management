@@ -1,10 +1,10 @@
-<div class="grid grid-cols-2">
+<div class="mb-6">
     <div class="px-4 py-2 font-semibold">{{$text}}</div>
     @if(${$name})
-    <div class="py-2 flex">
-        <div class="w-16 mr-4 flex-shrink-0 shadow-xs rounded-lg" >
+    <div class="px-4">
+        <div class="w-72 mr-4 flex-shrink-0 shadow-xs rounded-lg" >
             @if(collect(['jpg', 'png', 'jpeg', 'webp'])->contains(${$name}->getClientOriginalExtension()))
-                <div class="relative pb-16 overflow-hidden rounded-lg border border-gray-100">
+                <div class="relative pb-40 overflow-hidden rounded-lg border border-gray-100">
                     <img src="{{ ${$name}->temporaryUrl() }}" class="w-full h-full absolute object-cover rounded-lg">
                 </div>
             @else
@@ -16,7 +16,7 @@
             @endif
         </div>
         <div>
-            <div class="text-sm font-medium truncate w-40 md:w-auto">{{ ${$name}->getClientOriginalName() }}</div>
+            {{-- <div class="text-sm font-medium truncate w-40 md:w-auto">{{ ${$name}->getClientOriginalName() }}</div> --}}
             <div class="flex items-center space-x-1">
                 {{-- <div class="text-xs text-gray-500">{{ Str::bytesToHuman(${$name}->getSize()) }}</div> --}}
                 <div class="text-gray-400 text-xs">&bull;</div>

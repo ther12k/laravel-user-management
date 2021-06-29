@@ -4,7 +4,7 @@
 	[x-cloak] {
 		display: none;
 	}
-
+/* 
 	[type="checkbox"] {
 		box-sizing: border-box;
 		padding: 0;
@@ -57,13 +57,13 @@
 		background-size: 100% 100%;
 		background-position: center;
 		background-repeat: no-repeat;
-	}
+	} */
 </style>
 @endpush
 <div x-data="app()" x-cloak>
 	<div class="max-w-3xl mx-auto">
 		@if($step=='complete')
-		<div x-show.transition="step === 'complete'">
+		<div x-show="step === 'complete'">
 			<div class="bg-white rounded-lg p-5 flex items-center shadow justify-between">
 				<div>
 					<svg class="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
@@ -92,7 +92,7 @@
 		@endif
 		<div x-show.transition="step != 'complete'">	
 			<!-- Top Navigation -->
-			<div class="border-b-2 py-4" x-show="step!=='preview'">
+			<div class="border-b-2 py-1" x-show="step!=='preview'">
 				<div x-show="step !== 0 && step!=='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight" x-text="`Step: ${step} of 10`"></div>
 				{{-- <div x-show="step==='preview'" class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Preview Sebelum Kirim</div> --}}
 				
@@ -149,17 +149,7 @@
 			</div>
 			<!-- /Top Navigation -->
 			<div wire:loading.delay class="py-5">
-				<div>
-					<div class="mb-6 md:items-center py-5">
-						<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
-							<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-							  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-							  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-							</svg>
-							Processing
-						</button>
-					</div>
-				</div>
+				@include('livewire.form.skeleton')
 			</div>
 			<!-- Step Content -->
 			<div wire:loading.remove.delay class="py-5">
@@ -287,14 +277,7 @@
 						</div>
 						<div class="md:w-2/3">
 							<div id="geocoder" class="geocoder h-10"></div>
-						</div>
-					</div>
-
-					<div class="md:flex mb-6 z-0">
-						<div class="md:w-1/3">
-						</div>
-						<div class="md:w-2/3">
-						<div wire:ignore id="map" class='h-72' ></div>
+							<div wire:ignore id="map" class='h-72' ></div>
 						</div>
 					</div>
 					<div class="mb-6 py-5" x-show="step===6"></div>
@@ -320,38 +303,27 @@
 				@endif
 				@if($step==9)
 				<div x-show.transition.in="step === 9">
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
+					<div class="grid md:grid-cols-2 mb-6">
+                        <div class="p-2">
                         <label for="inline-file_denah_bangunan" class="font-bold mb-1 text-gray-700 block">Denah di dalam Bangunan</label>
-                        </div>
-                        <div class="md:w-2/3">
+                        
                             <x-file-attachment wire:model="file_denah_bangunan" :file="$file_denah_bangunan" />
 							@include('livewire.form.error-span',['name'=>'file_denah_bangunan'])
                         </div>
-                    </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
+                        <div class="p-2">
                         <label for="inline-file_denah_lokasi" class="font-bold mb-1 text-gray-700 block">Denah Situasi sekitar lokasi</label>
-                        </div>
-                        <div class="md:w-2/3">
                             <x-file-attachment wire:model="file_denah_lokasi" :file="$file_denah_lokasi" />
 							@include('livewire.form.error-span',['name'=>'file_denah_lokasi'])
                         </div>
                     </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_siup_mb" class="font-bold mb-1 text-gray-700 block">SIUP-MB / SKMB</label>
-                        </div>
-                        <div class="md:w-2/3">
+					<div class="grid md:grid-cols-2 mb-6">
+                        <div class="p-2">
+                        	<label for="inline-file_siup_mb" class="font-bold mb-1 text-gray-700 block">SIUP-MB / SKMB</label>
                             <x-file-attachment wire:model="file_siup_mb" :file="$file_siup_mb" />
 							@include('livewire.form.error-span',['name'=>'file_siup_mb'])
                         </div>
-                    </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_itp_mb" class="font-bold mb-1 text-gray-700 block">ITP-MB</label>
-                        </div>
-                        <div class="md:w-2/3">
+                        <div class="p-2">
+                        	<label for="inline-file_itp_mb" class="font-bold mb-1 text-gray-700 block">ITP-MB</label>
                             <x-file-attachment wire:model="file_itp_mb" :file="$file_itp_mb" />
 							@include('livewire.form.error-span',['name'=>'file_itp_mb'])
                         </div>
@@ -365,20 +337,14 @@
                         </div>
                     </div> --}}
 
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_nib" class="font-bold mb-1 text-gray-700 block">Nomor Induk Berusaha</label>
-                        </div>
-                        <div class="md:w-2/3">
+					<div class="grid md:grid-cols-2 mb-6">
+                        <div class="p-2">
+                        	<label for="inline-file_nib" class="font-bold mb-1 text-gray-700 block">Nomor Induk Berusaha</label>
                             <x-file-attachment wire:model="file_nib" :file="$file_nib" />
 							@include('livewire.form.error-span',['name'=>'file_nib'])
                         </div>
-                    </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_npwp_usaha" class="font-bold mb-1 text-gray-700 block">NPWP Usaha</label>
-                        </div>
-                        <div class="md:w-2/3">
+						<div class="p-2">
+                        	<label for="inline-file_npwp_usaha" class="font-bold mb-1 text-gray-700 block">NPWP Usaha</label>
                             <x-file-attachment wire:model="file_npwp_usaha" :file="$file_npwp_usaha" />
 							@include('livewire.form.error-span',['name'=>'file_npwp_usaha'])
                         </div>
@@ -388,47 +354,33 @@
 				@endif
 				@if($step==10)
 				<div x-show.transition.in="step === 10">
-					<div class="md:flex md:items-center mb-6" x-show="status_pemohon !=='sendiri'">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_surat_kuasa" class="font-bold mb-1 text-gray-700 block">Surat Kuasa</label>
-                        </div>
-                        <div class="md:w-2/3">
+					<div class="grid md:grid-cols-2 mb-6">
+                        <div class="">
+                        	<label for="inline-file_surat_kuasa" class="font-bold mb-1 text-gray-700 block">Surat Kuasa</label>
                             <x-file-attachment wire:model="file_surat_kuasa" :file="$file_surat_kuasa" />
 							@include('livewire.form.error-span',['name'=>'file_surat_kuasa'])
                         </div>
                     </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_npwp_pemilik" class="font-bold mb-1 text-gray-700 block">NPWP Pemilik</label>
-                        </div>
-                        <div class="md:w-2/3">
+					<div class="grid md:grid-cols-2 mb-6">
+                        <div class="p-2">
+							<label for="inline-file_npwp_pemilik" class="font-bold mb-1 text-gray-700 block">NPWP Pemilik</label>
                             <x-file-attachment wire:model="file_npwp_pemilik" :file="$file_npwp_pemilik" />
 							@include('livewire.form.error-span',['name'=>'file_npwp_pemilik'])
                         </div>
-                    </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_ktp_pemilik" class="font-bold mb-1 text-gray-700 block">KTP Pemilik</label>
-                        </div>
-                        <div class="md:w-2/3">
+                        <div class="p-2">
+                        	<label for="inline-file_ktp_pemilik" class="font-bold mb-1 text-gray-700 block">KTP Pemilik</label>
                             <x-file-attachment wire:model="file_ktp_pemilik" :file="$file_ktp_pemilik" />
 							@include('livewire.form.error-span',['name'=>'file_ktp_pemilik'])
                         </div>
                     </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_surat_pernyataan" class="font-bold mb-1 text-gray-700 block">Surat Pernyataan</label>
-                        </div>
-                        <div class="md:w-2/3">
+					<div class="grid md:grid-cols-2 mb-6">
+                        <div class="p-2">
+                        	<label for="inline-file_surat_pernyataan" class="font-bold mb-1 text-gray-700 block">Surat Pernyataan</label>
                             <x-file-attachment wire:model="file_surat_pernyataan" :file="$file_surat_pernyataan" />
 							@include('livewire.form.error-span',['name'=>'file_surat_pernyataan'])
                         </div>
-                    </div>
-					<div class="md:flex md:items-center mb-6">
-                        <div class="md:w-1/3">
-                        <label for="inline-file_data_registrasi" class="font-bold mb-1 text-gray-700 block">Data Registrasi</label>
-                        </div>
-                        <div class="md:w-2/3">
+                        <div class="p-2">
+                        	<label for="inline-file_data_registrasi" class="font-bold mb-1 text-gray-700 block">Data Registrasi</label>
                             <x-file-attachment wire:model="file_data_registrasi" :file="$file_data_registrasi" />
 							@include('livewire.form.error-span',['name'=>'file_data_registrasi'])
                         </div>
@@ -444,8 +396,7 @@
 			</div>
 			<!-- / Step Content -->
 		</div>
-	</div>
-
+	</div>	
 	<!-- Bottom Navigation -->	
 	<div class="fixed bottom-0 z-50 left-0 right-0 py-5 bg-white shadow-md" x-show="step != 'complete'">
 		<div class="max-w-3xl mx-auto px-4">
@@ -485,7 +436,7 @@
 					>Preview</button>
 					<button
 						wire:loading.attr="disabled"
-						wire:click="preview()"
+						wire:click="complete()"
 						x-show="step === 'preview'"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>Complete</button>
@@ -503,10 +454,11 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
 
 <script>
-	var lokasi_lng;
-	var lokasi_lat;
+	var lokasi_longitude;
+	var lokasi_latitude;
 	var defaultLocation =  [106.697, -6.313];
 	var loaded = false;
+	var skeleton;
 
 	//light-v10, outdoors-v11, satellite-v9, streets-v11, dark-v10
 	const style = "streets-v11"
@@ -538,21 +490,23 @@
 		console.log('init app');
 		return {
 			step : @entangle('step'),
-			lokasi_lng : @entangle($lokasi_lng),
-			lokasi_lat : @entangle($lokasi_lat),
+			skeleton : false,
+			lokasi_longitude : @entangle($lokasi_longitude),
+			lokasi_latitude : @entangle($lokasi_latitude),
 			status_pemohon:'sendiri'
 		}
 	}
 
 	window.addEventListener('showMap', event => {
 		console.log('listener show map');
-		if(lokasi_lng&&lokasi_lng!==''){
-			defaultLocation =  [lokasi_lng,lokasi_lat];
+		skeleton = true;
+		if(lokasi_longitude&&lokasi_longitude!==''){
+			defaultLocation =  [lokasi_longitude,lokasi_latitude];
 		}
 		loadMap();
 		loadGeocoder(event.detail.geocodertext);
-		if(lokasi_lng&&lokasi_lng!==''){
-			marker.setLngLat([lokasi_lng,lokasi_lat])
+		if(lokasi_longitude&&lokasi_longitude!==''){
+			marker.setLngLat([lokasi_longitude,lokasi_latitude])
 		}
 	});
 
@@ -629,11 +583,12 @@
 			var lngLat = e.target.getLngLat();
 			defaultLocation=[lngLat['lng'],lngLat['lat']]
 			console.log(defaultLocation);
-			lokasi_lng = defaultLocation[0];
-			lokasi_lat = defaultLocation[1];
+			lokasi_longitude = defaultLocation[0];
+			lokasi_latitude = defaultLocation[1];
 			//@this.lokasi_geo = defaultLocation
 			//Livewire.emit('setLokasiGeo', defaultLocation)
 		})
+		skeleton = false;
 	}
 
 	function loadPreviewMap(){
@@ -656,6 +611,13 @@
 		})
 		.setLngLat(defaultLocation)
 		.addTo(map)
+		marker.getElement().addEventListener('click', event => {
+			let a= document.createElement('a');
+			a.target= '_blank';
+			a.href= 'http://maps.google.com/maps?q='+defaultLocation[1]+','+defaultLocation[0];
+			a.click();
+		});
+		
 	}
 
 	function loadGeocoder(geocodeText){
@@ -673,8 +635,8 @@
 			//@this.lokasi_geo = defaultLocation
 			//console.log(defaultLocation)
 			//Livewire.emit('setLokasiGeo', defaultLocation)
-			lokasi_lng = defaultLocation[0];
-			lokasi_lat = defaultLocation[1];
+			lokasi_longitude = defaultLocation[0];
+			lokasi_latitude = defaultLocation[1];
 			marker.setLngLat(defaultLocation);
 			// marker = new mapboxgl.Marker({
 			// 	draggable: true
@@ -685,8 +647,8 @@
 			// 	var lngLat = e.target.getLngLat();
 			// 	defaultLocation=[lngLat['lng'],lngLat['lat']]
 			// 	console.log(defaultLocation);
-			// 	lokasi_lng = defaultLocation[0];
-			// 	lokasi_lat = defaultLocation[1];
+			// 	lokasi_longitude = defaultLocation[0];
+			// 	lokasi_latitude = defaultLocation[1];
 			// 	//@this.lokasi_geo = defaultLocation
 			// 	//Livewire.emit('setLokasiGeo', defaultLocation)
 			// })
