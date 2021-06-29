@@ -8,7 +8,9 @@
         </h1> --}}
         @if (Auth::check())     
             <livewire:nppbkcs-datatables
-            searchable="nama_pemilik,id" >
+            with="province, regency, district, village"
+            searchable="nama_pemilik,id" 
+            >
         @else
         
         @endif
