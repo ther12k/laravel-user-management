@@ -15,14 +15,16 @@ class CreateNppbkcFilesTable extends Migration
     {
         Schema::create('nppbkc_files', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('filename');
-            $table->string('original_name');
+            $table->string('original_filename');
             $table->integer('size');
             $table->unsignedBigInteger('nppbkc_id');
             $table->foreign('nppbkc_id')
                 ->references('id')
                 ->on('nppbkcs')
                 ->onDelete('cascade');
+            $table->blameable();
             $table->timestamps();
         });
     }

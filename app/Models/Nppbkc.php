@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use DigitalCloud\Blameable\Traits\Blameable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Nppbkc extends Model
 {
-    use HasFactory;
+    use HasFactory,Blameable;
     protected $fillable = [
         'status_pemohon','nama_pemilik','alamat_pemilik','telp_pemilik','npwp_pemilik','email_pemilik',
         'jenis_usaha_bkc','jenis_bkc','nama_usaha','alamat_usaha','telp_usaha','npwp_usaha','email_usaha',

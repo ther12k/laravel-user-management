@@ -70,7 +70,7 @@ class CreateNppbkcTable extends Migration
             // $table->string('file_npwp_pemilik')->nullable();
             // $table->string('file_surat_pernyataan')->nullable();
             // $table->string('file_data_registrasi')->nullable();
-            
+            $table->blameable();
             $table->timestamps();
         });
     }
