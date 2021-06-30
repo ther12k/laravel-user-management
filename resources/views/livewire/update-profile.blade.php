@@ -45,7 +45,7 @@
 					@include('livewire.form.input',['name'=>'pekerjaan','text'=>'Pekerjaan'])
 					@include('livewire.form.textarea',['name'=>'alamat','text'=>'Alamat'])
 					@include('livewire.form.input',['type'=>'number','name'=>'no_telp','text'=>'No Telp'])
-                    <div class="md:flex md:items-center mb-6">
+                    {{-- <div class="md:flex md:items-center mb-6">
                         <div class="md:w-1/3">
                         <label for="inline-npwp" class="font-bold mb-1 text-gray-700 block">NPWP</label>
                         </div>
@@ -59,6 +59,18 @@
                         </div>
                         <div class="md:w-2/3">
                             <x-file-attachment wire:model="ktp_photo" :file="$ktp_photo" />
+                        </div>
+                    </div> --}}
+					<div class="grid md:grid-cols-2 mb-6">
+                        <div class="p-2">
+                        <label for="inline-npwp_photo" class="font-bold mb-1 text-gray-700 block">NPWP</label>
+                            <x-file-attachment wire:model="npwp_photo" :file="$npwp_photo" />
+							@include('livewire.form.error-span',['name'=>'npwp_photo'])
+                        </div>
+                        <div class="p-2">
+                        <label for="inline-ktp_photo" class="font-bold mb-1 text-gray-700 block">KTP</label>
+                            <x-file-attachment wire:model="ktp_photo" :file="$ktp_photo" />
+							@include('livewire.form.error-span',['name'=>'ktp_photo'])
                         </div>
                     </div>
 				</div>
