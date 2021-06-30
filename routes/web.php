@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/nppbkc-wizard', function () {
         return view('nppbkc-wizard');
     });
+    Route::get('/nppbkc/{id}', function () {
+        return view('nppbkc');
+    });
     Route::get('/activity-log', function () {
         return view('activity-log');
     });
