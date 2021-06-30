@@ -33,5 +33,8 @@ class AuthServiceProvider extends ServiceProvider
                 ->line('TERIMA KASIH TELAH MELAKUKAN PENDAFTARAN USER!, Klik link dibawah ini.')
                 ->action('Aktivasi Registrasi', $url);
         });
+        Gate::define('viewWebTinker', function ($user = null) {
+            return $user->role=='admin';
+        });
     }
 }
