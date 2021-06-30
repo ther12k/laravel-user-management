@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/nppbkc-wizard', function () {
         return view('nppbkc-wizard');
     });
+    Route::get('/activity-log', function () {
+        return view('activity-log');
+    });
     Route::get('/nppbkc', [NppbkcController::class, 'index']);
     Route::get('/nppbkc/permohonan_lokasi_pdf', [NppbkcController::class, 'permohonan_lokasi_pdf']);
     Route::get('/nppbkc/permohonan_nppbkc_pdf', [NppbkcController::class, 'permohonan_nppbkc_pdf']);
