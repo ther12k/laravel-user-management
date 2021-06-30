@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\District;
@@ -13,7 +15,8 @@ use App\Models\NppbkcFile;
 
 
 use Carbon\Carbon;
-
+use App\Notifications\NppbkcAddedNotification;
+use PDF;
 class NppbkcWizard extends Component
 {
     use WithFileUploads;
@@ -21,7 +24,7 @@ class NppbkcWizard extends Component
     public $step = 0, $status_nppbkc = 1;
     public $status_pemohon='sendiri', $nama_pemilik, $alamat_pemilik,$email_pemilik,$telp_pemilik,$npwp_pemilik='xx.xxx.xxx.x-xxx.xxx';
     public $jenis_usaha_bkc,$jenis_bkc; 
-    public $nama_usaha, $alamat_usaha,$email_usaha,$telp_usaha,$npwp_usaha='xx.xxx.xxx.x-xxx.xxx';
+    public $nama_usaha, $alamat_usaha,$email_usaha,$telp_usaha,$npwp_usaha='xx.xxx.xxx.x-xxx.xxx', $no_permohonan;
     public $jenis_lokasi,$lokasi,$kegunaan; 
     public $province,$regency,$district,$village;
     public $province_id,$regency_id,$district_id,$village_id; 
@@ -52,7 +55,7 @@ class NppbkcWizard extends Component
             'alamat_usaha' => 'required',
             'telp_usaha' => 'required',
             //xx.xxx.xxx.x-xxx.xxx
-            'npwp_usaha' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
+            //'npwp_usaha' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
             'email_usaha' => 'required|email:filter'
         ],
         [
@@ -65,7 +68,9 @@ class NppbkcWizard extends Component
         ],
         [
             'rt_rw' =>'required',
-            'alamat' =>'required'
+            'alamat' =>'required',
+            'lokasi_latitude' =>'required',
+            'lokasi_longitude' =>'required'
         ],
         [
             'no_siup_mb'=>'required',
@@ -85,8 +90,7 @@ class NppbkcWizard extends Component
             'file_denah_lokasi'=>'required',
             'file_siup_mb'=>'required',
             'file_itp_mb'=>'required',
-            'file_nib'=>'required',
-            'file_npwp_usaha'=>'required'
+            'file_nib'=>'required'
         ],
         [
             'file_npwp_pemilik'=>'required',
@@ -211,13 +215,13 @@ class NppbkcWizard extends Component
                 $this->consoleLog('file : ');
                 //$this->consoleLog($this->file_denah_bangunan->temporaryUrl());
             }
-            $this->consoleLog($this->rules);
             if($this->rules!=null&&count($this->rules[$this->step])>0)
                 $validatedData = $this->validate($this->rules[$this->step]);
             $this->step++;
             if($this->step==6){
                 $this->mapCheck();
             }
+
         }else if($this->step==0){
             $this->step=1;
         }
@@ -229,6 +233,7 @@ class NppbkcWizard extends Component
         $this->setLokasiGeo($lokasi);
         $this->consoleLog('stepwmap : lng, lat -> '.$this->lokasi_longitude.','.$this->lokasi_latitude);
         if(0<$this->step&&$this->step<11){
+            //dd($this->rules[$this->step]);
             if($this->rules!=null&&count($this->rules[$this->step])>0)
                 $validatedData = $this->validate($this->rules[$this->step]);
             $this->step++;
@@ -289,6 +294,7 @@ class NppbkcWizard extends Component
         //dd($this->province_id);
         foreach($this->rules as $rule){
             foreach($rule as $field=>$val){
+                if(!isset($this->{$field})||$this->{$field}==null||$this->{$field}=='') continue;
                 if (strpos($field, '_from') !== false||strpos($field, '_to') !== false||strpos($field, 'tanggal') !== false) {
                     $arr[$field] = Carbon::createFromFormat('d-m-Y', $this->{$field})->format('Y-m-d');
                 }
@@ -302,8 +308,10 @@ class NppbkcWizard extends Component
         $arr['regency_id']=$this->regency_id['value'];
         $arr['district_id']=$this->district_id['value'];
         $arr['village_id']=$this->village_id['value'];
+        $arr['no_permohonan']=$this->no_permohonan;
         return $arr;
     }
+    
     public function complete()
     {
         // public $file_denah_bangunan,$file_denah_lokasi,
@@ -316,7 +324,7 @@ class NppbkcWizard extends Component
         $nppbkc = Nppbkc::create($data);//test
         foreach(['file_denah_bangunan','file_denah_lokasi'] as $name){
             if($this->{$name}!=null){
-                $filename = $this->{$name}->storeAs('nppbkc/1', $name.'.'.$this->{$name}->extension());
+                $filename = $this->{$name}->storeAs('nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension());
                 $originalname = $this->{$name}->getClientOriginalName();
                 $size = $this->{$name}->getSize();
                 $nppbkc_file = new NppbkcFile([
@@ -328,7 +336,52 @@ class NppbkcWizard extends Component
                 $nppbkc->files()->save($nppbkc_file);
             }
         }
-        
+
+        $pdfHTML = view('pdf.permohonan_lokasi')->render();
+        $formats=[];
+        $replaces=[];
+        foreach($data as $key=>$val){
+            if(isset($val)){
+                $formats[]='['.strtoupper($key).']';
+                if($key=='nama_usaha')
+                    $val=strtoupper($val);
+                $replaces[]=$val;
+            }
+        }
+
+        $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
+
+        if($this->no_permohonan==''){
+            //generate auto number
+            $array_bln  = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
+            $bln = $array_bln[date('n')];
+
+            $nppbkc->no_permohonan = str_pad($nppbkc->id,6,"0",STR_PAD_LEFT).'/'.
+                str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
+
+            $nppbkc->save();
+        }
+
+        $pdfHTML = str_replace('[NO_PERMOHONAN]',$nppbkc->no_permohonan,$pdfHTML);
+    	$pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
+        $pdf_filename = 'nppbkc/'.$nppbkc->id.'/surat_permohonan.pdf';
+        // $exists = Storage::disk('local')->exists($pdf_filename);
+        // if($exists){
+        //     Storage::delete($pdf_filename);
+        // }
+        Storage::put($pdf_filename, $pdf->output());
+
+        $pdf_filename = 'nppbkc/'.$nppbkc->id.'/file_denah_bangunan.png';
+
+        $this->consoleLog('success');
+        $url = url($pdf_filename);
+        $nppbkc->notify(new NppbkcAddedNotification([
+            'text' => "Permohonan NPPBKC baru ".$nppbkc->id,
+            'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan."* [Lihat](http://www.google.com)",
+            'filename' =>$pdf_filename,
+            'url' =>$pdf_filename
+        ]));
+
         $this->step='preview';
     }
     /**
