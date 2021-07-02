@@ -198,7 +198,6 @@
 											'mask'=>'xx.xxx.xxx.x-xxx.xxx'
 											])
 					@include('livewire.form.input',['type'=>'email','name'=>'email_pemilik','text'=>'Email Pemilik'])
-					
 					<div class="mb-6 py-5" x-show="step===1"></div>
 				</div>
 				@endif
@@ -225,6 +224,7 @@
 				@endif
 				@if($step==3)
 				<div x-show.transition.in="step === 3">
+					@include('livewire.form.input',['type'=>'text','name'=>'no_permohonan','text'=>'No Permohonan','tooltip'=>'Jika dikosongkan, no permohonan akan otomatis digenerate oleh sistem'])
 					@include('livewire.form.input',['name'=>'nama_usaha','text'=>'Nama Usaha'])
 					@include('livewire.form.textarea',['name'=>'alamat_usaha','text'=>'Alamat Usaha'])
 					@include('livewire.form.input',['type'=>'number','name'=>'telp_usaha','text'=>'No Telp Usaha'])
@@ -354,6 +354,7 @@
 				@endif
 				@if($step==10)
 				<div x-show.transition.in="step === 10">
+					@if($status_pemohon!=='sendiri')
 					<div class="grid md:grid-cols-2 mb-6">
                         <div class="">
                         	<label for="inline-file_surat_kuasa" class="font-bold mb-1 text-gray-700 block">Surat Kuasa</label>
@@ -361,6 +362,7 @@
 							@include('livewire.form.error-span',['name'=>'file_surat_kuasa'])
                         </div>
                     </div>
+					@endif
 					<div class="grid md:grid-cols-2 mb-6">
                         <div class="p-2">
 							<label for="inline-file_npwp_pemilik" class="font-bold mb-1 text-gray-700 block">NPWP Pemilik</label>
