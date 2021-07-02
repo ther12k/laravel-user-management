@@ -40,9 +40,9 @@ class NppbkcsDatatables extends LivewireDatatable
                 ->label('No Permohonan')
                 ->sortBy('no_permohonan'),
 
-            Column::name('status_nppbkc')
-                ->label('Status')
-                ->sortBy('status_nppbkc'),
+            Column::callback(['status_nppbkc'], function ($status_nppbkc) {
+                return view('table.nppbkc-status', ['status' => $status_nppbkc]);
+            })->label('Status'),
                 
             Column::name('alamat_pemilik')
                     ->label('Catatan Petugas')
