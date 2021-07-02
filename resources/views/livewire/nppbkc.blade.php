@@ -7,66 +7,192 @@
 
 </style>
 @endpush    
-<div class="flex flex-wrap" id="tabs-id"
+<div x-cloak class="md:flex no-wrap md:-mx-2" id="tabs-id"
 x-data="{ 
     activeTab:1,
-    inactiveClass: 'hover:text-purple-600 bg-gray-200 text-gray-600 bg-white text-xs font-bold uppercase px-5 py-3 block leading-normal',
+    inactiveClass: 'hover:text-purple-600 bg-gray-300 text-gray-600 bg-white text-xs font-bold uppercase px-5 py-3 block leading-normal',
     activeClass : 'text-purple-600 bg-white text-xs font-bold uppercase px-5 py-3 block leading-normal'
  }" 
 >
-    <div class="w-full">
-        <div class="flex space-x-2">
-            <a href="#" @click="activeTab = 1" :class="activeTab === 1 ? activeClass : inactiveClass">
-                <div class="flex">
-                <svg class="h-4 space-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </span><span class="hidden md:block">Data Pemohon</span>
-                </div>
-            </a>
-            <a href="#" @click="activeTab = 2" :class="activeTab === 2 ? activeClass : inactiveClass">Data Usaha</a>
-        </div>
-      <div class="flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg">
-        <div class="px-4 py-5 flex-auto">
-          <div class="tab-content tab-space">
-            <div class="block" id="tab-profile" x-show="activeTab === 1">
-              <p>
-                Collaboratively administrate empowered markets via
-                plug-and-play networks. Dynamically procrastinate B2C users
-                after installed base benefits.
-                <br />
-                <br />
-                Dramatically visualize customer directed convergence
-                without revolutionary ROI.
-              </p>
-            </div>
-            <div class="hidden" id="tab-settings" x-show="activeTab === 2">
-              <p>
-                Completely synergize resource taxing relationships via
-                premier niche markets. Professionally cultivate one-to-one
-                customer service with robust ideas.
-                <br />
-                <br />
-                Dynamically innovate resource-leveling customer service for
-                state of the art customer service.
-              </p>
-            </div>
-            <div class="hidden" id="tab-options" x-show="activeTab === 3">
-              <p>
-                Efficiently unleash cross-media information without
-                cross-media value. Quickly maximize timely deliverables for
-                real-time schemas.
-                <br />
-                <br />
-                Dramatically maintain clicks-and-mortar solutions
-                without functional solutions.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<div class="w-full md:w-9/12 mx-auto">
+		<div class="mb-4 bg-white px-4 py-5">
+			<div class="tab-content tab-space flex">
+				<div x-show="true" class="w-2/3">
+					<h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Permohonan Pemeriksaan Lokasi </h1>
+					<h2 class="flex-auto text-lg font-semibold">No {{$no_permohonan}}</h2>
+					<h2>Tanggal Kesiapan Cek :  {{$tanggal_kesiapan_cek_lokasi}}</h2>
+					<h2>Status :  {{nppbkc_status_names($status_nppbkc)}}</h2>
+						{{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+					</svg>  --}}
+					<button
+							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+						>Proses</button>
+				</div>
+				<div class="w-1/3">
+					
+				</div>
+			</div>
+		</div>
+		<div class="flex space-x-2">
+			<a href="#" @click="activeTab = 1" :class="activeTab === 1 ? activeClass : inactiveClass">	
+				<div class="flex items-center space-x-2 font-semibold leading-8">
+					<span clas="text-green-500">
+						<x-heroicon-o-user class="h-6 w-6"/>
+					</span>
+					<span class="hidden lg:block">Data Pemohon</span>
+				</div>
+			</a>
+			<a href="#" @click="activeTab = 2" :class="activeTab === 2 ? activeClass : inactiveClass">
+				<div class="flex items-center space-x-2 font-semibold leading-8">
+					<span clas="text-green-500">
+						<x-heroicon-o-office-building class="h-6 w-6"/>
+					</span>
+					<span class="hidden lg:block">Data Usaha</span>
+				</div>	
+			</a>
+			<a href="#" @click="activeTab = 3" :class="activeTab === 3 ? activeClass : inactiveClass">
+				<div class="flex items-center space-x-2 font-semibold leading-8">
+					<x-heroicon-o-location-marker class="h-6 w-6"/>
+					</span><span class="hidden lg:block">Lokasi</span>
+				</div>
+			</a>
+			<a href="#" @click="activeTab = 4" :class="activeTab === 4 ? activeClass : inactiveClass">
+				<div class="flex items-center space-x-2 font-semibold leading-8">
+					<span clas="text-green-500">
+						<x-heroicon-o-briefcase class="h-6 w-6"/>
+					</span>
+					<span class="hidden lg:block">Izin Usaha</span>
+				</div>
+			</a>
+			<a href="#" @click="activeTab = 5" :class="activeTab === 5 ? activeClass : inactiveClass">
+				<div class="flex items-center space-x-2 font-semibold leading-8">
+					<span clas="text-green-500">
+						<x-heroicon-o-paper-clip class="h-6 w-6"/>
+					</span>
+					<span class="hidden lg:block">Lampiran</span>
+				</div>
+			</a>
+		</div>
+		<div class="bg-white mb-6 shadow-lg">
+			<div class="px-4 py-5">
+				<div x-show="activeTab === 1">
+					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+						<span class="tracking-wide">Data Pemohon {{ $status_pemohon=='dikuasakan' ?'(Dikuasakan)':''}}</span>
+					</div>
+					<div class="text-gray-700">
+						<div class="grid md:grid-cols-2 text-sm">
+							@include('livewire.form.preview-input',['name'=>'nama_pemilik','text'=>'Nama Pemilik'])
+							@include('livewire.form.preview-input',['name'=>'telp_pemilik','text'=>'Telp Pemilik']) 
+							@include('livewire.form.preview-input',['name'=>'npwp_pemilik','text'=>'NPWP Pemilik']) 
+							@include('livewire.form.preview-input',['name'=>'email_pemilik','text'=>'Email Pemilik'])
+							@include('livewire.form.preview-input',['name'=>'alamat_pemilik','text'=>'Alamat Pemilik']) 
+						</div>
+					</div>
+				</div>
+				<div   x-show="activeTab === 2">
+					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+						<span class="tracking-wide">Data Usaha</span>
+					</div>
+					<div class="text-gray-700 flex-1">
+						<div class="grid md:grid-cols-2 text-sm">
+							@include('livewire.form.preview-input',['name'=>'jenis_usaha_bkc','text'=>'Jenis Usaha BKC'])
+							@include('livewire.form.preview-input',['name'=>'jenis_bkc','text'=>'Jenis BKC']) 
+						</div>
+						<div class="grid md:grid-cols-2 text-sm">
+							@include('livewire.form.preview-input',['name'=>'nama_usaha','text'=>'Nama Usaha'])
+							@include('livewire.form.preview-input',['name'=>'telp_usaha','text'=>'Telp Usaha']) 
+							@include('livewire.form.preview-input',['name'=>'npwp_usaha','text'=>'NPWP Usaha']) 
+							@include('livewire.form.preview-input',['name'=>'email_usaha','text'=>'Email Usaha']) 
+							@include('livewire.form.preview-input',['name'=>'alamat_usaha','text'=>'Alamat Usaha']) 
+						</div>
+					</div>
+				</div>
+				<div x-show="activeTab === 3">
+					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+						<span class="tracking-wide">Lokasi</span>
+					</div>
+					<div class="grid lg:grid-cols-2 text-sm">
+
+						<div id="map" class='h-72' ></div>
+						<div>
+							<div class="flex items-center hover:opacity-75 mr-4 px-4">
+								<i class="mr-2"><br>
+									<x-heroicon-o-map class="h-6 w-6 text-indigo-500"/>
+								  <br>
+										</i><p></p>
+								<a href="http://maps.google.com/maps?q={{$lokasi_latitude}},{{$lokasi_longitude}}" target="_blank" class="mt-1 text-indigo-500 font-bold">Open via google map</a>
+							</div>
+							@include('livewire.form.preview-input',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi'])
+							@include('livewire.form.preview-input',['name'=>'kegunaan','text'=>'Kegunaan']) 
+							@include('livewire.form.preview-input',['name'=>'lokasi','text'=>'Lokasi'])
+							@include('livewire.form.preview-input',['name'=>'alamat','text'=>'Alamat lengkap lokasi'])
+							
+						</div>
+					</div>
+					{{-- <div class="grid md:grid-cols-2 text-sm">
+						@include('livewire.form.preview-input',['name'=>'province','text'=>'Provinsi'])
+						@include('livewire.form.preview-input',['name'=>'regency','text'=>'Kabupaten/Kota'])
+						@include('livewire.form.preview-input',['name'=>'district','text'=>'Kecamatan'])
+						@include('livewire.form.preview-input',['name'=>'village','text'=>'Kelurahan/Desa'])
+						@include('livewire.form.preview-input',['name'=>'rt_rw','text'=>'RT/RW'])
+						@include('livewire.form.preview-input',['name'=>'alamat','text'=>'Alamat Lengkap'])
+					</div> --}}
+					<div class="p-1 text-sm">
+					</div>
+				</div>
+				<div x-show="activeTab === 4">
+					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+						<span class="tracking-wide">Izin Usaha</span>
+					</div>
+					<div class="text-sm">
+						@include('livewire.form.preview-input',['name'=>'no_siup_mb','text'=>'Nomor Izin SIUP-MB / SKMB'])
+						@include('livewire.form.preview-input-daterange',['name'=>'masa_berlaku_siup_mb','text'=>'Tanggal masa berlaku SIUP-MB / SKMB'])
+			
+						@include('livewire.form.preview-input',['name'=>'no_itp_mb','text'=>'Nomor Izin ITP-MB'])
+						@include('livewire.form.preview-input-daterange',['name'=>'masa_berlaku_itp_mb','text'=>'Tanggal masa berlaku ITP-MB'])
+			
+						@include('livewire.form.preview-input',['name'=>'no_izin_nib','text'=>'No Izin NIB'])
+						@include('livewire.form.preview-input',['name'=>'tanggal_nib','text'=>'Tanggal NIB'])
+					</div>
+				</div>
+				<div x-show="activeTab === 5">
+					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+						<span class="tracking-wide">Lampiran</span>
+					</div>
+					<div class="grid md:grid-cols-2 text-sm">
+						@foreach ($files as $file )
+						<div class="px-4 py-2 font-semibold flex">
+							<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.downloadfile',['id'=>$file->id])}}" class="text-indigo-500 hover:text-indigo-700">{{nppbkc_file_captions($file->name)}}</a>
+						</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="h-1"></div>
+		<!-- Bottom Navigation -->	
+		<div class="sm:hidden fixed bottom-0 z-50 left-0 right-0 py-5 bg-white shadow-md">
+			<div class="max-w-3xl mx-auto px-4">
+				<div class="flex justify-between">
+					<div class="w-1/2">
+						<button
+							wire:click="back()"
+							class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-white bg-red-500 hover:bg-red-600 font-medium border" 
+						>Kembali</button>
+					</div>
+
+					<div class="w-1/2 text-right">
+						<button
+							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+						>Proses</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->	
+</div>
 @push('script')
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -75,22 +201,14 @@ x-data="{
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
 <script>
     const style = "streets-v11";
-	var lokasi_longitude;
-	var lokasi_latitude;
-	var defaultLocation =  [106.697, -6.313];
+	var defaultLocation;
 	var loaded = false;
 	var skeleton;
-	function app() {
-		console.log('init app');
-		return {
-			skeleton : false,
-			lokasi_longitude : @entangle($lokasi_longitude),
-			lokasi_latitude : @entangle($lokasi_latitude),
-		}
-	}
-	window.addEventListener('render', event=>{
-        loadPreviewMap()
-    });
+
+	document.addEventListener('livewire:load', function () {
+		defaultLocation =  [{{$lokasi_longitude}}, {{$lokasi_latitude}}];
+		loadPreviewMap();
+	})
 
 	// 	flatpickr.localize(flatpickr.l10ns.id);
 	// 	flatpickr('.datepicker',{
