@@ -98,8 +98,8 @@
 				
 				<div class="flex flex-col md:flex-row md:items-center md:justify-between">
 					<div class="flex-1">
-						<div x-show="step === 0">
-							<div class="text-lg font-bold text-gray-700 leading-tight">DISCLAIMER</div>
+						<div x-show="step === 0" class="flex">
+							<x-heroicon-o-exclamation class="h-6 w-6 mr-1"/><div class="text-lg font-bold text-gray-700 leading-tight">DISCLAIMER</div>
 						</div>
 						<div x-show="step === 1">
 							<div class="text-lg font-bold text-gray-700 leading-tight">Data Pemohon</div>
