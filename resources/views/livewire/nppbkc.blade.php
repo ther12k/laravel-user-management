@@ -22,13 +22,14 @@ x-data="{
 					<h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Permohonan Pemeriksaan Lokasi </h1>
 					<h2 class="flex-auto text-lg font-semibold">No {{$no_permohonan}}</h2>
 					<h2>Tanggal Kesiapan Cek :  {{$tanggal_kesiapan_cek_lokasi}}</h2>
-					<h2>Status :  {{nppbkc_status_names($status_nppbkc)}}</h2>
+					<div class="flex"><span>Status : </span> @include('nppbkc.status',['status'=>$status_nppbkc])</h2></div>
 						{{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
 					</svg>  --}}
-					<button
-							class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-						>Proses</button>
+					@can('updateNppbkc')
+					<button class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+					>Proses</button>
+					@endcan
 				</div>
 				<div class="w-1/3">
 					
