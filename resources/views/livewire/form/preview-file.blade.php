@@ -2,9 +2,9 @@
     <div class="px-4 py-2 font-semibold">{{$text}}</div>
     @if(${$name})
     <div class="px-4">
-        <div class="w-72 mr-4 flex-shrink-0 shadow-xs rounded-lg" >
+        <div class="w-64 mr-4 flex-shrink-0 shadow-xs rounded-lg" >
             @if(collect(['jpg', 'png', 'jpeg', 'webp'])->contains(${$name}->getClientOriginalExtension()))
-                <div class="relative pb-40 overflow-hidden rounded-lg border border-gray-100">
+                <div class="relative pb-32 overflow-hidden rounded-lg border border-gray-100">
                     <img src="{{ ${$name}->temporaryUrl() }}" class="w-full h-full absolute object-cover rounded-lg">
                 </div>
             @else
