@@ -138,9 +138,9 @@ x-cloak>
             @if(is_array($file) && count($file) > 0)
                 @foreach($file as $key => $f)
                     <div class="py-3 {{ !$loop->last ? 'border-b border-gray-200' : '' }}">
-                        <div class="w-72 mr-4 flex-shrink-0 shadow-xs rounded-lg" >
+                        <div class="w-64 mr-4 flex-shrink-0 shadow-xs rounded-lg" >
                             @if(collect(['jpg', 'png', 'jpeg', 'webp'])->contains($f->getClientOriginalExtension()))
-                                <div class="relative pb-40 overflow-hidden rounded-lg border border-gray-100">
+                                <div class="relative pb-36 overflow-hidden rounded-lg border border-gray-100">
                                     <img src="{{ $f->temporaryUrl() }}" class="w-full h-full absolute object-cover rounded-lg">
                                 </div>
                             @else
@@ -179,9 +179,9 @@ x-cloak>
             @else
                 @if($file)
                     <div class="mt-3">
-                        <div class="w-72 mr-4 flex-shrink-0 shadow-xs rounded-lg">
+                        <div class="w-64 mr-4 flex-shrink-0 shadow-xs rounded-lg">
                             @if(collect(['jpg', 'png', 'jpeg', 'webp'])->contains($file->getClientOriginalExtension()))
-                                <div class="relative pb-40 w-full overflow-hidden rounded-lg border border-gray-100">
+                                <div class="relative pb-36 w-full overflow-hidden rounded-lg border border-gray-100">
                                     <img src="{{ $file->temporaryUrl() }}" class="w-full h-full absolute object-cover rounded-lg">
                                 </div>
                             @else
