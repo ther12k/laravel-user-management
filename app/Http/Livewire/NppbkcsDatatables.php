@@ -9,11 +9,22 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+
+use Illuminate\Support\Facades\Auth;
   
 class NppbkcsDatatables extends LivewireDatatable
 {
     public $model = Nppbkc::class;
-  
+
+    public function builder()
+    {
+        $user = Auth::user();
+        if(\Gate::allows('viewAllNppbkc')){
+            return Nppbkc::query();
+        }else{
+            return Nppbkc::query()->where('created_by','=',Auth::user()->id);
+        }
+    }
     /**
      * Write code on Method
      *
@@ -23,19 +34,15 @@ class NppbkcsDatatables extends LivewireDatatable
     {
         return [
             Column::name('nama_pemilik')
-                ->label('Nama')
-                ->sortBy('nama_pemilik'),
+                ->label('Nama'),
             
-            NumberColumn::name('id')
+            NumberColumn::name('no_permohonan')
                 ->label('No Permohonan')
-                ->sortBy('id'),
+                ->sortBy('no_permohonan'),
 
             Column::name('status_nppbkc')
                 ->label('Status')
                 ->sortBy('status_nppbkc'),
-
-            Column::name('village.name')
-                ->label('Desa'),
                 
             Column::name('alamat_pemilik')
                     ->label('Catatan Petugas')
