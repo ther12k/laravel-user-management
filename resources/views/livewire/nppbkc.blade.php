@@ -37,7 +37,7 @@ x-data="{
 			</div>
 		</div>
 		<div class="flex space-x-2">
-			<a href="#" @click="activeTab = 1" :class="activeTab === 1 ? activeClass : inactiveClass">	
+			<a href="#content" @click="activeTab = 1" :class="activeTab === 1 ? activeClass : inactiveClass">	
 				<div class="flex items-center space-x-2 font-semibold leading-8">
 					<span clas="text-green-500">
 						<x-heroicon-o-user class="h-6 w-6"/>
@@ -45,7 +45,7 @@ x-data="{
 					<span class="hidden lg:block">Data Pemohon</span>
 				</div>
 			</a>
-			<a href="#" @click="activeTab = 2" :class="activeTab === 2 ? activeClass : inactiveClass">
+			<a href="#content" @click="activeTab = 2" :class="activeTab === 2 ? activeClass : inactiveClass">
 				<div class="flex items-center space-x-2 font-semibold leading-8">
 					<span clas="text-green-500">
 						<x-heroicon-o-office-building class="h-6 w-6"/>
@@ -53,13 +53,13 @@ x-data="{
 					<span class="hidden lg:block">Data Usaha</span>
 				</div>	
 			</a>
-			<a href="#" @click="activeTab = 3" :class="activeTab === 3 ? activeClass : inactiveClass">
+			<a href="#content" @click="activeTab = 3" :class="activeTab === 3 ? activeClass : inactiveClass">
 				<div class="flex items-center space-x-2 font-semibold leading-8">
 					<x-heroicon-o-location-marker class="h-6 w-6"/>
 					</span><span class="hidden lg:block">Lokasi</span>
 				</div>
 			</a>
-			<a href="#" @click="activeTab = 4" :class="activeTab === 4 ? activeClass : inactiveClass">
+			<a href="#content" @click="activeTab = 4" :class="activeTab === 4 ? activeClass : inactiveClass">
 				<div class="flex items-center space-x-2 font-semibold leading-8">
 					<span clas="text-green-500">
 						<x-heroicon-o-briefcase class="h-6 w-6"/>
@@ -67,7 +67,7 @@ x-data="{
 					<span class="hidden lg:block">Izin Usaha</span>
 				</div>
 			</a>
-			<a href="#" @click="activeTab = 5" :class="activeTab === 5 ? activeClass : inactiveClass">
+			<a href="#content" @click="activeTab = 5" :class="activeTab === 5 ? activeClass : inactiveClass">
 				<div class="flex items-center space-x-2 font-semibold leading-8">
 					<span clas="text-green-500">
 						<x-heroicon-o-paper-clip class="h-6 w-6"/>
