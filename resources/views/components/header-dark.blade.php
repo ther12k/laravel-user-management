@@ -26,8 +26,10 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
           </div>
           <div class="hidden sm:block sm:ml-10">
             <div class="flex space-x-4">
-              <a href="#" class="{{ Request::path() ==  '/'  ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>
-              <a href="#" class="{{ Request::path() ==  '/nppbkc-wizard' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Permohonan</a>
+              <a href="{{ Request::route()->getName()!=='home' ? route('home'):'#'}}" 
+                class="{{ Request::route()->getName() ==  'home'  ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>
+              <a href="{{ Request::route()->getName()!=='add.nppbkc' ? route('add.nppbkc'):'#'}}" 
+                class="{{ Request::route()->getName()=='add.nppbkc' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Permohonan</a>
                 {{-- <a href="#" class=" text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Dashboard</a>
               
                 <a href="#" class=" text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Test</a> --}}
