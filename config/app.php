@@ -138,6 +138,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        browner12\helpers\HelperServiceProvider::class,
         NotificationChannels\Telegram\TelegramServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
