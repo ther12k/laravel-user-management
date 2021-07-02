@@ -5,20 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PDF;
 
+use App\Models\NppbkcFile;
+
 class NppbkcController extends Controller
 {
     //
-    public function permohonan_lokasi_pdf()
-    {
-    	$pdf = PDF::loadview('pdf.permohonan_lokasi')->setPaper('a4', 'potrait');
-    	return $pdf->download('permohonan-lokasi-pdf');
+    public function download($id){
+        $file = NppbkcFile::findOrFail($id);
+        $pathToFile = storage_path('app/'.$file->filename);
+        return response()->download($pathToFile);
     }
 
-    public function permohonan_nppbkc_pdf()
-    {
-    	$pdf = PDF::loadview('pdf.permohonan_nppbkc')->setPaper('a4', 'potrait');
-    	return $pdf->download('permohonan-nppbkc-pdf');
-    }
+    // public function permohonan_lokasi_pdf()
+    // {
+    // 	$pdf = PDF::loadview('pdf.permohonan_lokasi')->setPaper('a4', 'potrait');
+    // 	return $pdf->download('permohonan-lokasi-pdf');
+    // }
+
+    // public function permohonan_nppbkc_pdf()
+    // {
+    // 	$pdf = PDF::loadview('pdf.permohonan_nppbkc')->setPaper('a4', 'potrait');
+    // 	return $pdf->download('permohonan-nppbkc-pdf');
+    // }
 
     // public function permohonan_lokasi_pdf()
     // {
