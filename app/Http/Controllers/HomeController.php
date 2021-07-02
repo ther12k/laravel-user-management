@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+use App\Models\Nppbkc;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $hasData = false;
+        if(\Gate::allows('viewAllNppbkc')){
+            $hasData =  Nppbkc::first()!==null;
+        }else{
+            $hasData =  Nppbkc::query()->where('created_by','=',Auth::user()->id)->first()!==null;
+        }
+        return view('home',['hasData'=>$hasData]);
     }
 }
