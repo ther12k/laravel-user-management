@@ -17,12 +17,28 @@ x-data="{
 
 <div class="w-full md:w-9/12 mx-auto">
 		<div class="mb-4 bg-white px-4 py-5">
+			@if (session()->has('message'))
+			<div id="alert" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-400">
+				<span class="inline-block align-middle mr-8">
+					{{ session('message') }}
+				</span>
+				<button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="document.getElementById('alert').remove();">
+					<span>×</span>
+				</button>
+			</div>
+			@endif
 			<div class="tab-content tab-space flex">
 				<div x-show="true" class="w-2/3">
 					<h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Permohonan Pemeriksaan Lokasi </h1>
 					<h2 class="flex-auto text-lg font-semibold">No {{$no_permohonan}}</h2>
 					<h2>Tanggal Kesiapan Cek :  {{$tanggal_kesiapan_cek_lokasi}}</h2>
-					<div class="flex"><span>Status : </span> @include('nppbkc.status',['status'=>$status_nppbkc])</h2></div>
+					<div class="flex" >
+						<div><span>Status : </span> </div>
+						
+						<div class="hover:text-indigo-600 flex cursor-pointer" wire:click="openModal()">
+							@include('nppbkc.status',['status'=>$status_nppbkc]) <x-heroicon-o-pencil-alt class="h-6 w-6" />
+						</div>
+					</div>
 						{{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
 					</svg>  --}}
@@ -193,6 +209,64 @@ x-data="{
 			</div>
 		</div>
 		<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->	
+
+		@if($isOpen)
+		<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+			<div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+			<!--
+				Background overlay, show/hide based on modal state.
+		
+				Entering: "ease-out duration-300"
+				From: "opacity-0"
+				To: "opacity-100"
+				Leaving: "ease-in duration-200"
+				From: "opacity-100"
+				To: "opacity-0"
+			-->
+			<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+		
+			<!-- This element is to trick the browser into centering the modal contents. -->
+			<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+		
+			<!--
+				Modal panel, show/hide based on modal state.
+		
+				Entering: "ease-out duration-300"
+				From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+				To: "opacity-100 translate-y-0 sm:scale-100"
+				Leaving: "ease-in duration-200"
+				From: "opacity-100 translate-y-0 sm:scale-100"
+				To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+			-->
+			<div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+				<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+				<div class="sm:flex sm:items-start">
+					<div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+					<!-- Heroicon name: outline/exclamation -->
+					<x-heroicon-o-exclamation class="h-6 w-6 text-indigo-600"/>
+					</div>
+					<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+						<div class="mt-2">
+							<h1>Persetujuan Cek Lokasi</h1>
+							<p class="text-sm text-gray-500">
+							Apakah Permohonan ini akan disetujui? (pastikan data sudah lengkap)
+							</p>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+				<button  wire:click.prevent="setuju_cek()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+					Setuju
+				</button>
+				<button wire:click="closeModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+					Cancel
+				</button>
+				</div>
+			</div>
+			</div>
+		</div>
+    @endif
 </div>
 @push('script')
 
