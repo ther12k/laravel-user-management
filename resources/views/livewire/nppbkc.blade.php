@@ -15,35 +15,10 @@ x-data="app()"
 
 	@if(!$isOpen||$status_nppbkc!=2)
 	<div class="mb-4 bg-white px-4 py-5">
-		@if (session()->has('message'))
-		<div id="alert" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-green-400">
-			<span class="inline-block align-middle mr-8">
-				{{ session('message') }}
-			</span>
-			<button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none" onclick="document.getElementById('alert').remove();">
-				<span>×</span>
-			</button>
-		</div>
-		@endif
+		<livewire:nppbkc-message />
 		<div class="tab-content tab-space flex">
 			<div x-show="true" class="w-2/3">
-				<h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Permohonan Pemeriksaan Lokasi / NPPBKC </h1>
-				<h2 class="flex-auto text-lg font-semibold">No {{$no_permohonan}}</h2>
-				<h2>Tanggal Kesiapan Cek :  {{$tanggal_kesiapan_cek_lokasi}}</h2>
-				<div class="flex" >
-					<div><span>Status : </span> </div>
-					
-					<div class="hover:text-indigo-600 flex cursor-pointer" wire:click="openModal()">
-						@include('nppbkc.status',['status'=>$status_nppbkc]) <x-heroicon-o-pencil-alt class="h-6 w-6" />
-					</div>
-				</div>
-					{{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-				</svg>  --}}
-				@can('updateNppbkc')
-				<button class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-				>Proses</button>
-				@endcan
+				<livewire:nppbkc-update-status :nppbkc="$nppbkc_id"/>
 			</div>
 			<div class="w-1/3">
 				
@@ -187,33 +162,6 @@ x-data="app()"
 					</div>
 				</div>
 			@endif
-			@if($isOpen&&$status_nppbkc==2)
-			<div>
-				<div class="p-10">
-					<h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Penerimaan Permohonan Penerbitan NPPBKC</h1>
-					
-					@include('livewire.form.textarea',['name'=>'catatan_petugas','text'=>'Catatan Petugas'])
-					@foreach ($petugas_files as $name=>$text)
-
-						{{-- @include('livewire.form.upload',['name'=>$name,'text'=>$text]) --}}
-						<div class="md:flex md:items-center mb-6">
-							<div>
-								<label for="{{$name}}" class="font-bold mb-1 text-gray-700 block">{{$text}}</label>
-							
-								<x-file-attachment class="@error($name) border-red-500 @enderror " wire:model="{{$name}}" 
-								:file="${$name}" :preview-h="12" :preview_w="24"/>
-								@error($name) 
-								<span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-									{{ $message }}
-								</span> 
-								@enderror
-							</div>
-						</div>
-					@endforeach
-					<div class="h-4"></div>
-				</div>
-			</div>
-			@endif
 		</div>
 	</div>
 	<div class="h-1"></div>
@@ -239,7 +187,7 @@ x-data="app()"
 	</div>
 	<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->	
 	@endif
-	
+
 	@if($isOpen)
 		@if($status_nppbkc==1)
 		<x-nppbkc-modal>
