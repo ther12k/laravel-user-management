@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <div class="container mx-auto p-5">
+    <div class="container mx-auto p-5" id="content">
         {{-- <h1 class="text-4xl mt-32 text-center tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
             Daftar
         </h1> --}}
         @if (Auth::check())  
             @if($hasData)   
-            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-4xl">
+            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-5xl">
             <livewire:nppbkcs-datatables
                 with="province, regency, district, village"
                 searchable="nama_pemilik,id" 
