@@ -297,7 +297,7 @@ class NppbkcWizard extends Component
         foreach($this->rules as $rule){
             foreach($rule as $field=>$val){
                 if(!isset($this->{$field})||$this->{$field}==null||$this->{$field}=='') continue;
-                $val=trim($val);
+                $this->{$field}=trim($this->{$field});
                 if (strpos($field, '_from') !== false||strpos($field, '_to') !== false||strpos($field, 'tanggal') !== false) {
                     $arr[$field] = Carbon::createFromFormat('d-m-Y', $this->{$field})->format('Y-m-d');
                 }
