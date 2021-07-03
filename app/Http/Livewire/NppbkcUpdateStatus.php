@@ -7,7 +7,7 @@ use App\Models\Nppbkc;
 
 class NppbkcUpdateStatus extends Component
 { 
-    public $nppbkc,$message;
+    public $nppbkc;
 
     public function mount(Nppbkc $nppbkc)
     {
@@ -22,9 +22,6 @@ class NppbkcUpdateStatus extends Component
     public function update(Nppbkc $nppbkc)
     {
         $this->nppbkc = $nppbkc;
-        if(session()->has('message')){
-            $this->message = session('message');
-        }
     }
 
     

@@ -63,11 +63,12 @@ class NppbkcModal extends ModalComponent
         $nppbkc = Nppbkc::findOrFail($this->nppbkc_id);
         $nppbkc->status_nppbkc=2;
         $nppbkc->save();
-        session()->flash('message', 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.');
+        session(['message' => 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
         // $this->closeModal();
         $this->closeModalWithEvents([
-            NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]] 
+            NppbkcMessage::getName() => ['nppbkcFlashMessage', [false]]
+            ,NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
         ]);
     }
 
@@ -81,11 +82,18 @@ class NppbkcModal extends ModalComponent
         if($nppbkc->isDirty()){
             // dd('changed');
             $nppbkc->save();
-            session()->flash('message', 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.');
+            $alertFlash = false;
+            if($setuju==0){
+                $alertFlash = true;
+                session(['message' => 'Permohonan cek lokasi telah ditolak.']);
+            }
+            else
+                session(['message' => 'Permohonan cek lokasi telah disetujui.']);
             // $this->emit('nppbkcStatusUpdated',$nppbkc);
             // $this->closeModal();
             $this->closeModalWithEvents([
-                NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]] 
+                NppbkcMessage::getName() => ['nppbkcFlashMessage', [$alertFlash]]
+                ,NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
             ]);
         }else{
             $this->closeModal();
@@ -193,8 +201,11 @@ class NppbkcModal extends ModalComponent
                 'url' =>$pdf_filename
             ]));
 
-            $this->emit('nppbkcStatusUpdated',$nppbkc);
-            $this->closeModal();
+            session(['message' => 'Data telah diupdate ke status Permohonan NPPBKC.']);
+            $this->closeModalWithEvents([
+                NppbkcMessage::getName() => ['nppbkcFlashMessage', [false]]
+                ,NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
+            ]);
         }catch (\Exception $e) {
             dd($e);
         }
