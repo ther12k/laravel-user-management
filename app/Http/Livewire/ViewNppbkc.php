@@ -11,6 +11,7 @@ class ViewNppbkc extends Component
 {
     use WithFileUploads;
     public $nppbkc_id;
+    public $status_nppbkc;
     public $isOpen=false;
     public $catatan_petugas;
     public $file_surat_tugas,$file_ba_periksa,$file_ba_wawancara;
@@ -28,29 +29,6 @@ class ViewNppbkc extends Component
     {
         $this->nppbkc_id = $id;
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public function openModal()
-    {
-        $this->isOpen = true;
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public function closeModal()
-    {
-        $this->isOpen = false;
-        $this->dispatchBrowserEvent('showMap');
-    }
     
     public function render()
     {
@@ -61,7 +39,7 @@ class ViewNppbkc extends Component
                 abort(401);
             }
         }
-        
+        $status_nppbkc = $nppbkc->status_nppbkc;
         $data = array_merge($nppbkc->toArray(),
             [
                 'files'=>$nppbkc->files->all(),
@@ -76,14 +54,5 @@ class ViewNppbkc extends Component
     public function openmap()
     {
         $this->nppbkc_id = $id;
-    }
-
-    public function setuju_cek()
-    {
-        $nppbkc = Nppbkc::findOrFail($this->nppbkc_id);
-        $nppbkc->status_nppbkc=2;
-        $nppbkc->save();
-        session()->flash('message', 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.');
-        $this->closeModal();
     }
 }

@@ -10,4 +10,8 @@ class NppbkcFile extends Model
 {
     use HasFactory,Blameable;
     protected $fillable = ['name','filename','original_filename','size'];
+    public function scopeOfName($query,$name)
+    {
+        return $query->where('name', $name);
+    }
 }
