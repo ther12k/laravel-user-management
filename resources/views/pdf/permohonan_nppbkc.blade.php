@@ -1,4 +1,4 @@
-<p style="text-align: center;"><strong>(NAMA USAHA)</strong></p>
+<p style="text-align: center;"><strong>[NAMA USAHA]</strong></p>
 <p style="text-align: center;"><strong>(ALAMAT USAHA)</strong></p>
 <p style="padding-left: 30px;">Nomor : [NO PERMOHONAN]</p>
 <p style="padding-left: 30px;">Lampiran : 1 (Satu) Berkas</p>
