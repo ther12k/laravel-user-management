@@ -37,8 +37,10 @@
         <x-lean::console-log />
         @yield('body')
 
-        @livewireScripts
 
         @stack('script')
+        @livewire('livewire-ui-modal')
+        @livewireUIScripts
+        @livewireScripts
     </body>
 </html>
