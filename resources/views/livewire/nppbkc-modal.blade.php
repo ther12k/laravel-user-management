@@ -7,11 +7,14 @@
                 <x-heroicon-o-exclamation class="h-6 w-6 text-indigo-600"/>
                 </div>
                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <div class="mt-2">
+                    <div class="mt-2" >
                         <h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Persetujuan Cek Lokasi</h1>
-                        <p class="text-sm text-gray-500">
+                        <p class="text-sm text-gray-500" wire:loading.remove.delay>
                         Apakah Permohonan ini akan disetujui? (pastikan data sudah lengkap)
                         </p>
+                    </div>
+                    <div wire:loading.delay class="py-5">
+                        @include('livewire.form.skeleton')
                     </div>
                 </div>
             </div>
@@ -28,25 +31,31 @@
         @if($status_nppbkc==2)
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <h1 class="text-xl font-semibold text-purple-700 mb-4">Penerimaan Permohonan Penerbitan NPPBKC</h1>
-					
-            @include('livewire.form.textarea',['name'=>'catatan_petugas','text'=>'Catatan Petugas'])
-            
-            <div class="md:flex mb-6">
-            @foreach ($petugas_files as $name=>$text)
+			<div wire:loading.remove.delay>
 
-                {{-- @include('livewire.form.upload',['name'=>$name,'text'=>$text]) --}}
-                    <div class="md:w-1/3 w-full">
-                        <label for="{{$name}}" class="font-bold mb-1 text-gray-700 block">{{$text}}</label>
-                    
-                        <x-file-attachment class="@error($name) border-red-500 @enderror " wire:model="{{$name}}" 
-                        :file="${$name}" :preview-h="12" :preview_w="24"/>
-                        @error($name) 
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {{ $message }}
-                        </span> 
-                        @enderror
-                    </div>
-            @endforeach
+                @include('livewire.form.textarea',['name'=>'catatan_petugas','text'=>'Catatan Petugas'])
+                
+                <div class="md:flex mb-6">
+                @foreach ($petugas_files as $name=>$text)
+
+                    {{-- @include('livewire.form.upload',['name'=>$name,'text'=>$text]) --}}
+                        <div class="md:w-1/3 w-full">
+                            <label for="{{$name}}" class="font-bold mb-1 text-gray-700 block">{{$text}}</label>
+                        
+                            <x-file-attachment class="@error($name) border-red-500 @enderror " wire:model="{{$name}}" 
+                            :file="${$name}" :preview-h="12" :preview_w="24"/>
+                            @error($name) 
+                            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                {{ $message }}
+                            </span> 
+                            @enderror
+                        </div>
+                @endforeach
+                </div>
+
+            </div>
+            <div wire:loading.delay class="py-5">
+                @include('livewire.form.skeleton')
             </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -86,5 +95,6 @@
             </button>
         </div>
         @endif
+        </div>
     </x-slot>
 </x-nppbkc-modal>
