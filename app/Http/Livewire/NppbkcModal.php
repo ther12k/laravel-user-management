@@ -181,6 +181,7 @@ class NppbkcModal extends ModalComponent
             //     str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
             // }
             $nppbkc->status_nppbkc=3;
+            $nppbkc->catatan_petugas=$this->catatan_petugas;
             $nppbkc->save();
 
             $data = [

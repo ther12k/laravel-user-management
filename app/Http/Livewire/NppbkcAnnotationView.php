@@ -7,7 +7,7 @@ use App\Models\Nppbkc;
 
 class NppbkcAnnotationView extends Component
 {
-    public $files,$annotation; 
+    public $files,$catatan_petugas; 
     protected $listeners = [
         'annotationUpdated' => 'refresh',
     ];
@@ -17,14 +17,14 @@ class NppbkcAnnotationView extends Component
     {
         $nppbkc = Nppbkc::find($id);
         $this->files = $nppbkc->annotationFiles()->get();
-        $this->annotation = $nppbkc->annotations()->orderByDesc('id')->first();
+        $this->catatan_petugas = $nppbkc->catatan_petugas;
     }
     //nppbkc id
     public function mount($id)
     {
         $nppbkc = Nppbkc::find($id);
         $this->files = $nppbkc->annotationFiles()->get();
-        $this->annotation = $nppbkc->annotations()->orderByDesc('id')->first();
+        $this->catatan_petugas = $nppbkc->catatan_petugas;
         //dd($this->annotation);
     }
 

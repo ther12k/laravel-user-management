@@ -296,13 +296,14 @@ class NppbkcWizard extends Component
         //dd($this->province_id);
         foreach($this->rules as $rule){
             foreach($rule as $field=>$val){
-                if(!isset($this->{$field})||$this->{$field}==null||$this->{$field}=='') continue;
-                $this->{$field}=trim($this->{$field});
+                if(!isset($this->{$field})||$this->{$field}==null) continue;
+
                 if (strpos($field, '_from') !== false||strpos($field, '_to') !== false||strpos($field, 'tanggal') !== false) {
-                    $arr[$field] = Carbon::createFromFormat('d-m-Y', $this->{$field})->format('Y-m-d');
+                    $arr[$field] = Carbon::createFromFormat('d-m-Y', trim($this->{$field}))
+                                        ->format('Y-m-d');
                 }
                 else if (strpos($field, 'file') === false&&strpos($field, 'village') === false) {
-                    $arr[$field] = $this->{$field};
+                    $arr[$field] = trim($this->{$field});
                     $str.=',\''.$field.'\'';
                 }
             };
@@ -311,7 +312,7 @@ class NppbkcWizard extends Component
         $arr['regency_id']=$this->regency_id['value'];
         $arr['district_id']=$this->district_id['value'];
         $arr['village_id']=$this->village_id['value'];
-        $arr['no_permohonan']=trim($this->no_permohonan);
+        $arr['no_permohonan_lokasi']=trim($this->no_permohonan);
         $arr['status_nppbkc']=1;
         
         return $arr;
@@ -362,7 +363,7 @@ class NppbkcWizard extends Component
                 $array_bln  = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
                 $bln = $array_bln[date('n')];
                 $no = Nppbkc::where('nama_usaha','=',$this->nama_usaha)->count();
-                $nppbkc->no_permohonan = str_pad($no+1,6,"0",STR_PAD_LEFT).'/'.
+                $nppbkc->no_permohonan_lokasi = str_pad($no+1,6,"0",STR_PAD_LEFT).'/'.
                     str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
                 // while(Nppck::where('no_permohonan','=',$nppbkc->no_permohonan)->count()>0){
                 //     $nppbkc->no_permohonan = str_pad($no++,6,"0",STR_PAD_LEFT).'/'.
@@ -371,7 +372,7 @@ class NppbkcWizard extends Component
                 $nppbkc->save();
             }
 
-            $pdfHTML = str_replace('[NO_PERMOHONAN]',$nppbkc->no_permohonan,$pdfHTML);
+            $pdfHTML = str_replace('[NO_PERMOHONAN]',$nppbkc->no_permohonan_lokasi,$pdfHTML);
             $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
             $pdf_filename = 'nppbkc/'.$nppbkc->id.'/surat_permohonan.pdf';
             // $exists = Storage::disk('local')->exists($pdf_filename);
@@ -386,7 +387,7 @@ class NppbkcWizard extends Component
             $url = url($pdf_filename);
             $nppbkc->notify(new NppbkcAddedNotification([
                 'text' => "Permohonan NPPBKC baru ".$nppbkc->id,
-                'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan."* [Lihat](http://www.google.com)",
+                'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](http://www.google.com)",
                 'filename' =>$pdf_filename,
                 'url' =>$pdf_filename
             ]));

@@ -2,9 +2,9 @@
     <div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
         <span class="tracking-wide">Catatan Petugas</span>
     </div>
-    @if(isset($annotation))
+    @if(isset($catatan_petugas)&&!empty($catatan_petugas))
     <div class="px-5">
-        <q class="italic text-gray-600">{{$annotation->catatan_petugas}}</q>
+        <q class="italic text-gray-600">{{$catatan_petugas}}</q>
     </div>
     @endif
     <div class="grid md:grid-cols-2 text-sm mt-4">

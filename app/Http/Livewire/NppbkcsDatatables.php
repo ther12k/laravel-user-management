@@ -35,18 +35,24 @@ class NppbkcsDatatables extends LivewireDatatable
         return [
             Column::name('nama_pemilik')
                 ->label('Nama'),
-            
-            NumberColumn::name('no_permohonan')
-                ->label('No Permohonan')
-                ->sortBy('no_permohonan'),
+
+            Column::callback(['no_permohonan_lokasi', 'no_permohonan'], function ($no_permohonan_lokasi, $no_permohonan) {
+                return empty($no_permohonan)
+                    ? '<span class="text-gray-600">' . $no_permohonan_lokasi . '</span>'
+                    : '<span class="text-yellow-600">' . $no_permohonan . '</span>';
+            }),
 
             Column::callback(['status_nppbkc'], function ($status_nppbkc) {
                 return view('table.nppbkc-status', ['status' => $status_nppbkc]);
             })->label('Status'),
                 
-            Column::name('alamat_pemilik')
+            Column::name('catatan_petugas')
                     ->label('Catatan Petugas')
-                    ->sortBy('status_nppbkc'),
+                    ->truncate(30),
+
+            // Column::callback(['annotations.catatan_petugas'], function ($catatan) {
+            //     return view('table.nppbkc-catatan', ['catatan' => $catatan]);
+            // })->label('Catatan Petugas'),
 
             DateColumn::name('created_at')
                 ->label('Tanggal'),
