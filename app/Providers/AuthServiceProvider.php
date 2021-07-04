@@ -34,13 +34,13 @@ class AuthServiceProvider extends ServiceProvider
                 ->action('Aktivasi Registrasi', $url);
         });
         Gate::define('viewWebTinker', function ($user = null) {
-            return $user->role=='admin';
+            return $user&&$user->role=='admin';
         });
         Gate::define('viewAllNppbkc', function ($user = null) {
-            return $user->role!='user';
+            return $user&&$user->role!='user';
         });
         Gate::define('updateNppbkc', function ($user = null) {
-            return $user->role=='officer';
+            return $user&&$user->role=='officer';
         });
     }
 }
