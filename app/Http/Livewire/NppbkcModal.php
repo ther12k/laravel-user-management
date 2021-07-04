@@ -8,6 +8,7 @@ use LivewireUI\Modal\ModalComponent;
 use Livewire\WithFileUploads;
 use App\Models\Nppbkc;
 use App\Models\NppbkcFile;
+use App\Models\NppbkcAnnotation;
 
 use App\Notifications\NppbkcAddedNotification;
 use PDF;
@@ -119,20 +120,20 @@ class NppbkcModal extends ModalComponent
     {
         try {
             $this->validate($this->rules);
-            //$annotation = NppbkcAnnotation::create($this->buildData());//test
             $nppbkc=Nppbkc::findOrFail($this->nppbkc_id);
-
+            
             foreach($this->petugas_files as $name=>$title){
                 if($this->{$name}!=null){
                     $filename = $this->{$name}->storeAs('nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension());
                     $originalname = $this->{$name}->getClientOriginalName();
                     $size = $this->{$name}->getSize();
-                    $nppbkc_file = $nppbkc->files()->OfName($name);
+                    $annotationName = 'annotation.'.str_replace("file_","",$name);
+                    $nppbkc_file = $nppbkc->files()->OfName($annotationName);
                     $count = $nppbkc_file->count();
                     if($count==1){
                         $nppbkc_file =$nppbkc_file->first();
                         $nppbkc_file->update([
-                            'name'=>$name,
+                            'name'=>$annotationName,
                             'title'=>$title,
                             'filename'=>$filename,
                             'original_filename'=>$originalname,
@@ -145,11 +146,12 @@ class NppbkcModal extends ModalComponent
                             $nppbkc_file->delete();
                         }
                         $nppbkc_file = new NppbkcFile([
-                            'name'=>$name,
+                            'name'=>$annotationName,
                             'title'=>$title,
                             'filename'=>$filename,
                             'original_filename'=>$originalname,
-                            'size'=>$size
+                            'size'=>$size,
+                            'is_annotation'=>1
                         ]);
                         $nppbkc->files()->save($nppbkc_file);
                     }
@@ -181,6 +183,19 @@ class NppbkcModal extends ModalComponent
             $nppbkc->status_nppbkc=3;
             $nppbkc->save();
 
+            $data = [
+                'status_nppbkc'=>$this->status_nppbkc,
+                'catatan_petugas'=>$this->catatan_petugas
+            ];
+
+            $annotation = $nppbkc->annotations()->OfStatus($this->status_nppbkc);
+            
+            if($annotation->count()==0){
+                $nppbkc->annotations()->save(new NppbkcAnnotation($data));
+            }else{
+                $annotation->update($data);
+            }
+
             $pdfHTML = str_replace('[NO_PERMOHONAN]',$nppbkc->no_permohonan,$pdfHTML);
             $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
             $pdf_filename = 'nppbkc/'.$nppbkc->id.'/surat_permohonan_nppbkc.pdf';
@@ -204,6 +219,8 @@ class NppbkcModal extends ModalComponent
             session(['message' => 'Data telah diupdate ke status Permohonan NPPBKC.']);
             $this->closeModalWithEvents([
                 NppbkcMessage::getName() => ['nppbkcFlashMessage', [false]]
+                ,NppbkcAnnotationView::getName() => ['annotationUpdated', [$nppbkc->id]]
+                ,NppbkcAnnotationTabHeader::getName() => ['annotationUpdated',[true]]
                 ,NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
             ]);
         }catch (\Exception $e) {

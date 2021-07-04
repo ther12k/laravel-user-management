@@ -9,16 +9,11 @@
 @endpush    
 <div x-cloak class="md:flex no-wrap md:-mx-2" x-data="app()" >
 
-<div class="w-full md:w-9/12 mx-auto">
+<div class="w-full lg:w-9/12 mx-auto">
 	<div class="mb-4 bg-white px-4 py-5">
 		<livewire:nppbkc-message />
-		<div class="tab-content tab-space flex">
-			<div x-show="true" class="w-2/3">
-				<livewire:nppbkc-update-status :nppbkc="$nppbkc_id"/>
-			</div>
-			<div class="w-1/3">
-				
-			</div>
+		<div class="tab-content tab-space flex ml-2">
+			<livewire:nppbkc-update-status :nppbkc="$nppbkc_id"/>
 		</div>
 	</div>
 	<div class="flex space-x-2">
@@ -27,7 +22,7 @@
 				<span clas="text-green-500">
 					<x-heroicon-o-user class="h-6 w-6"/>
 				</span>
-				<span class="hidden lg:block">Data Pemohon</span>
+				<span class="hidden xl:block">Data Pemohon</span>
 			</div>
 		</a>
 		<a href="#content" @click="activeTab = 2" :class="activeTab === 2 ? activeClass : inactiveClass">
@@ -35,13 +30,13 @@
 				<span clas="text-green-500">
 					<x-heroicon-o-office-building class="h-6 w-6"/>
 				</span>
-				<span class="hidden lg:block">Data Usaha</span>
+				<span class="hidden xl:block">Data Usaha</span>
 			</div>	
 		</a>
 		<a href="#content" @click="activeTab = 3" :class="activeTab === 3 ? activeClass : inactiveClass">
 			<div class="flex items-center space-x-2 font-semibold leading-8">
 				<x-heroicon-o-location-marker class="h-6 w-6"/>
-				</span><span class="hidden lg:block">Lokasi</span>
+				</span><span class="hidden xl:block">Lokasi</span>
 			</div>
 		</a>
 		<a href="#content" @click="activeTab = 4" :class="activeTab === 4 ? activeClass : inactiveClass">
@@ -49,7 +44,7 @@
 				<span clas="text-green-500">
 					<x-heroicon-o-briefcase class="h-6 w-6"/>
 				</span>
-				<span class="hidden lg:block">Izin Usaha</span>
+				<span class="hidden xl:block">Izin Usaha</span>
 			</div>
 		</a>
 		<a href="#content" @click="activeTab = 5" :class="activeTab === 5 ? activeClass : inactiveClass">
@@ -57,15 +52,16 @@
 				<span clas="text-green-500">
 					<x-heroicon-o-paper-clip class="h-6 w-6"/>
 				</span>
-				<span class="hidden lg:block">Lampiran</span>
+				<span class="hidden xl:block">Lampiran</span>
 			</div>
 		</a>
+		<livewire:nppbkc-annotation-tab-header show="false"/>
 	</div>
 	<div class="bg-white mb-6 shadow-lg">
 		<div class="px-4 py-5">
 			@if(!$isOpen||$status_nppbkc!=2)
 				<div x-show="activeTab === 1">
-					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+					<div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
 						<span class="tracking-wide">Data Pemohon {{ $status_pemohon=='dikuasakan' ?'(Dikuasakan)':''}}</span>
 					</div>
 					<div class="text-gray-700">
@@ -79,7 +75,7 @@
 					</div>
 				</div>
 				<div   x-show="activeTab === 2">
-					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+					<div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
 						<span class="tracking-wide">Data Usaha</span>
 					</div>
 					<div class="text-gray-700 flex-1">
@@ -97,7 +93,7 @@
 					</div>
 				</div>
 				<div x-show="activeTab === 3">
-					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+					<div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
 						<span class="tracking-wide">Lokasi</span>
 					</div>
 					<div class="grid lg:grid-cols-2 text-sm">
@@ -130,7 +126,7 @@
 					</div>
 				</div>
 				<div x-show="activeTab === 4">
-					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+					<div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
 						<span class="tracking-wide">Izin Usaha</span>
 					</div>
 					<div class="text-sm">
@@ -145,7 +141,7 @@
 					</div>
 				</div>
 				<div x-show="activeTab === 5">
-					<div class="lg:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
+					<div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
 						<span class="tracking-wide">Lampiran</span>
 					</div>
 					<div class="grid md:grid-cols-2 text-sm">
@@ -156,6 +152,7 @@
 						@endforeach
 					</div>
 				</div>
+				<livewire:nppbkc-annotation-view id="{{ $id }}"/>
 			@endif
 		</div>
 	</div>

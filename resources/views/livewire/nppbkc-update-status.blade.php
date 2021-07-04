@@ -6,7 +6,7 @@
     @endif
     <div class="flex" >
         <div><span>Status : </span> </div>
-        <button class="hover:text-indigo-600 flex cursor-pointer" onclick='Livewire.emit("openModal", "nppbkc-modal",@json(["id"=>$nppbkc->id]))'>
+        <button class="hover:text-indigo-600 flex outline-none" onclick='Livewire.emit("openModal", "nppbkc-modal",@json(["id"=>$nppbkc->id]))'>
             @php
                 $class=$nppbkc->status_nppbkc;
                 switch ($nppbkc->status_nppbkc){
@@ -23,9 +23,9 @@
             <x-heroicon-o-pencil-alt class="h-6 w-6 {{$class}}" />
         </button>
     </div>
-    <span class="flex-auto text-sm font-semibold text-purple-700 mb-4">
-        @if($nppbkc->status_nppbkc>1)
+    @if($nppbkc->status_nppbkc>1)
+    <button class="flex-auto text-sm font-semibold text-purple-700 mb-4 outline-none" @if($nppbkc->status_nppbkc>2) @click="activeTab = 6" @endif>
             Diupdate oleh {{$nppbkc->updatedBy->name}} ({{$nppbkc->updated_at}}) 
-        @endif
-    </span>
+    </button>
+    @endif
 </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNppbkcFilesTable extends Migration
+class CreateNppbkcAnnotationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateNppbkcFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('nppbkc_files', function (Blueprint $table) {
+        Schema::create('nppbkc_annotations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('title');
-            $table->string('filename');
-            $table->string('original_filename');
-            $table->integer('size');
-            $table->tinyinteger('is_annotation')->default(0);
+            $table->tinyinteger('status_nppbkc');
+            $table->string('catatan_petugas');
             $table->unsignedBigInteger('nppbkc_id');
             $table->foreign('nppbkc_id')
                 ->references('id')
@@ -38,6 +34,6 @@ class CreateNppbkcFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nppbkc_files');
+        Schema::dropIfExists('nppbkc_annotations');
     }
 }

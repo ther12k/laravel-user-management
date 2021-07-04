@@ -42,8 +42,8 @@ class ViewNppbkc extends Component
         $status_nppbkc = $nppbkc->status_nppbkc;
         $data = array_merge($nppbkc->toArray(),
             [
-                'files'=>$nppbkc->files->all(),
-                'petugas_files'=>$this->petugas_files
+                'files'=>$nppbkc->nppbkcFiles->all(),
+                'petugas_files'=>$nppbkc->annotationFiles->all(),
             ]
         );
         

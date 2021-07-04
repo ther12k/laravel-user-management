@@ -39,5 +39,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('viewAllNppbkc', function ($user = null) {
             return $user->role!='user';
         });
+        Gate::define('updateNppbkc', function ($user = null) {
+            return $user->role=='officer';
+        });
     }
 }

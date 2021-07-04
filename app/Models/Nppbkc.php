@@ -45,12 +45,32 @@ class Nppbkc extends Model
 
     public function createdBy()
     {
-        return $this->hasMany(User::class,'id','created_by');
+        return $this->belongsTo(User::class,'created_by');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class,'updated_by');
+    }
+
+    public function annotations()
+    {
+        return $this->hasMany(NppbkcAnnotation::class);
     }
 
     public function files()
     {
         return $this->hasMany(NppbkcFile::class);
+    }
+
+    public function nppbkcFiles()
+    {
+        return $this->hasMany(NppbkcFile::class)->where('is_annotation',0);
+    }
+
+    public function annotationFiles()
+    {
+        return $this->hasMany(NppbkcFile::class)->where('is_annotation',1);
     }
 
     public function province()
