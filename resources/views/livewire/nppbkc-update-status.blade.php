@@ -19,11 +19,13 @@
             @endphp
             <span class="px-2 rounded {{$class}}">
                 {{nppbkc_status_names($nppbkc->status_nppbkc)}}
-                @if($nppbkc->status_nppbkc>1)
-                 ({{$nppbkc->updated_at}})
-                @endif
             </span>
             <x-heroicon-o-pencil-alt class="h-6 w-6 {{$class}}" />
         </button>
     </div>
+    <span class="flex-auto text-sm font-semibold text-purple-700 mb-4">
+        @if($nppbkc->status_nppbkc>1)
+            Diupdate oleh {{$nppbkc->updatedBy->name}} ({{$nppbkc->updated_at}}) 
+        @endif
+    </span>
 </div>
