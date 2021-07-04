@@ -15,7 +15,7 @@ class NppbkcAnnotationTabHeader extends Component
     public function refresh($show){
         $this->show = $show;
     }
-    
+
     public function mount($show){
         $this->show = $show;
     }

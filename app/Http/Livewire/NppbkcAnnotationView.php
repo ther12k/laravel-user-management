@@ -25,6 +25,7 @@ class NppbkcAnnotationView extends Component
         $nppbkc = Nppbkc::find($id);
         $this->files = $nppbkc->annotationFiles()->get();
         $this->annotation = $nppbkc->annotations()->orderByDesc('id')->first();
+        //dd($this->annotation);
     }
 
     public function render()

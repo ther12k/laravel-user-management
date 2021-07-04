@@ -128,11 +128,11 @@ class NppbkcModal extends ModalComponent
                     $originalname = $this->{$name}->getClientOriginalName();
                     $size = $this->{$name}->getSize();
                     $annotationName = 'annotation.'.str_replace("file_","",$name);
-                    $nppbkc_file = $nppbkc->files()->OfName($annotationName);
-                    $count = $nppbkc_file->count();
+                    $annotationFiles = $nppbkc->annotationFiles()->OfName($annotationName);
+                    $count = $annotationFiles->count();
                     if($count==1){
-                        $nppbkc_file =$nppbkc_file->first();
-                        $nppbkc_file->update([
+                        $annotationFile =$annotationFiles->first();
+                        $annotationFile->update([
                             'name'=>$annotationName,
                             'title'=>$title,
                             'filename'=>$filename,
@@ -143,9 +143,9 @@ class NppbkcModal extends ModalComponent
                     else{
                         if($count>0){
                             $this->consoleLog($count);
-                            $nppbkc_file->delete();
+                            $annotationFiles->delete();
                         }
-                        $nppbkc_file = new NppbkcFile([
+                        $annotationFile = new NppbkcFile([
                             'name'=>$annotationName,
                             'title'=>$title,
                             'filename'=>$filename,
@@ -153,7 +153,7 @@ class NppbkcModal extends ModalComponent
                             'size'=>$size,
                             'is_annotation'=>1
                         ]);
-                        $nppbkc->files()->save($nppbkc_file);
+                        $nppbkc->files()->save($annotationFile);
                     }
                 }
             }
