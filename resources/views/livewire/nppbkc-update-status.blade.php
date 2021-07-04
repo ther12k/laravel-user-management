@@ -24,7 +24,7 @@
         </button>
     </div>
     @if($nppbkc->status_nppbkc>1)
-    <button class="flex-auto text-sm font-semibold text-purple-700 mb-4 outline-none" @if($nppbkc->status_nppbkc>2) @click="activeTab = 6" @endif>
+    <button class="flex-auto text-sm font-semibold text-purple-700 mb-4 outline-none" @if($nppbkc->status_nppbkc>2) x-on:click="activeTab = 6" @endif>
             Diupdate oleh {{$nppbkc->updatedBy->name}} ({{$nppbkc->updated_at}}) 
     </button>
     @endif
