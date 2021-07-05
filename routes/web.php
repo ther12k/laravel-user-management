@@ -50,9 +50,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/nppbkc-wizard', function () {
         return view('nppbkc-wizard');
     });
+    Route::get('/nppbkc/add', function () {
+        return view('nppbkc-wizard');
+    })->name('add.nppbkc');
+
     Route::get('/nppbkc/{id}', function () {
         return view('nppbkc');
-    });
+    })->name('view.nppbkc');
+
+    Route::get('/nppbkc/downloadfile/{id}', [NppbkcController::class, 'download'])->name('nppbkc.downloadfile');
+    Route::get('/nppbkc/generatenppbkc/{id}', [NppbkcController::class, 'generate_nppbkc'])->name('nppbkc.generate');
+    Route::get('/nppbkc/generate_permohonan_cek_lokasi/{id}', [NppbkcController::class, 'generate_permohonan_cek_lokasi'])->name('nppbkc-cek.generate');
+
     Route::get('/activity-log', function () {
         return view('activity-log');
     });
@@ -68,6 +77,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
+
+    Route::get('/users', App\Http\Livewire\Users::class)->name('users');
 });
 
 Route::middleware('auth')->group(function () {
