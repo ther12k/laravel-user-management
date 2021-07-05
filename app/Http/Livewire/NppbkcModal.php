@@ -11,8 +11,7 @@ use App\Models\NppbkcFile;
 use App\Models\NppbkcAnnotation;
 
 use App\Notifications\NppbkcAddedNotification;
-use PDF;
-use Storage;
+use PDF,Storage,QrCode;
 
 class NppbkcModal extends ModalComponent
 {
@@ -158,7 +157,7 @@ class NppbkcModal extends ModalComponent
                 }
             }
 
-            $pdfHTML = view('pdf.permohonan_lokasi')->render();
+            $pdfHTML = view('pdf.permohonan_nppbkc')->render();
             $formats=[];
             $replaces=[];
             foreach($nppbkc->toArray() as $key=>$val){
@@ -185,11 +184,11 @@ class NppbkcModal extends ModalComponent
             $nppbkc->save();
 
             $data = [
-                'status_nppbkc'=>$this->status_nppbkc,
-                'catatan_petugas'=>$this->catatan_petugas
+                'status_nppbkc'=>$nppbkc->status_nppbkc,
+                'catatan_petugas'=>$nppbkc->catatan_petugas
             ];
 
-            $annotation = $nppbkc->annotations()->OfStatus($this->status_nppbkc);
+            $annotation = $nppbkc->annotations()->OfStatus($nppbkc->status_nppbkc);
             
             if($annotation->count()==0){
                 $nppbkc->annotations()->save(new NppbkcAnnotation($data));
@@ -198,16 +197,32 @@ class NppbkcModal extends ModalComponent
             }
 
             $pdfHTML = str_replace('[NO_PERMOHONAN]',$nppbkc->no_permohonan,$pdfHTML);
+
+            $qrImage= base64_encode(
+                QrCode::format('png')->merge('http://w3adda.com/wp-content/uploads/2019/07/laravel.png', 0.2, true)
+                ->size(100)->errorCorrection('H')
+                ->generate(url('/nppbkc/download/'.$nppbkc->id))
+            );
+            $qrImage = '<img src="data:image/png;base64,'.$qrImage.'">';
+            $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
+            
             $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
-            $pdf_filename = 'nppbkc/'.$nppbkc->id.'/surat_permohonan_nppbkc.pdf';
+            $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_nppbkc.pdf';
             // $exists = Storage::disk('local')->exists($pdf_filename);
             // if($exists){
             //     Storage::delete($pdf_filename);
             // }
             Storage::put($pdf_filename, $pdf->output());
-
-            $pdf_filename = 'nppbkc/'.$nppbkc->id.'/file_denah_bangunan.png';
-
+            $nppbkc->files()->save(
+                                new NppbkcFile([
+                                    'name'=>'surat_permohonan_nppbkc',
+                                    'title'=>'Surat Permohonan NPPBKC',
+                                    'filename'=>$pdf_filename,
+                                    'original_filename'=>'',
+                                    'size'=>strlen($pdfHTML),
+                                    'is_annotation'=>2
+                                ])
+                            );
             $this->consoleLog('success');
             $url = url($pdf_filename);
             $nppbkc->notify(new NppbkcAddedNotification([
