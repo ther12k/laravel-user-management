@@ -15,7 +15,8 @@ if (!function_exists('nppbkc_status_names')) {
             '1'=>'Aju Cek Lokasi',
             '2'=>'Setuju Cek Lokasi',
             '3'=>'Permohonan NPPBKC',
-            '4'=>'Keputusan',
+            '4'=>'Ditolak',
+            '5'=>'Disetujui',
         ];
         return $names[$id];
     }
@@ -44,7 +45,11 @@ if (!function_exists('nppbkc_file_captions')) {
             'file_surat_kuasa'=>'Surat Kuasa'
         ];
         if($name==null) return $captions;
-        return $captions[$name];
+        try{
+            return $captions[$name];
+        }catch (\Exception $e) {
+            return $name;
+        }
     }
 }
 
