@@ -14,7 +14,7 @@ class Nppbkc extends Model
     use HasFactory,Blameable,LogsActivity,Notifiable;
     
     protected $fillable = [
-        'status_nppbkc',
+        'status_nppbkc','no_permohonan_lokasi','catatan_petugas',
         'status_pemohon','no_permohonan','nama_pemilik','alamat_pemilik','telp_pemilik','npwp_pemilik','email_pemilik',
         'jenis_usaha_bkc','jenis_bkc','nama_usaha','alamat_usaha','telp_usaha','npwp_usaha','email_usaha',
         'jenis_lokasi','lokasi','kegunaan','village_id','rt_rw','alamat',
@@ -53,9 +53,14 @@ class Nppbkc extends Model
         return $this->belongsTo(User::class,'updated_by');
     }
 
+    public function catatan()
+    {
+        return $this->hasMany(NppbkcAnnotation::class)->orderByDesc('id')->first();
+    }
+
     public function annotations()
     {
-        return $this->hasMany(NppbkcAnnotation::class);
+        return $this->hasMany(NppbkcAnnotation::class)->orderByDesc('id');
     }
 
     public function files()
