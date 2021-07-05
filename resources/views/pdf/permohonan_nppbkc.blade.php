@@ -1,63 +1,224 @@
-<p style="text-align: center;"><strong>[NAMA USAHA]</strong></p>
-<p style="text-align: center;"><strong>(ALAMAT USAHA)</strong></p>
-<p style="padding-left: 30px;">Nomor : [NO PERMOHONAN]</p>
-<p style="padding-left: 30px;">Lampiran : 1 (Satu) Berkas</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">Hal : Permohonan Mendapatkan Nomor<span lang="id-ID"> Pokok</span> PengusahaBarang Kena Cukai</p>
-<p style="padding-left: 30px;">(NPPBKC) sebagai(JENIS USAHA BKC)<span lang="id-ID"> Minuman Mengandung Etil Alkohol</span></p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">Yth. Menteri Keuangan Republik Indonesia</p>
-<p style="padding-left: 30px;">u.p. Kepala Kantor Bea dan Cukai Tipe Madya Pabean <span lang="id-ID">C Palangkaraya</span></p>
-<p style="padding-left: 30px;"><span lang="id-ID">di Palangka Raya</span></p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">Dengan hormat,</p>
-<p style="padding-left: 30px;">Yang bertanda tangan dibawah ini:</p>
-<p style="padding-left: 30px;"><span lang="id-ID">n</span>ama : (NAMA PEMOHON)</p>
-<p style="padding-left: 30px;"><span lang="id-ID">p</span>ekerjaan/<span lang="id-ID">j</span>abatan : (PEKERJAAN/JABATAN PEMOHON)</p>
-<p style="padding-left: 30px;"><span lang="id-ID">a</span>lamat : (ALAMAT PEMOHON)</p>
-<p style="padding-left: 30px;"><span lang="id-ID">n</span>omor telepon : (NO TLP PEMOHON)</p>
-<p style="padding-left: 30px;"><span lang="id-ID">a</span>lamat <span lang="id-ID">ponsel (</span><em>e-mail</em><span lang="id-ID">)</span> : (EMAIL PEMOHON)</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">Bertindak atas nama:</p>
-<p style="padding-left: 30px;"><span lang="id-ID">n</span>ama <span lang="id-ID">p</span>emilik : (NAMA PEMILIK USAHA)</p>
-<p style="padding-left: 30px;"><span lang="id-ID">a</span>lamat <span lang="id-ID">p</span>emilik :(ALAMAT PEMILIK USAHA)</p>
-<p style="padding-left: 30px;">NPWP <span lang="id-ID">p</span>emilik : (NPWP USAHA)</p>
-<p style="padding-left: 30px;"><span lang="id-ID">n</span>omor <span lang="id-ID">t</span>elepon : (NO TLP USAHA)</p>
-<p style="padding-left: 30px;"><span lang="id-ID">a</span>lamat <span lang="id-ID">ponsel (</span><em>e-mail</em><span lang="id-ID">)</span> : (EMAIL USAHA)</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">Mengajukan permohonan untuk mendapatkan NPPBKC sebagai <span lang="id-ID">Pengusaha </span>(JENIS USAHA BKC)<span lang="id-ID"> Barang Kena Cukai Berupa </span>Minuman Mengandung Etil Alkoholdengan rincian sebagai berikut:</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;"><span lang="id-ID">Perusahaan:</span></p>
-<p style="padding-left: 60px;">Lokasi (JENIS USAHA BKC)</p>
-<p style="padding-left: 60px;">Izin Usaha dari instansi terkait:&nbsp;</p>
-<p style="padding-left: 60px;">nama :(NAMA USAHA)</p>
-<p style="padding-left: 60px;">alamat : (ALAMAT USAHA)</p>
-<p style="padding-left: 60px;">NPWP :(NPWP USAHA)</p>
-<p style="padding-left: 60px;">nomor <span lang="id-ID">t</span>elepon : (NO TLP USAHA)</p>
-<p style="padding-left: 60px;">alamat <span lang="id-ID">ponsel (</span><em>e-mail</em><span lang="id-ID"><em>)</em></span> : (EMAIL USAHA)</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">Lokasi (JENIS USAHA BKC) :</p>
-<p style="padding-left: 60px;"><span lang="id-ID">k</span>egunaan :(KEGUANAAN)</p>
-<p style="padding-left: 60px;"><span lang="id-ID">a</span>lamat :(ALAMAT USAHA)</p>
-<p style="padding-left: 60px;"><span lang="id-ID">k</span>elurahan/desa : (KELURAHAN USAHA)</p>
-<p style="padding-left: 60px;"><span lang="id-ID">k</span>ecamatan : (KECAMATAN USAHA)</p>
-<p style="padding-left: 60px;"><span lang="id-ID">k</span>abupaten/kota : (KABUPATEN USAHA)</p>
-<p style="padding-left: 60px;"><span lang="id-ID">p</span>rovinsi : (PROVINSI USAHA)</p>
-<p style="padding-left: 60px;"><span lang="id-ID">k</span>oordinat<span lang="id-ID">/geolokasi</span> : (KOORDINAT USAHA)</p>
-<p style="padding-left: 60px;">&nbsp;</p>
-<p style="padding-left: 30px;">Izin Usaha dari instansi terkait:</p>
-<p style="padding-left: 60px;">SIUP-MB SKMB : Nomor (NOMOR SIUP-MB/SKMB) tanggal (TANGGAL AWAL SIUP-MB/SKMB)</p>
-<p style="padding-left: 60px;">ITP-MB : Nomor (NOMOR ITP-MB) tanggal (TANGGAL AWAL ITP-MB)</p>
-<p style="padding-left: 60px;">NIB : Nomor (NOMOR NIB) tanggal (TANGGAL AWAL NIB)</p>
-<p style="padding-left: 30px;">Luas lokasi, luas bangunan, dan batas-batas lokasi yang akan dijadikan tempat usaha<span lang="id-ID"> s</span>ebagaimana tertera dalam berita acara pemeriksaan lokasi nomor (NOMOR BERITA ACARA CEK LOKASI)<span lang="id-ID">t</span>anggal(TANGGAL BERITA ACARA CEK LOKASI).</p>
-<p style="padding-left: 30px;">Lampiran-lampiran :</p>
-<p style="padding-left: 60px;"><span lang="id-ID">b</span>erita acara pemeriksaan lokasi;</p>
-<p style="padding-left: 60px;">salinan/fotocopy izin usaha dari instansi terkait;</p>
-<p style="padding-left: 60px;"><span lang="id-ID">l</span>ampiran lainnya.</p>
-<p style="padding-left: 60px;">&nbsp;</p>
-<p style="padding-left: 30px; text-align: right;">Dibuat di (KABUPATEN PEMOHONON)</p>
-<p style="padding-left: 30px; text-align: right;">Pada tanggal (TANGGAL PEGAJUAN)</p>
-<p style="padding-left: 30px; text-align: right;">Pemohon,</p>
-<p style="padding-left: 30px; text-align: right;">&nbsp;</p>
-<p style="padding-left: 30px; text-align: right;">&nbsp;</p>
-<p style="padding-left: 30px; text-align: right;"><strong>(NAMA PEMOHON)</strong></p>
+<html>
+   <head>
+      <style>
+         @page { margin: 30px; }
+          body{
+              margin-left:60px;
+              margin-right:20px;
+          }
+
+         hr {
+            margin-top: -10px;
+            height:3px;
+            border-top:5px solid black;
+            border-bottom:1px solid black;
+         }
+         table, tr, td {
+            border: none;
+         }
+         p{
+            text-align: justify;
+            margin-top: 0px;
+         }
+         td{
+            vertical-align: top;
+         }
+         tr{
+            line-height: 14px; 
+         }
+         ol li li{
+            vertical-align: middle;
+            line-height: 16px; 
+         }
+         ol li{
+            vertical-align: middle;
+            line-height: 18px; 
+         }
+         .span-li {
+            display: inline-block;
+            vertical-align: middle;
+            width: 130px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+         }
+
+         .span-li-w-150 {
+            display: inline-block;
+            vertical-align: middle;
+            width: 150px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+         }
+         .mt-15{
+            margin-top: 15px;
+         }
+         .mt-5{
+            margin-top: 5px;
+         }
+
+      </style>
+   </head>
+   <body>
+      <p style="text-align: center;margin-top:10px">
+         <span style="font-size:14pt"><strong>[NAMA_USAHA]</strong></span><br/>
+         <strong>[ALAMAT_USAHA]</strong>
+      </p>
+      <hr />
+      <table style="width: 90%; border-style: none;">
+         <tbody>
+            <tr>
+               <td style="width: 50px;">Nomor</td>
+               <td style="width: 10px">&nbsp;:</td>
+               <td>[NO_PERMOHONAN]</td>
+            </tr>
+            <tr>
+               <td>Lampiran</td>
+               <td>&nbsp;:</td>
+               <td>1 (Satu) Berkas</td>
+            </tr>
+            <tr>
+               <td>Hal</td>
+               <td>&nbsp;:</td>
+               <td><p>Permohonan Mendapatkan Nomor Pokok Pengusaha Barang Kena Cukai (NPPBKC) sebagai [JENIS_USAHA_BKC] [JENIS_BKC]</p></td>
+            </tr>
+         </tbody>
+      </table>
+      <p style="padding-bottom: 5px;padding-top:10px">
+         Yth. Menteri Keuangan Republik Indonesia<br/>
+         u.p. Kepala Kantor Bea dan Cukai Tipe Madya Pabean C Palangkaraya<br/>
+         di Palangka Raya
+      </p>
+      Dengan hormat,<br/><br/>
+      <span>Yang bertanda tangan dibawah ini:</span>
+      <table  style="width: 100%;">
+         <tbody>
+            <tr style="">
+               <td style="width: 160px; ">nama</td>
+               <td style="width: 10px; ">:</td>
+               <td>[NAMA_USER]</td>
+            </tr>
+            <tr style="">
+               <td style="width: 12.2055%; ">pekerjaan/jabatan</td>
+               <td style="width: 1.16487%; ">:</td>
+               <td style="width: 86.6295%; ">[PEKERJAAN_USER]</td>
+            </tr>
+            <tr style="">
+               <td style="width: 12.2055%; ">alamat</td>
+               <td style="width: 1.16487%; ">:</td>
+               <td style="width: 86.6295%; ">[ALAMAT_USER]</td>
+            </tr>
+            <tr style="">
+               <td style="width: 12.2055%; ">nomor telepon</td>
+               <td style="width: 1.16487%; ">:</td>
+               <td style="width: 86.6295%; ">[TELP_USER]</td>
+            </tr>
+            <tr style="">
+               <td style="width: 20%; ">alamat ponsel (<em>e-mail</em>)</td>
+               <td style="width: 1.16487%; ">:</td>
+               <td style="width: 86.6295%; "><em>[EMAIL_USER]</em></td>
+            </tr>
+         </tbody>
+      </table>
+      <br/>
+      <span>Bertindak atas nama:</span>
+      <table style="width: 100%; ">
+        <tbody>
+            <tr style="">
+               <td style="width: 160px; ">nama</td>
+               <td style="width: 10px; ">:</td>
+               <td>[NAMA_PEMILIK]</td>
+            </tr>
+            <tr style="">
+            <td style="width: 14.1118%; ">alamat</td>
+            <td style="width: 0.794281%; ">:</td>
+            <td style="width: 86.6295%; ">[ALAMAT_PEMILIK]</td>
+            </tr>
+                <tr style="">
+                <td style="width: 14.1118%; ">nomor telepon</td>
+                <td style="width: 0.794281%; ">:</td>
+                <td style="width: 86.6295%; ">[TELP_PEMILIK]</td>
+            </tr>
+            <tr style="">
+                <td style="width: 20%; ">alamat ponsel (<em>e-mail</em>)</td>
+                <td style="width: 0.794281%; ">:</td>
+                <td style="width: 86.6295%; "><em>[EMAIL_PEMILIK]</em></td>
+            </tr>
+        </tbody>
+      </table>
+      <br/>
+      <p>Mengajukan permohonan untuk mendapatkan NPPBKC sebagai Pengusaha [JENIS_USAHA_BKC]  Barang Kena Cukai Berupa [JENIS_BKC] dengan rincian sebagai berikut:</p>
+      <ol>
+         <li class="mt-5">
+            <span>Perusahaan : </span>
+            <ol style="list-style-type: lower-alpha;">
+               <li><span class="span-li-w-150">nama</span> : [NAMA_USAHA]</li>
+               <li><span class="span-li-w-150">alamat</span> : [ALAMAT_USAHA]</li>
+               <li><span class="span-li-w-150">NPWP</span> : [NPWP_USAHA]</li>
+               <li><span class="span-li-w-150">nomor telepon</span> : [TELP_USAHA]</li>
+               <li><span class="span-li-w-150">alamat ponsel (<em>e-mail</em>)</span> : <em>[EMAIL_USAHA]</em></li>
+            </ol>
+         </li>
+         
+         <li class="mt-15"><span>Lokasi [JENIS_USAHA_BKC] :</span>
+            <ol style="list-style-type: lower-alpha;">
+                <li>
+                   <span>Lokasi 1:</span>
+                   <ol>
+                      <li><span class="span-li">kegunaan</span> : [KEGUNAAN]</li>
+                      <li><span class="span-li">alamat</span> : [ALAMAT]</li>
+                      <li><span class="span-li">kelurahan/desa</span> : [VILLAGE]</li>
+                      <li><span class="span-li">kecamatan</span> : [DISTRICT]</li>
+                      <li><span class="span-li">kabupaten/kota</span> : [REGENCY]</li>
+                      <li><span class="span-li">provinsi</span> : [PROVINCE]</li>
+                      <li><span class="span-li">koordinat/geolokasi</span> : [MAP_URL]</li>
+                   </ol>
+                </li>
+                <li class="mt-15">
+                   <span>Lokasi 2:</span>
+                   <ol>
+                      <li><span class="span-li">kegunaan</span> : </li>
+                      <li><span class="span-li">alamat</span> : </li>
+                      <li><span class="span-li">kelurahan/desa</span> : </li>
+                      <li><span class="span-li">kecamatan</span> : </li>
+                      <li><span class="span-li">kabupaten/kota</span> : </li>
+                      <li><span class="span-li">provinsi</span> : </li>
+                      <li><span class="span-li">koordinat/geolokasi</span> : </li>
+                   </ol>
+                </li>
+            </ol>
+         </li>
+         
+         <li class="mt-15">
+            <span>Izin Usaha dari instansi terkait:</span>
+            <ol style="list-style-type: lower-alpha;">
+               <li><span class="span-li">SIUP-MB SKMB</span> : Nomor [NO_SIUP_MB] tanggal [MASA_BERLAKU_SIUP_MB_FROM]</li>
+               <li><span class="span-li">ITP-MB</span> : Nomor [NO_ITP_MB] tanggal [MASA_BERLAKU_ITP_MB_FROM]</li>
+               <li><span class="span-li">NIB</span> : Nomor [NO_IZIN_NIB] tanggal [TANGGAL_NIB]</li>
+            </ol>
+         </li>
+         
+         <li class="mt-15">
+            <p>Luas lokasi, luas bangunan, dan batas-batas lokasi yang akan dijadikan tempat usaha sebagaimana tertera dalam berita acara pemeriksaan lokasi nomor [NO_PERMOHONAN_LOKASI] tanggal [TANGGAL_BA_CEK_LOKASI].</p>
+         </li>
+         
+         <li class="mt-15"><span>Lampiran-lampiran :</span>
+            <ol style="list-style-type: lower-alpha;">
+               <li>berita acara pemeriksaan lokasi;</li>
+               <li>salinan/fotocopy izin usaha dari instansi terkait;</li>
+               <li>lampiran lainnya.</li>
+            </ol>
+         </li>
+      </ol>
+      <br/>
+      <p style="margin-left: 330px">
+         Dibuat di [REGENCY]<br/>
+         Pada tanggal [TANGGAL_PERMOHONAN_NPPBKC]<br/>
+         <br/>
+         Pemohon,<br/>
+         <br/>
+         [QRCODE]<br/>
+         <br/>
+         <span style="font-size:12pt"><strong>[NAMA_USER]</strong></span>
+      </p>
+   </body>
+</html>

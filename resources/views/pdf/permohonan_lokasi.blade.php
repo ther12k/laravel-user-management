@@ -1,46 +1,161 @@
-<p data-mce-style="text-align: center;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; text-align: center;"><strong>[NAMA_USAHA]</strong></p>
-<p data-mce-style="text-align: center;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; text-align: center;"><strong>[ALAMAT_USAHA]</strong></p>
-<p data-mce-style="text-align: center;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; text-align: center;">&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Nomor : [NO_PERMOHONAN]&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Lampiran : 1 (Satu) Berkas</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Hal : Permohonan Pemeriksaan Lokasi<span lang="id-ID">, Bangunan, atau Tempat Usaha sebagai</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">syarat untuk mendapatkan Nomor Pokok Pengusaha Barang Kena Cukai</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">(</span>NPPBKC<span lang="id-ID">)</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Yth. Menteri Keuangan Republik Indonesia</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">u.p. Kepala Kantor Bea dan Cukai Tipe Madya Pabean&nbsp;<span lang="id-ID">C Palangkaraya</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">di Palangka</span>r<span lang="id-ID">aya</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Dengan hormat,</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Yang bertanda tangan dibawah ini:</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">n</span>ama : (NAMA PEMOHON)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">p</span>ekerjaan/<span lang="id-ID">j</span>abatan : (PEKERJAAN/JABATAN PEMOHON)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">a</span>lamat : (ALAMAT PEMOHON)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">n</span>omor telepon : (NO TLP PEMOHON)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">a</span>lamat <span lang="id-ID">ponsel (</span><em>e-mail</em><span lang="id-ID">)</span> : (EMAIL PEMOHON)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><br></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Bertindak atas nama:</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">n</span>ama <span lang="id-ID">p</span>emilik : (NAMA PEMILIK USAHA)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">a</span>lamat&nbsp;<span lang="id-ID">p</span>emilik :(ALAMAT PEMILIK USAHA)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">NPWP&nbsp;<span lang="id-ID">p</span>emilik : (NPWP PEMILIK USAHA)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">n</span>omor <span lang="id-ID">t</span>elepon : (NO TLP PEMILIK USAHA)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">a</span>lamat <span lang="id-ID">ponsel (</span><em>e-mail</em><span lang="id-ID">)</span> : (EMAIL USAHA)&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><br></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Dengan ini mengajukan permohonan pemeriksaan lokasi tempat usaha untuk memperoleh Nomor Pokok Pengusaha Barang Kena Cukai (NPPBKC) sebagai (JENIS USAHA)Adapun kami samp<span lang="id-ID">a</span>ikan pemeriksaan lokasi dapat dilakukan pada tanggal (TANGGAL KESIAPAN DIPERIKSA LOKASI).</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">Sebagai bahan pertimbangan kami lampirkan</span>:</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">1.&nbsp;<span lang="id-ID">Nomor Induk Berusaha (NIB)</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">2. Salinan/fotokopi SIUP-MB</span>/SKMB</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">3. Salinan/fotokopi ITPMB</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">4.&nbsp;</span>Gambar denah lokasi Toko/Perusahaan</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">5</span>. Gambar tata ruang dan bangunan Toko/Perusahaan</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">6. Salinan/fotokopi Nomor Pokok Wajib Pajak (NPWP)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;"><span lang="id-ID">7. Salinan/fotokopi Kartu Identitas/pengenal diri</span></p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Demikian surat permohonan ini kami ajukan untuk mendapatkan pertimbangan sebagaimana mestinya.</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: right; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Dibuat di (KABUPATEN USAHA)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: right; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Pada tanggal (TANGGAL PENGAJUAN)</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: right; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">Ttd</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: right; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: right; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: right; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">&nbsp;</p>
-<p data-mce-style="padding-left: 30px;" style="color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: right; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; padding-left: 30px;">(NAMA PEMOHON)</p>
+<html>
+   <head>
+      <style>
+         @page { margin: 30px; }
+          body{
+              margin-left:60px;
+              margin-right:20px;
+          }
+
+         hr {
+            margin-top: -10px;
+            height:3px;
+            border-top:5px solid black;
+            border-bottom:1px solid black;
+         }
+         table, tr, td {
+            border: none;
+         }
+         p{
+            text-align: justify;
+            margin-top: 0px;
+         }
+         td{
+            vertical-align: top;
+         }
+         tr{
+            line-height: 14px; 
+         }
+
+         .mt-15{
+            margin-top: 15px;
+         }
+         .mt-5{
+            margin-top: 5px;
+         }
+         .page_break { page-break-before: always; }
+      </style>
+   </head>
+   <body>
+      <p style="text-align: center;margin-top: 10px">
+         <span style="font-size:14pt"><strong>[NAMA_USAHA]</strong></span><br/>
+         <strong>[ALAMAT_USAHA]</strong>
+      </p>
+      <hr/>
+      <table style="width: 90%; border-style: none;">
+         <tbody>
+            <tr>
+               <td style="width: 50px;">Nomor</td>
+               <td style="width: 10px">&nbsp;:</td>
+               <td>[NO_PERMOHONAN]</td>
+            </tr>
+            <tr>
+               <td>Lampiran</td>
+               <td>&nbsp;:</td>
+               <td>1 (Satu) Berkas</td>
+            </tr>
+            <tr>
+               <td>Hal</td>
+               <td>&nbsp;:</td>
+               <td><p>
+                Permohonan Pemeriksaan Lokasi, Bangunan, atau Tempat Usaha sebagai 
+                syarat untuk mendapatkan Nomor Pokok Pengusaha Barang Kena Cukai
+                (NPPBKC)</p></td>
+            </tr>
+         </tbody>
+      </table>
+      <p style="padding-bottom: 5px;padding-top:10px">
+         Yth. Menteri Keuangan Republik Indonesia<br/>
+         u.p. Kepala Kantor Bea dan Cukai Tipe Madya Pabean C Palangkaraya<br/>
+         di Palangka Raya
+      </p>
+
+      Dengan hormat,<br/>
+      <span>Yang bertanda tangan dibawah ini:</span>
+      <table  style="width: 100%;">
+         <tbody>
+            <tr style="height: 21px;">
+               <td style="width: 160px;">nama</td>
+               <td style="width: 10px;">:</td>
+               <td>[NAMA_USER]</td>
+            </tr>
+            <tr style="height: 21px;">
+               <td style="width: 12.2055%;">pekerjaan/jabatan</td>
+               <td style="width: 1.16487%;">:</td>
+               <td style="width: 86.6295%;">[PEKERJAAN_USER]</td>
+            </tr>
+            <tr style="height: 21px;">
+               <td style="width: 12.2055%;">alamat</td>
+               <td style="width: 1.16487%;">:</td>
+               <td style="width: 86.6295%;">[ALAMAT_USER]</td>
+            </tr>
+            <tr style="height: 21px;">
+               <td style="width: 12.2055%;">nomor telepon</td>
+               <td style="width: 1.16487%;">:</td>
+               <td style="width: 86.6295%;">[TELP_USER]</td>
+            </tr>
+            <tr style="height: 21px;">
+               <td style="width: 20%;">alamat ponsel (<em>e-mail</em>)</td>
+               <td style="width: 1.16487%;">:</td>
+               <td style="width: 86.6295%;"><em>[EMAIL_USER]</em></td>
+            </tr>
+         </tbody>
+      </table>
+      <br/>
+      <span>Bertindak atas nama:</span>
+      <table>
+        <tbody>
+            <tr style="height: 21px;">
+               <td style="width: 160px;">nama</td>
+               <td style="width: 10px;">:</td>
+               <td>[NAMA_PEMILIK]</td>
+            </tr>
+            <tr style="height: 21px;">
+            <td>alamat</td>
+            <td>:</td>
+            <td>[ALAMAT_PEMILIK]</td>
+            </tr>
+                <tr style="height: 21px;">
+                <td style="width: 14.1118%;">nomor telepon</td>
+                <td style="width: 0.794281%;">:</td>
+                <td style="width: 86.6295%;">[TELP_PEMILIK]</td>
+            </tr>
+            <tr style="height: 21px;">
+                <td style="width: 20%;">alamat ponsel (<em>e-mail</em>)</td>
+                <td style="width: 0.794281%;">:</td>
+                <td style="width: 86.6295%;"><em>[EMAIL_PEMILIK]</em></td>
+            </tr>
+        </tbody>
+      </table>
+      <br/>
+      <p>
+        Dengan ini mengajukan permohonan pemeriksaan lokasi tempat usaha untuk memperoleh 
+        Nomor Pokok Pengusaha Barang Kena Cukai (NPPBKC) sebagai [JENIS_USAHA_BKC] 
+        Adapun kami sampaikan pemeriksaan lokasi dapat dilakukan pada tanggal [TANGGAL_KESIAPAN_CEK_LOKASI].
+      </p>
+      Sebagai bahan pertimbangan kami lampirkan:
+      <ol>
+        <li>Nomor Induk Berusaha (NIB)</li>
+        <li>Salinan/fotokopi SIUP-MB/SKMB</li>
+        <li>Salinan/fotokopi ITPMB</li>
+        <li>Gambar denah lokasi Toko/Perusahaan</li>
+        <li>Gambar tata ruang dan bangunan Toko/Perusahaan</li>
+        <li>Salinan/fotokopi Nomor Pokok Wajib Pajak (NPWP)</li>
+        <li>Salinan/fotokopi Kartu Identitas/pengenal diri </li>
+     </ol>
+     {{-- <div class="page_break"></div> --}}
+     
+        Demikian surat permohonan ini kami ajukan untuk mendapatkan pertimbangan sebagaimana mestinya.
+     <br/>
+      <p style="margin-left: 330px">
+         Dibuat di [REGENCY]<br/>
+         Pada tanggal [TANGGAL_PENGAJUAN]<br/>
+         <br/>
+         Pemohon,<br/>
+         <br/>
+         [QRCODE]<br/>
+         <br/>
+         <span style="font-size:12pt"><strong>[NAMA_USER]</strong></span>
+      </p>
+   </body>
+</html>

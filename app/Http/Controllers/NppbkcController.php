@@ -26,6 +26,12 @@ class NppbkcController extends Controller
         $replaces=[];
         $dataPdf = $nppbkc->toArray();
         $dataPdf['regency'] = $nppbkc->regency->name;
+        $createdBy = $nppbkc->createdBy()->first()->profile;
+        $dataPdf['nama_user'] = $createdBy->name;
+        $dataPdf['pekerjaan_user'] = $createdBy->pekerjaan;
+        $dataPdf['email_user'] = $createdBy->email;
+        $dataPdf['alamat_user'] = $createdBy->alamat;
+        $dataPdf['telp_user'] = $createdBy->no_telp;
         foreach($dataPdf as $key=>$val){
             if($key=='no_permohonan') continue;
             $formats[]='['.strtoupper($key).']';
