@@ -10,12 +10,13 @@ if (!function_exists('nppbkc_status_names')) {
      */
     function nppbkc_status_names($id)
     {
+        //setiap change status, notifikasi ke email pemohon, khusus untuk status 1,3 kirim juga notifikasi ke telegram
         $names = [
-            '0'=>'Draft',
+            '0'=>'Revisi Permohonan Awal',//ketika status nppbkc ini, permohonan bisa diedit pemohon
             '1'=>'Aju Cek Lokasi',
             '2'=>'Setuju Cek Lokasi',
             '3'=>'Permohonan NPPBKC',
-            '4'=>'Ditolak',
+            '4'=>'Ditolak', //status 4 keatas tidak bisa diedit lagi
             '5'=>'Disetujui',
         ];
         return $names[$id];
