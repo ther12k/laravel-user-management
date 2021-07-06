@@ -24,14 +24,14 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $role = Auth::user()->role; 
-                switch ($role) {
-                case 'admin':
-                    return redirect('/admin_home');
-                    break;
-                default:
-                    return redirect('/home');
-                    break;
-                }
+                // switch ($role) {
+                // case 'admin':
+                //     return redirect('/admin_home');
+                //     break;
+                // default:
+                //     return redirect('/home');
+                //     break;
+                // }
             }
         }
 
