@@ -36,26 +36,29 @@ class NppbkcsDatatables extends LivewireDatatable
             Column::name('nama_pemilik')
                 ->label('Nama'),
 
-            Column::callback(['no_permohonan_lokasi', 'no_permohonan'], function ($no_permohonan_lokasi, $no_permohonan) {
-                return empty($no_permohonan)
+            Column::callback(['status_nppbkc','no_permohonan_lokasi', 'no_permohonan'], function ($status,$no_permohonan_lokasi, $no_permohonan) {
+                return ($status<3)
                     ? '<span class="text-gray-600">' . $no_permohonan_lokasi . '</span>'
                     : '<span class="text-yellow-600">' . $no_permohonan . '</span>';
-            }),
+            })->label('No Permohonan'),
 
             Column::callback(['status_nppbkc'], function ($status_nppbkc) {
                 return view('table.nppbkc-status', ['status' => $status_nppbkc]);
-            })->label('Status'),
+            })->label('Status')->filterable([
+                ['id'=>'1','name'=>'Aju Cek Lokasi'],
+                ['id'=>'2','name'=>'Setuju Cek Lokasi'],
+                ['id'=>'3','name'=>'Permohonan NPPBKC'],
+                ['id'=>'4','name'=>'Ditolak'],
+                ['id'=>'5','name'=>'Disetujui'],
+            ]),
                 
             Column::name('catatan_petugas')
                     ->label('Catatan Petugas')
                     ->truncate(30),
 
-            // Column::callback(['annotations.catatan_petugas'], function ($catatan) {
-            //     return view('table.nppbkc-catatan', ['catatan' => $catatan]);
-            // })->label('Catatan Petugas'),
-
-            DateColumn::name('created_at')
-                ->label('Tanggal'),
+            Column::callback('created_at', function ($created) {
+                return \Carbon\Carbon::parse($created)->isoFormat('HH:mm D MMMM Y');
+            })->label('Tanggal'),
 
             Column::callback(['id', 'nama_pemilik'], function ($id, $name) {
                 return view('table.nppbkc-actions', ['id' => $id, 'name' => '']);
