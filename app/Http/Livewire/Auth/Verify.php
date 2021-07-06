@@ -23,6 +23,9 @@ class Verify extends Component
 
     public function render()
     {
+        if (Auth::user()->hasVerifiedEmail()) {
+            redirect(route('home'));
+        }
         return view('livewire.auth.verify')->extends('layouts.auth');
     }
 }
