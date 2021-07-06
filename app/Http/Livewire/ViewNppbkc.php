@@ -35,6 +35,8 @@ class ViewNppbkc extends Component
         $data = array_merge($nppbkc->toArray(),
             [
                 'files'=>$nppbkc->nppbkcFiles->all(),
+                'file_surat_permohonan_lokasi'=>$nppbkc->files()->OfName('surat_permohonan_lokasi')->orderByDesc('id')->first(),
+                'file_surat_permohonan_nppbkc'=>$nppbkc->files()->OfName('surat_permohonan_nppbkc')->orderByDesc('id')->first(),
                 'petugas_files'=>$nppbkc->annotationFiles->all(),
             ]
         );

@@ -105,6 +105,7 @@
 							<br>
 									</i><p></p>
 							<a href="http://maps.google.com/maps?q={{$lokasi_latitude}},{{$lokasi_longitude}}" target="_blank" class="mt-1 text-indigo-500 font-bold">Open via google map</a>
+							<span class="ml-1 mt-1"> &nbsp;({{$lokasi_latitude}}, {{$lokasi_longitude}})</span>
 						</div>
 						@include('livewire.form.preview-input',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi'])
 						@include('livewire.form.preview-input',['name'=>'kegunaan','text'=>'Kegunaan']) 
@@ -136,12 +137,29 @@
 					@include('livewire.form.preview-input-daterange',['name'=>'masa_berlaku_itp_mb','text'=>'Tanggal masa berlaku ITP-MB'])
 		
 					@include('livewire.form.preview-input',['name'=>'no_izin_nib','text'=>'No Izin NIB'])
-					@include('livewire.form.preview-input',['name'=>'tanggal_nib','text'=>'Tanggal NIB'])
+					@include('livewire.form.preview-date',['name'=>'tanggal_nib','text'=>'Tanggal NIB'])
 				</div>
 			</div>
 			<div x-show="activeTab === 5">
 				<div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
 					<span class="tracking-wide">Lampiran</span>
+				</div>
+
+				<div class="grid md:grid-cols-2 text-sm">
+					@if(isset($file_surat_permohonan_lokasi))
+					<div class="px-4 py-2 font-semibold flex">
+						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.downloadfile',['id'=>$file_surat_permohonan_lokasi->id])}}" class="text-blue-500 hover:text-indigo-700">
+							{{$file_surat_permohonan_lokasi->title}}</a>
+					</div>
+					@endif
+					@if(isset($file_surat_permohonan_nppbkc))
+					@if($status_nppbkc>2)
+					<div class="px-4 py-2 font-semibold flex">
+						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.downloadfile',['id'=>$file_surat_permohonan_nppbkc->id])}}" class="text-blue-500 hover:text-indigo-700">
+							{{$file_surat_permohonan_nppbkc->title}}</a>
+					</div>
+					@endif
+					@endif
 				</div>
 				<div class="grid md:grid-cols-2 text-sm">
 					@foreach ($files as $file )
