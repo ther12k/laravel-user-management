@@ -27,11 +27,12 @@ class NppbkcController extends Controller
         $dataPdf = $nppbkc->toArray();
         $dataPdf['regency'] = $nppbkc->regency->name;
         $createdBy = $nppbkc->createdBy()->first()->profile;
-        $dataPdf['nama_user'] = $createdBy->name;
+        $dataPdf['nama_user'] = $createdBy->nama;
         $dataPdf['pekerjaan_user'] = $createdBy->pekerjaan;
         $dataPdf['email_user'] = $createdBy->email;
         $dataPdf['alamat_user'] = $createdBy->alamat;
         $dataPdf['telp_user'] = $createdBy->no_telp;
+        $dataPdf['email_user'] = $nppbkc->createdBy()->first()->email;
         foreach($dataPdf as $key=>$val){
             if($key=='no_permohonan') continue;
             $formats[]='['.strtoupper($key).']';
@@ -91,10 +92,15 @@ class NppbkcController extends Controller
         $dataPdf['regency'] = $nppbkc->regency->name;
         $dataPdf['district'] = $nppbkc->district->name;
         $dataPdf['village'] = $nppbkc->village->name;
+
+        $createdBy = $nppbkc->createdBy()->first()->profile;
+        $dataPdf['nama_user'] = $createdBy->nama;
+        $dataPdf['pekerjaan_user'] = $createdBy->pekerjaan;
+        $dataPdf['email_user'] = $createdBy->email;
+        $dataPdf['alamat_user'] = $createdBy->alamat;
+        $dataPdf['telp_user'] = $createdBy->no_telp;
+        $dataPdf['email_user'] = $nppbkc->createdBy()->first()->email;
         foreach($dataPdf as $key=>$val){
-            if(isset($val)){
-                
-            }
             $formats[]='['.strtoupper($key).']';
             if($key=='nama_usaha')
                 $val=strtoupper($val);
@@ -112,19 +118,21 @@ class NppbkcController extends Controller
         $replaces[]='<strong>'.$nppbkc->no_permohonan.'</strong>';
 
         $annotation = $nppbkc->annotations()->OfStatus(3)->first();
-        $annotationDate = $annotation->created_at->isoFormat('D MMMM Y');
-        $formats[]='[TANGGAL_PERMOHONAN_NPPBKC]';
-        $replaces[]='<strong>'.$annotationDate.'</strong>';
-        $formats[]='[TANGGAL_BA_CEK_LOKASI]';
-        $replaces[]='<strong>'.$annotationDate.'</strong>';
-
+        if($annotation!=null)
+        {
+            $annotationDate = $annotation->created_at->isoFormat('D MMMM Y');
+            $formats[]='[TANGGAL_PERMOHONAN_NPPBKC]';
+            $replaces[]='<strong>'.$annotationDate.'</strong>';
+            $formats[]='[TANGGAL_BA_CEK_LOKASI]';
+            $replaces[]='<strong>'.$annotationDate.'</strong>';
+        }
         //replace all
         $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
 
         $qrImage= base64_encode(
             QrCode::format('png')
             ->size(100)
-            ->generate(url('/nppbkc/download/'.$nppbkc->id))
+            ->generate(url('/nppbkc/generatenppbkc/'.$nppbkc->id))
         );
         $qrImage = '<img src="data:image/png;base64,'.$qrImage.'">';
         $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
