@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Nppbkc\Annotation;
 
 use Livewire\Component;
 
-class NppbkcAnnotationTabHeader extends Component
+class TabHeader extends Component
 {
     public $show;
 
@@ -21,6 +21,6 @@ class NppbkcAnnotationTabHeader extends Component
     }
     public function render()
     {
-        return view('livewire.nppbkc-annotation-tab-header');
+        return view('livewire.nppbkc.annotation.tab-header');
     }
 }

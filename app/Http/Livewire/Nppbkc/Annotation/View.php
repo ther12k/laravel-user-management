@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Nppbkc\Annotation;
 
 use Livewire\Component;
 use App\Models\Nppbkc;
 
-class NppbkcAnnotationView extends Component
+class View extends Component
 {
     public $files,$catatan_petugas; 
     protected $listeners = [
@@ -30,6 +30,6 @@ class NppbkcAnnotationView extends Component
 
     public function render()
     {
-        return view('livewire.nppbkc-annotation-view');
+        return view('livewire.nppbkc.annotation.view');
     }
 }

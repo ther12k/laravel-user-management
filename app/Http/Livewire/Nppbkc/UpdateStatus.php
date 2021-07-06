@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Nppbkc;
 
 use Livewire\Component;
 use App\Models\Nppbkc;
 
-class NppbkcUpdateStatus extends Component
+class UpdateStatus extends Component
 { 
     public $nppbkc;
 
@@ -27,6 +27,6 @@ class NppbkcUpdateStatus extends Component
     
     public function render()
     {
-        return view('livewire.nppbkc-update-status');
+        return view('livewire.nppbkc.update-status');
     }
 }

@@ -60,7 +60,7 @@
 	} */
 </style>
 @endpush
-<div x-data="app()" x-cloak>
+<div x-data="app()" x-cloak class="container mx-auto p-5">
 	<div class="max-w-3xl mx-auto">
 		@if($step=='complete')
 		<div x-show="step === 'complete'">

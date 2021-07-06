@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Nppbkc;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -16,8 +16,9 @@ use App\Models\NppbkcFile;
 
 use Carbon\Carbon;
 use App\Notifications\NppbkcAddedNotification;
-use PDF;
-class NppbkcWizard extends Component
+use PDF,Auth;
+
+class Wizard extends Component
 {
     use WithFileUploads;
 
@@ -57,11 +58,11 @@ class NppbkcWizard extends Component
             'telp_usaha' => 'required',
             //xx.xxx.xxx.x-xxx.xxx
             //'npwp_usaha' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
-            'email_usaha' => 'required|email:filter'
+            'email_usaha' => 'required|email:filter',
+            'lokasi' => 'required|min:5',
         ],
         [
             'jenis_lokasi' => 'required',
-            'lokasi' => 'required|min:5',
             'kegunaan' => 'required'
         ],
         [
@@ -125,9 +126,9 @@ class NppbkcWizard extends Component
         'npwp_usaha.regex' => 'NPWP tidak valid.',
         'email_usaha.required' => 'email tidak boleh kosong.',
         'email_usaha.email' => 'Format email salah.',
+        'lokasi.required' => 'Lokasi tidak boleh kosong.',
 
         'jenis_lokasi.required' => 'Pilih jenis lokasi.',
-        'lokasi.required' => 'Lokasi tidak boleh kosong.',
         'kegunaan.required' => 'Pilih kegunaan lokasi.',
 
 
@@ -178,26 +179,28 @@ class NppbkcWizard extends Component
     public function mount(){
         $this->rules = null;
         //test
-        $this->nama_pemilik='test';
-        $this->alamat_pemilik='teseet';
-        $this->telp_pemilik='12345';
+        $profile = Auth::user()->profile;
+        $this->nama_pemilik=$profile->nama;
+        $this->alamat_pemilik=$profile->alamat;
+        $this->telp_pemilik=$profile->no_telp;
         $this->npwp_pemilik='11.111.111.1-111.111';
-        $this->email_pemilik='rizkyz@gmail.com';
+        $this->email_pemilik=Auth::user()->email;
 
 
-        $this->nama_usaha='test';
-        $this->alamat_usaha='3test';
+        $this->nama_usaha='nama usaha';
+        $this->alamat_usaha='alamat usaha';
         $this->telp_usaha='12345';
         $this->npwp_usaha='11.111.111.1-111.111';
         $this->email_usaha='rizkyz@gmail.com';
-        $this->lokasi='lokasi';
         $this->rt_rw='11';
         $this->alamat = 'alamat';
     }
 
     public function render()
     {
-        return view('livewire.wizard')->extends('layouts.auth');
+        //dd($this->status_pemohon);
+        return view('livewire.nppbkc.wizard')
+                    ->extends('layouts.app');
     }
     
     // public function updated($propertyName)
@@ -212,6 +215,7 @@ class NppbkcWizard extends Component
     public function stepCheck()
     {   
         $this->consoleLog('step : '.$this->step);
+        $this->consoleLog('status_pemohon : '.$this->status_pemohon);
         if(0<$this->step&&$this->step<11){
             if($this->step==9){
                 $this->consoleLog('file : ');

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Nppbkc;
 
 use Livewire\Component;
 
-class NppbkcMessage extends Component
+class Message extends Component
 {
     public $alert = false;    
     protected $listeners = [
@@ -21,6 +21,6 @@ class NppbkcMessage extends Component
 
     public function render()
     {
-        return view('livewire.nppbkc-message');
+        return view('livewire.nppbkc.message');
     }
 }

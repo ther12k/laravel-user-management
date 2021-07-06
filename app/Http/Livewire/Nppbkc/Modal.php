@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Nppbkc;
 
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
@@ -13,10 +13,12 @@ use App\Models\NppbkcAnnotation;
 use App\Notifications\NppbkcAddedNotification;
 use PDF,Storage,QrCode;
 
-class NppbkcModal extends ModalComponent
+class Modal extends ModalComponent
 {
     use WithFileUploads;
     public $nppbkc_id,$status_nppbkc,$catatan_petugas,$file_surat_tugas,$file_ba_periksa,$file_ba_wawancara;
+    //tambahan 6 juli 2021
+    public $no_ba_periksa,$tanggal_ba_periksa;
     public $petugas_files=
     [
         'file_surat_tugas'=>'Surat tugas periksa lokasi',
@@ -67,8 +69,8 @@ class NppbkcModal extends ModalComponent
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
         // $this->closeModal();
         $this->closeModalWithEvents([
-            NppbkcMessage::getName() => ['nppbkcFlashMessage', [false]]
-            ,NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
+            Message::getName() => ['nppbkcFlashMessage', [false]]
+            ,UpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
         ]);
     }
 
@@ -92,8 +94,8 @@ class NppbkcModal extends ModalComponent
             // $this->emit('nppbkcStatusUpdated',$nppbkc);
             // $this->closeModal();
             $this->closeModalWithEvents([
-                NppbkcMessage::getName() => ['nppbkcFlashMessage', [$alertFlash]]
-                ,NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
+                Message::getName() => ['nppbkcFlashMessage', [$alertFlash]]
+                ,UpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
             ]);
         }else{
             $this->closeModal();
@@ -213,6 +215,7 @@ class NppbkcModal extends ModalComponent
             //     Storage::delete($pdf_filename);
             // }
             Storage::put($pdf_filename, $pdf->output());
+            if($nppbkc->files())
             $nppbkc->files()->save(
                                 new NppbkcFile([
                                     'name'=>'surat_permohonan_nppbkc',
@@ -234,10 +237,10 @@ class NppbkcModal extends ModalComponent
 
             session(['message' => 'Data telah diupdate ke status Permohonan NPPBKC.']);
             $this->closeModalWithEvents([
-                NppbkcMessage::getName() => ['nppbkcFlashMessage', [false]]
+                Message::getName() => ['nppbkcFlashMessage', [false]]
                 ,NppbkcAnnotationView::getName() => ['annotationUpdated', [$nppbkc->id]]
                 ,NppbkcAnnotationTabHeader::getName() => ['annotationUpdated',[true]]
-                ,NppbkcUpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
+                ,UpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
             ]);
         }catch (\Exception $e) {
             dd($e);

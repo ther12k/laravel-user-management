@@ -24,19 +24,23 @@
             }
         @endphp
         @can('viewAllNppbkc')
-        
-        <button class="hover:text-indigo-600 flex outline-none" 
-            onclick='Livewire.emit("openModal", "nppbkc-modal",@json(["id"=>$nppbkc->id]))'
-        >
+            @if($nppbkc->status_nppbkc>3)
+                <span class="px-2 rounded {{$class}}">
+                    {{nppbkc_status_names($nppbkc->status_nppbkc)}}
+                </span>
+            @else
+                <button class="hover:text-indigo-600 flex outline-none" 
+                    onclick='Livewire.emit("openModal", "nppbkc.modal",@json(["id"=>$nppbkc->id]))'>
+                    <span class="px-2 rounded {{$class}}">
+                        {{nppbkc_status_names($nppbkc->status_nppbkc)}}
+                    </span>
+                    <x-heroicon-o-pencil-alt class="h-6 w-6 {{$class}}" />
+                </button>
+            @endif
+        @else
             <span class="px-2 rounded {{$class}}">
                 {{nppbkc_status_names($nppbkc->status_nppbkc)}}
             </span>
-            <x-heroicon-o-pencil-alt class="h-6 w-6 {{$class}}" />
-        </button>
-        @else
-        <span class="px-2 rounded {{$class}}">
-            {{nppbkc_status_names($nppbkc->status_nppbkc)}}
-        </span>
         @endcan
     </div>
     @if($nppbkc->status_nppbkc>1)

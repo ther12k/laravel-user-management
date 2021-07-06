@@ -7,13 +7,14 @@
 
 </style>
 @endpush    
-<div x-cloak class="md:flex no-wrap md:-mx-2" x-data="app()" >
+
+<div x-cloak class="container mx-auto p-5 md:flex no-wrap md:-mx-2" x-data="app()" >
 
 <div class="w-full lg:w-9/12 mx-auto">
 	<div class="mb-4 bg-white px-4 py-5">
-		<livewire:nppbkc-message />
+		<livewire:nppbkc.message />
 		<div class="tab-content tab-space flex ml-2">
-			<livewire:nppbkc-update-status :nppbkc="$nppbkc_id"/>
+			<livewire:nppbkc.update-status :nppbkc="$nppbkc_id"/>
 		</div>
 	</div>
 	<div class="flex space-x-2">
@@ -55,7 +56,7 @@
 				<span class="hidden xl:block">Lampiran</span>
 			</div>
 		</a>
-		<livewire:nppbkc-annotation-tab-header show="{{ ($status_nppbkc>2) }}"/>
+		<livewire:nppbkc.annotation.tab-header show="{{ ($status_nppbkc>2) }}"/>
 	</div>
 	<div class="bg-white mb-6 shadow-lg">
 		<div class="px-4 py-5">
@@ -169,7 +170,7 @@
 					@endforeach
 				</div>
 			</div>
-			<livewire:nppbkc-annotation-view id="{{ $id }}"/>
+			<livewire:nppbkc.annotation.view id="{{ $id }}"/>
 		
 		</div>
 	</div>

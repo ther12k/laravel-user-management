@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Nppbkc;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Nppbkc;
 use Auth;
 
-class ViewNppbkc extends Component
+class View extends Component
 {
     use WithFileUploads;
     public $nppbkc_id;
@@ -40,7 +40,8 @@ class ViewNppbkc extends Component
                 'petugas_files'=>$nppbkc->annotationFiles->all(),
             ]
         );
-        return view('livewire.nppbkc',$data);
+        return view('livewire.nppbkc.view',$data)
+            ->extends('layouts.app');
     }
 
 
