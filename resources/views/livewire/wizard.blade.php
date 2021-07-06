@@ -164,14 +164,14 @@
 				<div x-show.transition.in="step === 1">
 					<div class="md:flex md:items-center mb-6">
 						<div class="md:w-1/3">
-							<label for="status_pemohon" class="font-bold mb-1 text-gray-700 block">Status Permohonan</label>
+							<label for="inline-status_pemohon" class="font-bold mb-1 text-gray-700 block">Status Permohonan</label>
 						</div>
 						<div class="md:w-2/3">
 							<div class="flex">
 								<label
 									class="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-2 shadow-sm mr-4">
 									<div class="text-teal-600 mr-3">
-										<input type="radio" x-model="status_pemohon" wire:model.defer="status_pemohon" value="sendiri" class="form-radio focus:outline-none focus:shadow-outline" />
+										<input type="radio" x-model="status_pemohon" wire:model="status_pemohon" value="sendiri" class="form-radio focus:outline-none focus:shadow-outline" />
 									</div>
 									<div class="select-none text-gray-700">Sendiri</div>
 								</label>
@@ -179,7 +179,7 @@
 								<label
 									class="flex justify-start items-center text-truncate rounded-lg bg-white pl-4 pr-6 py-2 shadow-sm">
 									<div class="text-teal-600 mr-3">
-										<input type="radio" x-model="status_pemohon" wire:model.defer="status_pemohon" value="dikuasakan" class="form-radio focus:outline-none focus:shadow-outline" />
+										<input type="radio" x-model="status_pemohon" wire:model="status_pemohon" value="dikuasakan" class="form-radio focus:outline-none focus:shadow-outline" />
 									</div>
 									<div class="select-none text-gray-700">Dikuasakan</div>
 								</label>
@@ -203,7 +203,7 @@
 				@endif
 				@if($step==2)
 				<div x-show.transition.in="step === 2">
-					@include('livewire.form.select',['name'=>'jenis_usaha_bkc','text'=>'Jenis Usaha BKC',
+					@include('livewire.form.select',['name'=>'jenis_usaha_bkc','text'=>'Jenis Usaha Barang Kena Cukai (BKC)',
 							'options'=>[
 								'Pengusaha Pabrik',
 								'Pengusaha Tempat Penyimpanan',
@@ -212,7 +212,7 @@
 								'Pengusaha Tempat Penjualan Eceran'
 								]
 							])
-					@include('livewire.form.select',['name'=>'jenis_bkc','text'=>'Jenis BKC',
+					@include('livewire.form.select',['name'=>'jenis_bkc','text'=>'Jenis Barang Kena Cukai (BKC)',
 						'options'=>[
 								'Hasil Tembakau',
 								'Hasil Pengolahan Tembakau Lainnya',
@@ -227,19 +227,27 @@
 					@include('livewire.form.input',['type'=>'text','name'=>'no_permohonan','text'=>'No Permohonan','tooltip'=>'Jika dikosongkan, no permohonan akan otomatis digenerate oleh sistem'])
 					@include('livewire.form.input',['name'=>'nama_usaha','text'=>'Nama Usaha'])
 					@include('livewire.form.textarea',['name'=>'alamat_usaha','text'=>'Alamat Usaha'])
-					@include('livewire.form.input',['type'=>'number','name'=>'telp_usaha','text'=>'No Telp Usaha'])
 					@include('livewire.form.input-format',['type'=>'text','name'=>'npwp_usaha',
 											'text'=>'NPWP Usaha',
 											'format'=>'**.***.***.*-***.***',
 											'mask'=>'xx.xxx.xxx.x-xxx.xxx'
 											])
+					@include('livewire.form.input',['type'=>'number','name'=>'telp_usaha','text'=>'No Telp Usaha'])
 					@include('livewire.form.input',['type'=>'email','name'=>'email_usaha','text'=>'Email Usaha'])
+					@include('livewire.form.select',['name'=>'lokasi','text'=>'Lokasi',
+									'options'=>[
+											'Pabrik',
+											'Tempat Penyimpanan',
+											'Tempat Usaha Importir',
+											'Tempat Usaha Penyalur',
+											'Tempat Penjualan Eceran'
+										]
+									])
 					<div class="mb-6 py-5" x-show="step===3"></div>
 				</div>
 				@endif
 				@if($step==4)
 				<div x-show.transition.in="step === 4">
-
 					@include('livewire.form.select',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi',
 							'options'=>[
 									'Pabrik',
@@ -248,8 +256,6 @@
 									'Tempat Penjualan Eceran'
 								]
 							])
-
-					@include('livewire.form.textarea',['name'=>'lokasi','text'=>'Lokasi'])
 
 					@include('livewire.form.select',['name'=>'kegunaan','text'=>'Kegunaan',
 								'options'=>[
@@ -298,7 +304,7 @@
 				@endif
 				@if($step==8)
 				<div x-show.transition.in="step === 8">
-					@include('livewire.form.input-date',['name'=>'tanggal_kesiapan_cek_lokasi','text'=>'Tanggal kesiapan cek lokasi'])
+					@include('livewire.form.input-date',['name'=>'tanggal_kesiapan_cek_lokasi','text'=>'Tanggal kesiapan cek lokasi','class'=>'datepicker-mindate'])
 				</div>
 				@endif
 				@if($step==9)
@@ -495,7 +501,7 @@
 			skeleton : false,
 			lokasi_longitude : @entangle($lokasi_longitude),
 			lokasi_latitude : @entangle($lokasi_latitude),
-			status_pemohon:'sendiri'
+			status_pemohon:@entangle('status_pemohon')
 		}
 	}
 
@@ -518,16 +524,25 @@
 	// });
 
 	window.addEventListener('render', event=>{
-		console.log('initiate datepicker and format mask');
+		console.log('remove datepicker if exists');
 		var elements = document.getElementsByClassName('flatpickr-calendar');
 		while(elements.length > 0){
 			elements[0].parentNode.removeChild(elements[0]);
 		}
-
-		flatpickr.localize(flatpickr.l10ns.id);
-		flatpickr('.datepicker',{
-			dateFormat: "d-m-Y", 
-		})
+		var datepickers = document.getElementsByClassName('datepicker');
+		if(datepickers.length>0){
+			console.log('initiate datepicker');
+			console.log('create flatpickr');
+			flatpickr.localize(flatpickr.l10ns.id);
+			flatpickr('.datepicker',{
+				dateFormat: "d-m-Y", 
+			});
+			flatpickr('.datepicker-mindate',{
+				dateFormat: "d-m-Y", 
+				minDate:"today"
+			})
+		}
+		console.log('initiate format mask');
 		document.querySelectorAll('[data-mask]').forEach(function(e) {
 		function format(elem) {
 			const val = doFormat(elem.value, elem.getAttribute('data-format'));

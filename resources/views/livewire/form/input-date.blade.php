@@ -7,7 +7,7 @@
         wire:ignore
             wire:model.defer="{{$name}}" 
             type="{{ $type ?? 'text' }}"
-            class="@error($name) border-red-500 @enderror datepicker w-32 py-1 px-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+            class="@error($name) border-red-500 @enderror {{$class ?? 'datepicker'}} w-32 py-1 px-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
             placeholder="{{ $placeholder ?? 'Pilih '.$text.'...' }}">
             @error($name) 
             <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
