@@ -138,6 +138,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+	    SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         browner12\helpers\HelperServiceProvider::class,
         NotificationChannels\Telegram\TelegramServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
@@ -191,7 +192,8 @@ return [
     */
 
     'aliases' => [
-
+        
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
