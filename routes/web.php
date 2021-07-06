@@ -11,7 +11,7 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
-use App\Http\Livewire\NppbkcWizard;
+use App\Http\Livewire\Nppbkc\View;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,22 +61,26 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', LogoutController::class)
         ->name('logout');
     
-    Route::middleware('verified')->group(function () {
+    Route::get('/update-profile', function () {
+        return view('update-profile')->layout('base');
+    })->name('user.profile');
+
+    Route::middleware(['verified','profile'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
-        Route::get('/nppbkc-wizard', function () {
-            return view('nppbkc-wizard');
-        });
-        Route::get('/nppbkc/add', function () {
-            return view('nppbkc-wizard');
-        })->name('add.nppbkc');
+        // Route::get('/nppbkc-wizard', function () {
+        //     return view('nppbkc-wizard');
+        // });
+        
+        Route::get('/nppbkc/add', \App\Http\Livewire\Nppbkc\Wizard::class)->name('add.nppbkc');
+
+        Route::get('/nppbkc/{id}', \App\Http\Livewire\Nppbkc\View::class)->name('view.nppbkc');
     
-        Route::get('/nppbkc/{id}', function () {
-            return view('nppbkc');
-        })->name('view.nppbkc');
-    
-        Route::get('/nppbkc/downloadfile/{id}', [NppbkcController::class, 'download'])->name('nppbkc.downloadfile');
-        Route::get('/nppbkc/generatenppbkc/{id}', [NppbkcController::class, 'generate_nppbkc'])->name('nppbkc.generate');
-        Route::get('/nppbkc/generate_permohonan_cek_lokasi/{id}', [NppbkcController::class, 'generate_permohonan_cek_lokasi'])->name('nppbkc-cek.generate');
+        Route::get('/nppbkc/downloadfile/{id}', [NppbkcController::class, 'download'])
+            ->name('nppbkc.downloadfile');
+        Route::get('/nppbkc/generatenppbkc/{id}', [NppbkcController::class, 'generate_nppbkc'])
+            ->name('nppbkc.generate');
+        Route::get('/nppbkc/generate_permohonan_cek_lokasi/{id}', [NppbkcController::class, 'generate_permohonan_cek_lokasi'])
+            ->name('nppbkc-cek.generate');
     
         Route::get('/activity-log', function () {
             return view('activity-log');
@@ -84,9 +88,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/nppbkc', [NppbkcController::class, 'index']);
         Route::get('/nppbkc/permohonan_lokasi_pdf', [NppbkcController::class, 'permohonan_lokasi_pdf']);
         Route::get('/nppbkc/permohonan_nppbkc_pdf', [NppbkcController::class, 'permohonan_nppbkc_pdf']);
-        Route::get('/update-profile', function () {
-            return view('update-profile');
-        });
         Route::get('/users', App\Http\Livewire\Users::class)->name('users');
     });
 });
