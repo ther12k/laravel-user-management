@@ -2,15 +2,16 @@
 
 <div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <a href="{{ route('home') }}">
-            <x-logo class="w-auto h-16 mx-auto text-indigo-600" />
+        <a href="{{ route('home') }}" >
+            {{-- <x-logo class="w-auto h-16 mx-auto text-indigo-600" /> --}}
+            <img class="w-64 mx-auto" src="{{asset('images/logo-348.png')}}" alt="">
         </a>
 
-        <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900 leading-9">
+        <h2 class="text-3xl font-extrabold text-center text-gray-900 leading-9">
             {{ __('login.title') }}
         </h2>
         @if (Route::has('register'))
-            <p class="mt-2 text-sm text-center text-gray-600 leading-5 max-w">
+            <p class="text-sm text-center text-gray-600 leading-5 max-w">
                 {{ __('login.or') }}
                 <a href="{{ route('register') }}" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                     {{ __('login.create_account') }}
@@ -19,7 +20,7 @@
         @endif
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
             <form wire:submit.prevent="authenticate">
                 <div>

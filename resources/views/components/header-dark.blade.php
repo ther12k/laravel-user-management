@@ -21,15 +21,17 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
         </div>
         <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
           <div class="flex-shrink-0 flex items-center">
-            <svg width="30" height="18" fill="#16BDCA"><path fill-rule="evenodd" clip-rule="evenodd" d="M15 0c-4 0-6.5 2-7.5 6 1.5-2 3.25-2.75 5.25-2.25 1.141.285 1.957 1.113 2.86 2.03C17.08 7.271 18.782 9 22.5 9c4 0 6.5-2 7.5-6-1.5 2-3.25 2.75-5.25 2.25-1.141-.285-1.957-1.113-2.86-2.03C20.42 1.728 18.718 0 15 0zM7.5 9C3.5 9 1 11 0 15c1.5-2 3.25-2.75 5.25-2.25 1.141.285 1.957 1.113 2.86 2.03C9.58 16.271 11.282 18 15 18c4 0 6.5-2 7.5-6-1.5 2-3.25 2.75-5.25 2.25-1.141-.285-1.957-1.113-2.86-2.03C12.92 10.729 11.218 9 7.5 9z"></path></svg>  
+            <img class="h-16 w-16" src="{{asset('images/logo-128.png')}}" alt="">
             <span class="text-white ml-4">NPPBKC</span>  
           </div>
-          <div class="hidden sm:block sm:ml-10">
+          <div class="hidden sm:block sm:ml-10 items-center mt-4">
             <div class="flex space-x-4">
               <a href="{{ Request::route()->getName()!=='home' ? route('home'):'#'}}" 
                 class="{{ Request::route()->getName() ==  'home'  ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>
+              @cannot('viewAllNppbkc')
               <a href="{{ Request::route()->getName()!=='add.nppbkc' ? route('add.nppbkc'):'#'}}" 
                 class="{{ Request::route()->getName()=='add.nppbkc' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Permohonan</a>
+              @endcan
                 {{-- <a href="#" class=" text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Dashboard</a>
               
                 <a href="#" class=" text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Test</a> --}}
@@ -57,8 +59,14 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
                 {{-- <span class="sr-only">Open user menu</span> --}}
                 {{-- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> --}}
                 @php
+                    $bgcolor = '#f0e9e9';
+                    $color = '#8b5d5d';
+                    if(\Auth::user()->role!='user'){
+                        $color = '#ffffff';
+                        $bgcolor = '#8BC34A';
+                    }
                     $avatar = new LasseRafn\InitialAvatarGenerator\InitialAvatar();
-                    echo $avatar->name(Auth::user()->name)
+                    echo $avatar->name(Auth::user()->name)->background($bgcolor)->color($color)
                         ->width(36)->rounded()->generateSvg()->toXMLString(); 
                 @endphp 
                 {{-- <img class="h-8 w-8 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt=""> --}}
