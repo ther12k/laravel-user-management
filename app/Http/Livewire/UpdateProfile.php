@@ -54,6 +54,12 @@ class UpdateProfile extends Component
         return view('livewire.update-profile');
     }
 
+    public function updated($field,$value)
+    {
+        
+        $this->validateOnly($field);
+    }
+
     public function update()
     {
         $this->validate();
