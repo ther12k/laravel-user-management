@@ -160,7 +160,6 @@
 					</div>
 				</div>
 				@endif
-				@if($step==1)
 				<div x-show.transition.in="step === 1">
 					<div class="md:flex md:items-center mb-6">
 						<div class="md:w-1/3">
@@ -200,7 +199,6 @@
 					@include('livewire.form.input',['type'=>'email','name'=>'email_pemilik','text'=>'Email Pemilik'])
 					<div class="mb-6 py-5" x-show="step===1"></div>
 				</div>
-				@endif
 				@if($step==2)
 				<div x-show.transition.in="step === 2">
 					@include('livewire.form.select',['name'=>'jenis_usaha_bkc','text'=>'Jenis Usaha Barang Kena Cukai (BKC)',
@@ -234,15 +232,6 @@
 											])
 					@include('livewire.form.input',['type'=>'number','name'=>'telp_usaha','text'=>'No Telp Usaha'])
 					@include('livewire.form.input',['type'=>'email','name'=>'email_usaha','text'=>'Email Usaha'])
-					@include('livewire.form.select',['name'=>'lokasi','text'=>'Lokasi',
-									'options'=>[
-											'Pabrik',
-											'Tempat Penyimpanan',
-											'Tempat Usaha Importir',
-											'Tempat Usaha Penyalur',
-											'Tempat Penjualan Eceran'
-										]
-									])
 					<div class="mb-6 py-5" x-show="step===3"></div>
 				</div>
 				@endif

@@ -59,7 +59,6 @@ class Wizard extends Component
             //xx.xxx.xxx.x-xxx.xxx
             //'npwp_usaha' => 'required|regex:/^[0-9]{2}\.[0-9]{3}\.[0-9]{3}.[0-9]-[0-9]{3}\.[0-9]{3}$/',
             'email_usaha' => 'required|email:filter',
-            'lokasi' => 'required|min:5',
         ],
         [
             'jenis_lokasi' => 'required',
@@ -77,10 +76,10 @@ class Wizard extends Component
         [
             'no_siup_mb'=>'required',
             'masa_berlaku_siup_mb_from'=>'required',
-            'masa_berlaku_siup_mb_to'=>'required',
+            'masa_berlaku_siup_mb_to'=>'required|date|after_or_equal:masa_berlaku_siup_mb_from',
             'no_itp_mb'=>'required',
             'masa_berlaku_itp_mb_from'=>'required',
-            'masa_berlaku_itp_mb_to'=>'required',
+            'masa_berlaku_itp_mb_to'=>'required|date|after_or_equal:masa_berlaku_itp_mb_from',
             'no_izin_nib'=>'required',
             'tanggal_nib'=>'required'
         ],
@@ -127,6 +126,14 @@ class Wizard extends Component
         'email_usaha.required' => 'email tidak boleh kosong.',
         'email_usaha.email' => 'Format email salah.',
         'lokasi.required' => 'Lokasi tidak boleh kosong.',
+        'masa_berlaku_siup_mb_from.required'=>'Tanggal belum dipilih',
+        'masa_berlaku_siup_mb_to.required'=>'Tanggal belum pilih',
+        'masa_berlaku_siup_mb_to.after_or_equal'=>'Tanggal akhir harus lebih besar/sama dari tanggal awal',
+
+
+        'masa_berlaku_itp_mb_from.required'=>'Tanggal belum dipilih',
+        'masa_berlaku_itp_mb_to.required'=>'Tanggal belum pilih',
+        'masa_berlaku_itp_mb_to.after_or_equal'=>'Tanggal akhir harus lebih besar/sama dari tanggal awal',
 
         'jenis_lokasi.required' => 'Pilih jenis lokasi.',
         'kegunaan.required' => 'Pilih kegunaan lokasi.',
@@ -175,6 +182,16 @@ class Wizard extends Component
         $this->village_id = $id;
     }
 
+    public function updated($field){
+        if($field=='masa_berlaku_siup_mb_from'||$field=='masa_berlaku_siup_mb_to'){
+            $this->validateOnly('masa_berlaku_siup_mb_to',$this->rules[$this->step]);
+        }
+        else if($field=='masa_berlaku_itp_mb_from'||$field=='masa_berlaku_itp_mb_to'){
+            $this->validateOnly('masa_berlaku_itp_mb_to',$this->rules[$this->step]);
+        }else{
+            $this->validateOnly($field,$this->rules[$this->step]);
+        }
+    }
 
     public function mount(){
         $this->rules = null;
