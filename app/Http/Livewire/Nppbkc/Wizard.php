@@ -301,6 +301,7 @@ class Wizard extends Component
      */
     public function back()
     {
+        $this->no_permohonan='';
         if($this->step==7){
             $this->mapCheck(true);
         }else if($this->step==6){
@@ -448,12 +449,16 @@ class Wizard extends Component
         try {
             $data = $this->buildData();
 
-            // dd($data);
             if($this->no_permohonan==null||empty($this->no_permohonan)){
                 //generate auto number
                 $array_bln  = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
                 $bln = $array_bln[date('n')];
-                $no = Nppbkc::where('nama_usaha','=',$this->nama_usaha)->count();
+                $no = Nppbkc::where('nama_usaha',$this->nama_usaha)->orderByDesc('id')->first();
+                if($no!=null){
+                    $no = (int)explode('/', $no->no_permohonan)[0];
+                }else{
+                    $no=0;
+                }
                 $this->no_permohonan = $data['no_permohonan'] = $data['no_permohonan_lokasi'] = str_pad($no+1,6,"0",STR_PAD_LEFT).'/'.
                     str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
                 // while(Nppck::where('no_permohonan','=',$nppbkc->no_permohonan)->count()>0){
