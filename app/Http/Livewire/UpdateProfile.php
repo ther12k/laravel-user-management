@@ -9,12 +9,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use DigitalCloud\Blameable\Traits\Blameable;
 
 use App\Models\UserProfile;
+use App\Models\UserFile;
 use Auth;
 class UpdateProfile extends Component
 {
     use WithFileUploads;
-    public $file_npwp,$file_ktp;
-    public $has_profile=false,$alamat,$pekerjaan,$no_telp,$nama,$file_registrasi_pengusaha_bkc;
+    public $file_npwp,$file_ktp,$file_registrasi_pengusaha_bkc;
+    public $has_profile=false,$alamat,$pekerjaan,$no_telp,$nama;
     protected $rules = [
         'nama' => 'required',
         'alamat' => 'required',
@@ -22,6 +23,7 @@ class UpdateProfile extends Component
         'no_telp' => 'required',
         'file_npwp' => 'required',
         'file_ktp' => 'required',
+        'file_registrasi_pengusaha_bkc' => 'required'
     ];
 
     protected $messages = [
@@ -51,7 +53,7 @@ class UpdateProfile extends Component
 
     public function render()
     {
-        return view('livewire.update-profile');
+        return view('livewire.update-profile')->extends('layouts.auth');
     }
 
     public function updated($field,$value)
@@ -84,6 +86,27 @@ class UpdateProfile extends Component
                 ]);
             }
             session()->flash('message', 'Profile telah diupdate');
+        }
+
+        if($user->hasUserProfile){
+            foreach($this->rules as $name=>$value){
+                if(strpos($name,'file')!== false){
+                    $filename = $this->{$name}->storeAs('user/'.$user->id, $user->id.'_'.$name.'.'.$this->{$name}->extension());
+                    $originalname = $this->{$name}->getClientOriginalName();
+                    $size = $this->{$name}->getSize();
+                    $hash = md5($name.$user->id);
+                    $file = new UserFile([
+                        'key'=>$hash,
+                        'name'=>$name,
+                        'title'=>$name,
+                        'filename'=>$filename,
+                        'original_filename'=>$originalname,
+                        'size'=>$size,
+                        'ext'=>$this->{$name}->extension()
+                    ]);
+                    $user->files()->save($file);
+                }
+            }
         }
         $user->name = $this->nama;
         $user->save();
