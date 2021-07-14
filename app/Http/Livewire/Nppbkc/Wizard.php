@@ -37,7 +37,7 @@ class Wizard extends Component
     public $file_denah_bangunan,$file_denah_lokasi,$file_siup_mb,$file_itp_mb,$file_surat_kuasa;
     public $file_nib,$file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     public $successMessage = '';
-    public $created_at;
+    public $created_at,$surat_permohonan_lokasi_url;
 
     protected $rules = [
         [],
@@ -310,11 +310,12 @@ class Wizard extends Component
         }
         if($this->step=='preview'){
             $this->step=10;  
-        }else
-            $this->step--; 
-        if($this->step=='complete'){
+        }else if($this->step=='complete'){
             $this->step='preview'; 
-        }   
+        }else{
+            $this->step--; 
+        }
+         
         $this->dispatchBrowserEvent('render');
     }
 
@@ -383,10 +384,11 @@ class Wizard extends Component
         //     Storage::delete($pdf_filename);
         // }
         $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
+        $this->surat_permohonan_lokasi_url = url('/nppbkc/download-file/'.$hash);
         $qrImage= base64_encode(
             QrCode::format('png')
             ->size(80)
-            ->generate(url('/nppbkc/downloadfile/'.$hash))
+            ->generate($this->surat_permohonan_lokasi_url)
         );
         $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
         $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);

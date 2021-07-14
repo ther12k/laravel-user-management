@@ -63,7 +63,7 @@
 <div x-data="app()" x-cloak class="container mx-auto p-5">
 	<div class="max-w-3xl mx-auto">
 		@if($step=='complete')
-		<div x-show.transition="step == 'complete'">
+		<div x-show="step == 'complete'">
 			<div class="bg-white rounded-lg p-5 flex items-center shadow justify-between">
 				<div>
 					<svg class="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
@@ -85,7 +85,7 @@
 									<td class="w-52">Tanda Terima</td>
 									<td class="w-1">:</td>
 									<td class="w-72">
-										<a href="#" target="_blank" class="flex font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+										<a href="{{$surat_permohonan_lokasi_url}}" target="_blank" class="flex font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
 											<x-heroicon-o-download class="w-6 h-6" />
 											<span class="ml-1">{{$no_permohonan}}</span>	 
 										</a> 
