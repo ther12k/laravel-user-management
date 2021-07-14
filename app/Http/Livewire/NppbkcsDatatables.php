@@ -38,7 +38,7 @@ class NppbkcsDatatables extends LivewireDatatable
 
             Column::callback(['status_nppbkc','no_permohonan_lokasi', 'no_permohonan'], function ($status,$no_permohonan_lokasi, $no_permohonan) {
                 return ($status<3)
-                    ? '<span class="text-gray-600">' . $no_permohonan_lokasi . '</span>'
+                    ? '<span class="text-gray-600">' . $no_permohonan . '</span>'
                     : '<span class="text-yellow-600">' . $no_permohonan . '</span>';
             })->label('No Permohonan'),
 
