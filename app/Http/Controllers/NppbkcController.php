@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use PDF,QrCode,Storage;
+use PDF,QrCode,Storage,Hash;
 
 use Carbon\Carbon;
 
@@ -12,16 +12,18 @@ use App\Models\Nppbkc;
 
 class NppbkcController extends Controller
 {
+    private $hashKey = "nppbkc-file";
     //
     public function download($id){
-        $file = NppbkcFile::findOrFail($id);
+        $file = NppbkcFile::OfKey($id)->first();
+        if($file==null)
+            return abort('404');
         $pathToFile = storage_path('app/'.$file->filename);
-        return response()->download($pathToFile,'surat_permohonan_nppbkc_'.$id.'_'.date('Ymd').'.pdf');
+        return response()->download($pathToFile,$file->name.'_'.$file->id.'_'.date('Ymd').'.'.$file->ext);
     }
 
     public function generate_permohonan_cek_lokasi($id){
         $nppbkc = Nppbkc::find($id);
-        $pdfHTML = view('pdf.permohonan_lokasi')->render();
         $formats=[];
         $replaces=[];
         $dataPdf = $nppbkc->toArray();
@@ -50,27 +52,27 @@ class NppbkcController extends Controller
         
         $formats[]='[TANGGAL_PENGAJUAN]';
         $replaces[]='<strong>'.$nppbkc->created_at->isoFormat('D MMMM Y').'</strong>';
-
+        
+        $pdfHTML = view('pdf.permohonan_lokasi')->render();
         //replace all
         $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
-
-        $qrImage= base64_encode(
-            QrCode::format('png')
-            ->size(60)
-            ->generate(url('/nppbkc/generate_permohonan_lokasi/'.$nppbkc->id))
-        );
-        $qrImage = '<img src="data:image/png;base64,'.$qrImage.'">';
-        $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
         
-        $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
         $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_cek_lokasi.pdf';
         // $exists = Storage::disk('local')->exists($pdf_filename);
         // if($exists){
         //     Storage::delete($pdf_filename);
         // }
-        Storage::put($pdf_filename, $pdf->output());
-        $nppbkc->files()->save(
+        $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
+        $qrImage= base64_encode(
+            QrCode::format('png')
+            ->size(80)
+            ->generate(url('/nppbkc/download-file/'.$hash))
+        );
+        $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
+        $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
+        $file = $nppbkc->files()->save(
                             new NppbkcFile([
+                                'key'=>$hash,
                                 'name'=>'surat_permohonan_lokasi',
                                 'title'=>'Surat Permohonan Pengecekan Lokasi',
                                 'filename'=>$pdf_filename,
@@ -79,6 +81,8 @@ class NppbkcController extends Controller
                                 'is_annotation'=>2
                             ])
                         );
+        $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
+        Storage::put($pdf_filename, $pdf->output());
         return $pdf->download('surat_permohonan_cek_lokasi_'.$id.'_'.date('Ymd').'.pdf');            
     }
 
@@ -129,23 +133,18 @@ class NppbkcController extends Controller
         //replace all
         $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
 
+        $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_nppbkc.pdf';
+        $hash = md5($this->hashKey.'-permohonan-nppbkc'.$nppbkc->id);
         $qrImage= base64_encode(
             QrCode::format('png')
-            ->size(100)
-            ->generate(url('/nppbkc/generatenppbkc/'.$nppbkc->id))
+            ->size(80)
+            ->generate(url('/nppbkc/download-file/'.$hash))
         );
-        $qrImage = '<img src="data:image/png;base64,'.$qrImage.'">';
+        $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
         $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
-        
-        $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
-        $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_nppbkc.pdf';
-        // $exists = Storage::disk('local')->exists($pdf_filename);
-        // if($exists){
-        //     Storage::delete($pdf_filename);
-        // }
-        Storage::put($pdf_filename, $pdf->output());
-        $nppbkc->files()->save(
+        $file = $nppbkc->files()->save(
                             new NppbkcFile([
+                                'key'=>$hash,
                                 'name'=>'surat_permohonan_nppbkc',
                                 'title'=>'Surat Permohonan NPPBKC',
                                 'filename'=>$pdf_filename,
@@ -154,6 +153,8 @@ class NppbkcController extends Controller
                                 'is_annotation'=>2
                             ])
                         );
+        $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
+        Storage::put($pdf_filename, $pdf->output());
         return $pdf->download('surat_permohonan_nppbkc_'.$id.'_'.date('Ymd').'.pdf');   
         //return View('pdf.permohonan_nppbkc');         
     }
