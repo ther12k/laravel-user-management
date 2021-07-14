@@ -16,11 +16,13 @@ use App\Models\NppbkcFile;
 
 use Carbon\Carbon;
 use App\Notifications\NppbkcAddedNotification;
-use PDF,Auth;
+use PDF,Auth,Hash,QrCode;
 
 class Wizard extends Component
 {
     use WithFileUploads;
+
+    private $hashKey = "nppbkc-file";
 
     public $step = 0, $status_nppbkc = 1;
     public $status_pemohon='sendiri', $nama_pemilik, $alamat_pemilik,$email_pemilik,$telp_pemilik,$npwp_pemilik='xx.xxx.xxx.x-xxx.xxx';
@@ -35,6 +37,7 @@ class Wizard extends Component
     public $file_denah_bangunan,$file_denah_lokasi,$file_siup_mb,$file_itp_mb,$file_surat_kuasa;
     public $file_nib,$file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     public $successMessage = '';
+    public $created_at;
 
     protected $rules = [
         [],
@@ -75,10 +78,10 @@ class Wizard extends Component
         ],
         [
             'no_siup_mb'=>'required',
-            'masa_berlaku_siup_mb_from'=>'required',
+            // 'masa_berlaku_siup_mb_from'=>'required',
             'masa_berlaku_siup_mb_to'=>'required|date|after_or_equal:masa_berlaku_siup_mb_from',
             'no_itp_mb'=>'required',
-            'masa_berlaku_itp_mb_from'=>'required',
+            // 'masa_berlaku_itp_mb_from'=>'required',
             'masa_berlaku_itp_mb_to'=>'required|date|after_or_equal:masa_berlaku_itp_mb_from',
             'no_izin_nib'=>'required',
             'tanggal_nib'=>'required'
@@ -97,7 +100,7 @@ class Wizard extends Component
             'file_npwp_pemilik'=>'required',
             'file_ktp_pemilik'=>'required',
             'file_surat_pernyataan'=>'required',
-            'file_data_registrasi'=>'required'
+            // 'file_data_registrasi'=>'required'
         ],
         //public $file_nib,$file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     
@@ -134,6 +137,12 @@ class Wizard extends Component
         'masa_berlaku_itp_mb_from.required'=>'Tanggal belum dipilih',
         'masa_berlaku_itp_mb_to.required'=>'Tanggal belum pilih',
         'masa_berlaku_itp_mb_to.after_or_equal'=>'Tanggal akhir harus lebih besar/sama dari tanggal awal',
+        'no_siup_mb.required' => 'Nomor Izin SIUP-MB / SKMB harus diisi.',
+        'no_itp_mb.required' => 'Nomor Izin ITP-MB harus diisi.',
+        'no_izin_nib.required' =>'No Izin NIB harus diisi.',
+        'tanggal_nib.required' =>'Tanggal NIB harus diisi.',
+
+        'tanggal_kesiapan_cek_lokasi.required' => 'Tanggal kesiapan cek lokasi harus diisi.',
 
         'jenis_lokasi.required' => 'Pilih jenis lokasi.',
         'kegunaan.required' => 'Pilih kegunaan lokasi.',
@@ -183,34 +192,45 @@ class Wizard extends Component
     }
 
     public function updated($field){
-        if($field=='masa_berlaku_siup_mb_from'||$field=='masa_berlaku_siup_mb_to'){
+        if(($field=='masa_berlaku_siup_mb_from'||$field=='masa_berlaku_siup_mb_to')
+            &&!empty($this->masa_berlaku_siup_mb_from)&&!empty($this->masa_berlaku_siup_mb_to)){
             $this->validateOnly('masa_berlaku_siup_mb_to',$this->rules[$this->step]);
         }
-        else if($field=='masa_berlaku_itp_mb_from'||$field=='masa_berlaku_itp_mb_to'){
+        else if(($field=='masa_berlaku_itp_mb_from'||$field=='masa_berlaku_itp_mb_to')
+            &&!empty($this->masa_berlaku_itp_mb_from)&&!empty($this->masa_berlaku_itp_mb_to
+        )){
             $this->validateOnly('masa_berlaku_itp_mb_to',$this->rules[$this->step]);
         }else{
             $this->validateOnly($field,$this->rules[$this->step]);
+            //dd($this->masa_berlaku_siup_mb_from);
+            if($field=='masa_berlaku_siup_mb_to'){
+                $this->validateOnly('masa_berlaku_siup_mb_from',['masa_berlaku_siup_mb_from'=>'required']);
+            }
+            if($field=='masa_berlaku_itp_mb_from'){
+                $this->validateOnly('masa_berlaku_itp_mb_from',['masa_berlaku_itp_mb_from'=>'required']);
+            }
         }
     }
 
     public function mount(){
         $this->rules = null;
+
         //test
         $profile = Auth::user()->profile;
         $this->nama_pemilik=$profile->nama;
         $this->alamat_pemilik=$profile->alamat;
         $this->telp_pemilik=$profile->no_telp;
-        $this->npwp_pemilik='11.111.111.1-111.111';
+        //$this->npwp_pemilik='11.111.111.1-111.111';
         $this->email_pemilik=Auth::user()->email;
 
-
-        $this->nama_usaha='nama usaha';
-        $this->alamat_usaha='alamat usaha';
-        $this->telp_usaha='12345';
-        $this->npwp_usaha='11.111.111.1-111.111';
-        $this->email_usaha='rizkyz@gmail.com';
-        $this->rt_rw='11';
-        $this->alamat = 'alamat';
+        // $this->nama_usaha='nama usaha';
+        // $this->alamat_usaha='alamat usaha';
+        // $this->telp_usaha='12345';
+        // $this->npwp_usaha='11.111.111.1-111.111';
+        // $this->email_usaha='rizkyz@gmail.com';
+        // $this->rt_rw='11';
+        // $this->alamat = 'alamat';
+        // $this->created_at =  date('c');
     }
 
     public function render()
@@ -238,8 +258,15 @@ class Wizard extends Component
                 $this->consoleLog('file : ');
                 //$this->consoleLog($this->file_denah_bangunan->temporaryUrl());
             }
-            if($this->rules!=null&&count($this->rules[$this->step])>0)
-                $validatedData = $this->validate($this->rules[$this->step]);
+            if($this->rules!=null&&count($this->rules[$this->step])>0){
+                $rules = $this->rules[$this->step];
+                if($this->step==7){
+                    $rules = array_merge($this->rules[$this->step],[
+                        'masa_berlaku_siup_mb_from'=>'required',
+                        'masa_berlaku_itp_mb_from'=>'required']);
+                }
+                $validatedData = $this->validate($rules);
+            }
             $this->step++;
             if($this->step==6){
                 $this->mapCheck();
@@ -284,7 +311,10 @@ class Wizard extends Component
         if($this->step=='preview'){
             $this->step=10;  
         }else
-            $this->step--;    
+            $this->step--; 
+        if($this->step=='complete'){
+            $this->step='preview'; 
+        }   
         $this->dispatchBrowserEvent('render');
     }
 
@@ -311,6 +341,72 @@ class Wizard extends Component
         $this->step='preview';
     }
 
+
+
+    private function generate_permohonan_cek_lokasi($nppbkc){
+        $pdfHTML = view('pdf.permohonan_lokasi')->render();
+        $formats=[];
+        $replaces=[];
+        $dataPdf = $nppbkc->toArray();
+        $dataPdf['regency'] = $nppbkc->regency->name;
+        $createdBy = $nppbkc->createdBy()->first()->profile;
+        $dataPdf['nama_user'] = $createdBy->nama;
+        $dataPdf['pekerjaan_user'] = $createdBy->pekerjaan;
+        $dataPdf['email_user'] = $createdBy->email;
+        $dataPdf['alamat_user'] = $createdBy->alamat;
+        $dataPdf['telp_user'] = $createdBy->no_telp;
+        $dataPdf['email_user'] = $nppbkc->createdBy()->first()->email;
+        foreach($dataPdf as $key=>$val){
+            if($key=='no_permohonan') continue;
+            $formats[]='['.strtoupper($key).']';
+            if($key=='nama_usaha')
+                $val=strtoupper($val);
+            if(strpos($key,'masa_berlaku')!==false||
+                strpos($key,'tanggal')!==false){
+                    $val=Carbon::parse($val)->isoFormat('D MMMM Y');
+                }
+            $val = '<strong>'.$val.'</strong>';
+            $replaces[]=$val;
+        }
+        $formats[]='[NO_PERMOHONAN]';
+        $replaces[]='<strong>'.$nppbkc->no_permohonan_lokasi.'</strong>';
+        
+        $formats[]='[TANGGAL_PENGAJUAN]';
+        $replaces[]='<strong>'.$nppbkc->created_at->isoFormat('D MMMM Y').'</strong>';
+
+        //replace all
+        $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
+        
+        $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_cek_lokasi.pdf';
+        // $exists = Storage::disk('local')->exists($pdf_filename);
+        // if($exists){
+        //     Storage::delete($pdf_filename);
+        // }
+        $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
+        $qrImage= base64_encode(
+            QrCode::format('png')
+            ->size(80)
+            ->generate(url('/nppbkc/downloadfile/'.$hash))
+        );
+        $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
+        $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
+        $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
+        Storage::put($pdf_filename, $pdf->output());     
+        $file = $nppbkc->files()->save(
+                            new NppbkcFile([
+                                'key'=>$hash,
+                                'name'=>'surat_permohonan_lokasi',
+                                'title'=>'Surat Permohonan Pengecekan Lokasi',
+                                'filename'=>$pdf_filename,
+                                'original_filename'=>'',
+                                'size'=>strlen($pdfHTML),
+                                'ext'=>'.pdf',
+                                'is_annotation'=>2
+                            ])
+                        ); 
+        return $pdf_filename;
+    }
+
     private function buildData(){
         $arr = [];
         $str = '';
@@ -335,6 +431,8 @@ class Wizard extends Component
         $arr['village_id']=$this->village_id['value'];
         $arr['no_permohonan_lokasi']=trim($this->no_permohonan);
         $arr['status_nppbkc']=1;
+        $arr['masa_berlaku_siup_mb_from'] = Carbon::createFromFormat('d-m-Y', trim($this->masa_berlaku_siup_mb_from))->format('Y-m-d');
+        $arr['masa_berlaku_itp_mb_from'] = Carbon::createFromFormat('d-m-Y', trim($this->masa_berlaku_itp_mb_from))->format('Y-m-d');
         
         return $arr;
     }
@@ -347,7 +445,23 @@ class Wizard extends Component
         //$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
         try {
             $data = $this->buildData();
-            //dd($data);
+
+            // dd($data);
+            if($this->no_permohonan==null||empty($this->no_permohonan)){
+                //generate auto number
+                $array_bln  = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
+                $bln = $array_bln[date('n')];
+                $no = Nppbkc::where('nama_usaha','=',$this->nama_usaha)->count();
+                $this->no_permohonan = $data['no_permohonan'] = $data['no_permohonan_lokasi'] = str_pad($no+1,6,"0",STR_PAD_LEFT).'/'.
+                    str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
+                // while(Nppck::where('no_permohonan','=',$nppbkc->no_permohonan)->count()>0){
+                //     $nppbkc->no_permohonan = str_pad($no++,6,"0",STR_PAD_LEFT).'/'.
+                //     str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
+                // }
+            }else{
+                $data['no_permohonan_lokasi'] = $this->no_permohonan;
+            }
+            // dd($data);
             $nppbkc = Nppbkc::create($data);//test
 
             foreach(nppbkc_file_captions() as $name=>$title){
@@ -355,103 +469,54 @@ class Wizard extends Component
                     $filename = $this->{$name}->storeAs('nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension());
                     $originalname = $this->{$name}->getClientOriginalName();
                     $size = $this->{$name}->getSize();
+                    $hash = md5($this->hashKey.'-'.$name.$nppbkc->id);
                     $nppbkc_file = new NppbkcFile([
+                        'key'=>$hash,
                         'name'=>$name,
                         'title'=>$title,
                         'filename'=>$filename,
                         'original_filename'=>$originalname,
-                        'size'=>$size
+                        'size'=>$size,
+                        'ext'=>$this->{$name}->extension()
                     ]);
                     $nppbkc->files()->save($nppbkc_file);
                 }
             }
 
-            $pdfHTML = view('pdf.permohonan_lokasi')->render();
-            $formats=[];
-            $replaces=[];
-            foreach($data as $key=>$val){
-                if(isset($val)){
-                    $formats[]='['.strtoupper($key).']';
-                    if($key=='nama_usaha')
-                        $val=strtoupper($val);
-                    $replaces[]=$val;
-                }
-            }
+            //file registrasi
+            $user = Auth::user();
+            $userRegistrationFile = $user->files()->OfName('file_registrasi_pengusaha_bkc')->first();
+            $file = $nppbkc->files()->save(
+                new NppbkcFile([
+                    'key'=>'user_'.$hash,
+                    'name'=>'registrasi_pengusaha_bkc',
+                    'title'=>'Data Registrasi Pengusaha BKC',
+                    'filename'=>$userRegistrationFile->filename,
+                    'original_filename'=>$userRegistrationFile->original_filename,
+                    'size'=>$userRegistrationFile->size,
+                    'ext'=>$userRegistrationFile->ext
+                ])
+            ); 
 
-            $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
-            if($this->no_permohonan==null||empty($this->no_permohonan)){
-                //generate auto number
-                $array_bln  = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
-                $bln = $array_bln[date('n')];
-                $no = Nppbkc::where('nama_usaha','=',$this->nama_usaha)->count();
-                $nppbkc->no_permohonan_lokasi = str_pad($no+1,6,"0",STR_PAD_LEFT).'/'.
-                    str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
-                // while(Nppck::where('no_permohonan','=',$nppbkc->no_permohonan)->count()>0){
-                //     $nppbkc->no_permohonan = str_pad($no++,6,"0",STR_PAD_LEFT).'/'.
-                //     str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
-                // }
-                $nppbkc->save();
-            }
-
-            $pdfHTML = str_replace('[NO_PERMOHONAN]',$nppbkc->no_permohonan_lokasi,$pdfHTML);
-            $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
-            $pdf_filename = 'nppbkc/'.$nppbkc->id.'/surat_permohonan.pdf';
-            // $exists = Storage::disk('local')->exists($pdf_filename);
-            // if($exists){
-            //     Storage::delete($pdf_filename);
-            // }
-            Storage::put($pdf_filename, $pdf->output());
-
-            $pdf_filename = 'nppbkc/'.$nppbkc->id.'/file_denah_bangunan.png';
-
-            $this->consoleLog('success');
+            $nppbkc->save();
+            $this->created_at = $nppbkc->created_at;
+            $pdf_filename = $this->generate_permohonan_cek_lokasi($nppbkc);
             $url = url($pdf_filename);
-            $nppbkc->notify(new NppbkcAddedNotification([
-                'text' => "Permohonan NPPBKC baru ".$nppbkc->id,
-                'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](http://www.google.com)",
-                'filename' =>$pdf_filename,
-                'url' =>$pdf_filename
-            ]));
-            $this->step='preview';
+            try{
+                $nppbkc->notify(new NppbkcAddedNotification([
+                    'text' => "Permohonan NPPBKC baru ".$nppbkc->id,
+                    'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](http://www.google.com)",
+                    'filename' =>$pdf_filename,
+                    'url' =>$pdf_filename
+                ]));
+            }catch (\Exception $e) {
+                $this->consoleLog($e);
+            }
+            $this->step='complete';
         }catch (\Exception $e) {
             dd($e);
             $this->step='preview';
         }
-    }
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function submitForm()
-    {
-        Product::create([
-            'name' => $this->name,
-            'amount' => $this->amount,
-            'description' => $this->description,
-            'stock' => $this->stock,
-            'status' => $this->status,
-        ]);
-  
-        $this->successMessage = 'Product Created Successfully.';
-  
-        $this->clearForm();
-  
-        $this->step = 1;
-    }
-  
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function clearForm()
-    {
-        $this->name = '';
-        $this->amount = '';
-        $this->description = '';
-        $this->stock = '';
-        $this->status = 1;
     }
 
 }

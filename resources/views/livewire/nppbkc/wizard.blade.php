@@ -63,7 +63,7 @@
 <div x-data="app()" x-cloak class="container mx-auto p-5">
 	<div class="max-w-3xl mx-auto">
 		@if($step=='complete')
-		<div x-show="step === 'complete'">
+		<div x-show.transition="step == 'complete'">
 			<div class="bg-white rounded-lg p-5 flex items-center shadow justify-between">
 				<div>
 					<svg class="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
@@ -71,19 +71,41 @@
 					<h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">Input Permohonan Success</h2>
 
 					<div class="text-gray-600 mb-8">
-						<p>Kasih Telah Menggunakan Layanan BC Palangkaraya.<br/>
+						<p>Terima Kasih Telah Menggunakan Layanan BC Palangkaraya.<br/>
 						Bersama ini kami sampaikan tanda terima permohonan yang telah anda lakukan dengan data-data sebagai berikut:
 						</p> 
 						<p class="py-2">
-							Jenis Layanan	: NPPBKC Online<br/>
-							Tanda Terima	: xxxxxx <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">(download)</a> <br/>
-							Tanggal		: (tanggal permohonan)<br/>
+							<table border="0">
+								<tr>
+									<td class="w-52">Jenis Layanan</td>
+									<td class="w-1">:</td>
+									<td class="w-64">NPPBKC Online</td>
+								</tr>
+								<tr>
+									<td class="w-52">Tanda Terima</td>
+									<td class="w-1">:</td>
+									<td class="w-72">
+										<a href="#" target="_blank" class="flex font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+											<x-heroicon-o-download class="w-6 h-6" />
+											<span class="ml-1">{{$no_permohonan}}</span>	 
+										</a> 
+									</td>
+								</tr>
+								<tr>
+									<td class="w-52">Tanggal</td>
+									<td class="w-1">:</td>
+									<td class="w-64">{{\Carbon\Carbon::parse($created_at)->isoFormat('D MMMM Y');}}</td>
+								</tr>
+							</table>
 						</p>
-						<p class="py-2">Selanjutnya Saudara dapat memonitoring permohonan dengan memasukan nomor tanda terima pada menu monitoring permohonan pada halaman utama.</p>
+						<p class="py-2">Selanjutnya Saudara dapat memonitoring permohonan pada halaman utama.</p>
 					</div>
-
 					<button
-						@click="step = 1"
+						wire:click="back()"
+						class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+					>Back</button>
+					<button
+						onclick="window.location='{{ route("home") }}'"
 						class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
 					>Back to home</button>
 				</div>
@@ -288,7 +310,7 @@
 
 					@include('livewire.form.input',['name'=>'no_izin_nib','text'=>'No Izin NIB'])
 					@include('livewire.form.input-date',['name'=>'tanggal_nib','text'=>'Tanggal NIB'])
-					
+					<div class="mb-6 py-2" x-show="step===7"></div>
 				</div>
 				@endif
 				@if($step==8)
@@ -376,11 +398,11 @@
                             <x-file-attachment wire:model="file_surat_pernyataan" :file="$file_surat_pernyataan" />
 							@include('livewire.form.error-span',['name'=>'file_surat_pernyataan'])
                         </div>
-                        <div class="p-2">
+                        {{-- <div class="p-2">
                         	<label for="inline-file_data_registrasi" class="font-bold mb-1 text-gray-700 block">Data Registrasi</label>
                             <x-file-attachment wire:model="file_data_registrasi" :file="$file_data_registrasi" />
 							@include('livewire.form.error-span',['name'=>'file_data_registrasi'])
-                        </div>
+                        </div> --}}
                     </div>
 					<div class="mb-6 py-5" x-show="step===10||step==='preview'"></div>
 				</div>
