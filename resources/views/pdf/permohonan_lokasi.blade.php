@@ -128,7 +128,7 @@
         </tbody>
       </table>
       <br/>
-      <p>
+      <p style="margin-top: -5px">
         Dengan ini mengajukan permohonan pemeriksaan lokasi tempat usaha untuk memperoleh 
         Nomor Pokok Pengusaha Barang Kena Cukai (NPPBKC) sebagai [JENIS_USAHA_BKC] 
         Adapun kami sampaikan pemeriksaan lokasi dapat dilakukan pada tanggal [TANGGAL_KESIAPAN_CEK_LOKASI].
@@ -145,16 +145,14 @@
      </ol>
      {{-- <div class="page_break"></div> --}}
      
-        Demikian surat permohonan ini kami ajukan untuk mendapatkan pertimbangan sebagaimana mestinya.
+       <span style="margin-top: -5px"> Demikian surat permohonan ini kami ajukan untuk mendapatkan pertimbangan sebagaimana mestinya.</span>
      <br/>
       <p style="margin-left: 330px">
          Dibuat di [REGENCY]<br/>
          Pada tanggal [TANGGAL_PENGAJUAN]<br/>
          <br/>
          Pemohon,<br/>
-         <br/>
          [QRCODE]<br/>
-         <br/>
          <span style="font-size:12pt"><strong>[NAMA_USER]</strong></span>
       </p>
    </body>

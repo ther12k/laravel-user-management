@@ -198,7 +198,7 @@
          </li>
          
          <li class="mt-15">
-            <p>Luas lokasi, luas bangunan, dan batas-batas lokasi yang akan dijadikan tempat usaha sebagaimana tertera dalam berita acara pemeriksaan lokasi nomor [NO_PERMOHONAN_LOKASI] tanggal [TANGGAL_BA_CEK_LOKASI].</p>
+            <p>Luas lokasi, luas bangunan, dan batas-batas lokasi yang akan dijadikan tempat usaha sebagaimana tertera dalam berita acara pemeriksaan lokasi nomor [NO_BA_CEK_LOKASI] tanggal [TANGGAL_BA_CEK_LOKASI].</p>
          </li>
          
          <li class="mt-15"><span>Lampiran-lampiran :</span>
