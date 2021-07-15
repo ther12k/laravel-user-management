@@ -9,9 +9,13 @@ use DigitalCloud\Blameable\Traits\Blameable;
 class NppbkcFile extends Model
 {
     use HasFactory,Blameable;
-    protected $fillable = ['name','title','filename','original_filename','size','is_annotation'];
+    protected $fillable = ['key','name','title','filename','original_filename','size','ext','is_annotation'];
     public function scopeOfName($query,$name)
     {
         return $query->where('name', $name);
+    }
+    public function scopeOfKey($query,$key)
+    {
+        return $query->where('key', $key);
     }
 }
