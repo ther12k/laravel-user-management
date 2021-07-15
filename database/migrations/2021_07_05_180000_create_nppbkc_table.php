@@ -15,10 +15,14 @@ class CreateNppbkcTable extends Migration
     {
         Schema::create('nppbkcs', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('status_nppbkc')->default(0);
-            $table->string('no_permohonan_lokasi')->nullable();
-            $table->string('no_permohonan')->nullable();
+            $table->tinyInteger('status_nppbkc')->default(1);
+            //last no permohonan
+            $table->string('no_permohonan');
+            $table->string('no_permohonan_lokasi');
+            $table->string('no_permohonan_nppbkc')->nullable();
             $table->string('catatan_petugas')->nullable();
+            $table->string('no_ba_cek_lokasi')->nullable();
+            $table->date('tanggal_ba_cek_lokasi')->nullable();
             //step1      
             $table->string('status_pemohon');
             $table->string('nama_pemilik');
@@ -37,7 +41,6 @@ class CreateNppbkcTable extends Migration
             $table->string('email_usaha');
             $table->string('jenis_lokasi');
             //step4
-            $table->string('lokasi');
             $table->string('kegunaan');
             $table->string('province_id');
             $table->string('regency_id');
