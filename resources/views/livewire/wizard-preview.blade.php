@@ -4,8 +4,12 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-        </span>
+        </span> 
+        @if(!isset($nppbkc_id))
         <span class="tracking-wide text-lg">Preview Permohonan</span>
+        @else
+        <span class="tracking-wide text-lg text-indigo-700">Preview Revisi Permohonan no {{$no_permohonan}} </span>
+        @endif
     </div>
 </div>
 <div class="bg-white my-1 px-5 py-2 overflow-hidden shadow-lg hover:shadow">
@@ -52,7 +56,9 @@
         <div class="grid md:grid-cols-2 text-sm">
             @include('livewire.form.preview-input',['name'=>'nama_usaha','text'=>'Nama Usaha'])
             @include('livewire.form.preview-input',['name'=>'telp_usaha','text'=>'Telp Usaha']) 
+            @if(!empty($npwp_usaha))
             @include('livewire.form.preview-input',['name'=>'npwp_usaha','text'=>'NPWP Usaha']) 
+            @endif
             @include('livewire.form.preview-input',['name'=>'email_usaha','text'=>'Email Usaha']) 
             @include('livewire.form.preview-input',['name'=>'alamat_usaha','text'=>'Alamat Usaha']) 
         </div>
@@ -102,26 +108,41 @@
 
 <div class="bg-white my-1 px-5 py-2 rounded-b-lg overflow-hidden shadow-lg hover:shadow">
     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-        <x-heroicon-o-paper-clip class="h-6 w-6"/> <span class="tracking-wide">Lampiran</span>
+        <x-heroicon-o-paper-clip class="h-6 w-6"/> <span class="tracking-wide">Lampiran @if(isset($nppbkc_id)) (yang diupdate)@endif</span>
     </div>
     <div class="text-gray-700">
         <div class="grid md:grid-cols-2 text-sm">
+            @foreach (nppbkc_file_captions() as $field=>$value)
+                @if(isset(${$field}))
+                    @if($field=='file_surat_kuasa')
+                        @if($status_pemohon=='dikuasakan')
+                            @include('livewire.form.preview-file',['name'=>'file_surat_kuasa','text'=>'Surat Kuasa'])   
+                        @endif
+                    @else
+                        @include('livewire.form.preview-file',['name'=> $field,'text'=>$value])
+                    @endif
+                @endif
+            @endforeach
+            {{-- @if(isset($file_denah_bangunan))
             @include('livewire.form.preview-file',['name'=>'file_denah_bangunan','text'=>'Denah di dalam Bangunan'])
+            @endif
+
+            @if(isset($file_denah_lokasi))
             @include('livewire.form.preview-file',['name'=>'file_denah_lokasi','text'=>'Denah Situasi sekitar lokasi'])
-        
+            @endif
+
             @include('livewire.form.preview-file',['name'=>'file_siup_mb','text'=>'SIUP-MB / SKMB'])
             @include('livewire.form.preview-file',['name'=>'file_itp_mb','text'=>'ITP-MB'])
        
             @include('livewire.form.preview-file',['name'=>'file_nib','text'=>'Nomor Induk Berusaha'])
-            @include('livewire.form.preview-file',['name'=>'file_npwp_usaha','text'=>'NPWP Usaha'])
-        
-        @if($status_pemohon=='dikuasakan')
+            @include('livewire.form.preview-file',['name'=>'file_npwp_usaha','text'=>'NPWP Usaha']) --}}
+{{--         
+        @if($status_pemohon=='dikuasakan'&&isset($file_surat_kuasa))
             @include('livewire.form.preview-file',['name'=>'file_surat_kuasa','text'=>'Surat Kuasa'])    
-        
         @endif
             @include('livewire.form.preview-file',['name'=>'file_npwp_pemilik','text'=>'NPWP Pemilik'])
             @include('livewire.form.preview-file',['name'=>'file_ktp_pemilik','text'=>'KTP Pemilik'])
-            @include('livewire.form.preview-file',['name'=>'file_surat_pernyataan','text'=>'Surat Pernyataan'])
+            @include('livewire.form.preview-file',['name'=>'file_surat_pernyataan','text'=>'Surat Pernyataan']) --}}
             
         </div>
     </div>

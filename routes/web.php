@@ -61,9 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', LogoutController::class)
         ->name('logout');
     
-    Route::get('/update-profile', function () {
-        return view('update-profile')->layout('base');
-    })->name('user.profile');
+    Route::get('/update-profile',\App\Http\Livewire\UpdateProfile::class)->name('user.profile');
 
     Route::middleware(['verified','profile'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -71,16 +69,19 @@ Route::middleware('auth')->group(function () {
         //     return view('nppbkc-wizard');
         // });
         
-        Route::get('/nppbkc/add', \App\Http\Livewire\Nppbkc\Wizard::class)->name('add.nppbkc');
+        Route::get('/nppbkc/add', \App\Http\Livewire\Nppbkc\Wizard::class)->name('nppbkc.add');
 
-        Route::get('/nppbkc/{id}', \App\Http\Livewire\Nppbkc\View::class)->name('view.nppbkc');
+        Route::get('/nppbkc/{id}', \App\Http\Livewire\Nppbkc\View::class)->name('nppbkc.view');
+        Route::get('/nppbkc/edit/{id}', \App\Http\Livewire\Nppbkc\Wizard::class)->name('nppbkc.edit');
     
-        Route::get('/nppbkc/downloadfile/{id}', [NppbkcController::class, 'download'])
-            ->name('nppbkc.downloadfile');
+        Route::get('/nppbkc/surat-permohonan-lokasi/{id}', [NppbkcController::class, 'surat_permohonan_lokasi'])
+            ->name('nppbkc.surat-permohonan-lokasi');
+            Route::get('/nppbkc/download-file/{id}', [NppbkcController::class, 'download'])
+                ->name('nppbkc.download-file');
         Route::get('/nppbkc/generatenppbkc/{id}', [NppbkcController::class, 'generate_nppbkc'])
             ->name('nppbkc.generate');
-        Route::get('/nppbkc/generate_permohonan_cek_lokasi/{id}', [NppbkcController::class, 'generate_permohonan_cek_lokasi'])
-            ->name('nppbkc-cek.generate');
+        Route::get('/nppbkc/generate-cek-lokasi/{id}', [NppbkcController::class, 'generate_permohonan_cek_lokasi'])
+            ->name('nppbkc.generate-cek-lokasi');
     
         Route::get('/activity-log', function () {
             return view('activity-log');

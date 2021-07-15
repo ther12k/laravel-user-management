@@ -24,6 +24,7 @@ class Wizard extends Component
 
     private $hashKey = "nppbkc-file";
 
+    public $nppbkc,$nppbkc_id;
     public $step = 0, $status_nppbkc = 1;
     public $status_pemohon='sendiri', $nama_pemilik, $alamat_pemilik,$email_pemilik,$telp_pemilik,$npwp_pemilik='xx.xxx.xxx.x-xxx.xxx';
     public $jenis_usaha_bkc,$jenis_bkc; 
@@ -55,7 +56,7 @@ class Wizard extends Component
             'jenis_bkc' => 'required',
         ],
         [
-            'no_permohonan'=>'nullable|unique:nppbkcs',
+            // 'no_permohonan'=>'nullable|unique:nppbkcs',
             'nama_usaha' => 'required|min:4',
             'alamat_usaha' => 'required',
             'telp_usaha' => 'required',
@@ -212,25 +213,65 @@ class Wizard extends Component
         }
     }
 
-    public function mount(){
-        $this->rules = null;
+    public function mount($id=null){
+        if(isset($id)){
+            $this->nppbkc_id = $id;
+            $nppbkc = Nppbkc::findOrFail($id);
+            // foreach($nppbkc->toArray() as $key=>$val){
+            //     $this->{$key} = $val;
+            // }
+            foreach($this->rules as $rule){
+                foreach($rule as $field=>$val){
+                    $this->{$field} = $nppbkc->{$field};
 
-        //test
-        $profile = Auth::user()->profile;
-        $this->nama_pemilik=$profile->nama;
-        $this->alamat_pemilik=$profile->alamat;
-        $this->telp_pemilik=$profile->no_telp;
-        //$this->npwp_pemilik='11.111.111.1-111.111';
-        $this->email_pemilik=Auth::user()->email;
+                    if (strpos($field, 'masa') !== false||strpos($field, 'tanggal') !== false) {
+                        $this->{$field} = Carbon::parse($nppbkc->{$field})->format('d-m-Y');
+                    }
+                }
+            }
+            $this->masa_berlaku_siup_mb_from = Carbon::parse($nppbkc->masa_berlaku_siup_mb_from)->format('d-m-Y');
+            $this->masa_berlaku_itp_mb_from = Carbon::parse($nppbkc->masa_berlaku_itp_mb_from)->format('d-m-Y');
 
-        // $this->nama_usaha='nama usaha';
-        // $this->alamat_usaha='alamat usaha';
-        // $this->telp_usaha='12345';
-        // $this->npwp_usaha='11.111.111.1-111.111';
-        // $this->email_usaha='rizkyz@gmail.com';
-        // $this->rt_rw='11';
-        // $this->alamat = 'alamat';
-        // $this->created_at =  date('c');
+            $village =  $nppbkc->village;
+            $this->village_id = ['name'=>'village_id','value'=>$village->id];
+            $this->village = $village->name;
+
+            $district =  $village->district;
+            $this->district_id = ['name'=>'district_id','value'=>$district->id];
+            $this->district = $district->name;
+
+            $regency =  $district->regency;
+            $this->regency_id = ['name'=>'regency_id','value'=>$regency->id];
+            $this->regency = $regency->name;
+
+            $province =  $regency->province;
+            $this->province_id = ['name'=>'province_id','value'=>$province->id];
+            $this->province = $province->name;
+
+            $this->no_permohonan = $nppbkc->no_permohonan;
+            // $this->no_permohonan_lokasi = $nppbkc->no_permohonan_lokasi;
+            // dd($this);
+            // $this->rules = null;
+            $this->nppbkc = $nppbkc;
+        }else{
+
+            //test
+            $profile = Auth::user()->profile;
+            $this->nama_pemilik=$profile->nama;
+            $this->alamat_pemilik=$profile->alamat;
+            $this->telp_pemilik=$profile->no_telp;
+            //$this->npwp_pemilik='11.111.111.1-111.111';
+            $this->email_pemilik=Auth::user()->email;
+
+            // $this->nama_usaha='nama usaha';
+            // $this->alamat_usaha='alamat usaha';
+            // $this->telp_usaha='12345';
+            // $this->npwp_usaha='11.111.111.1-111.111';
+            // $this->email_usaha='rizkyz@gmail.com';
+            // $this->rt_rw='11';
+            // $this->alamat = 'alamat';
+            // $this->created_at =  date('c');
+        };
     }
 
     public function render()
@@ -251,13 +292,13 @@ class Wizard extends Component
      */
     public function stepCheck()
     {   
+        // dd($this);
+        if($this->nppbkc_id!=null){
+            $this->rules[9]=[];
+            $this->rules[10]=[];
+        }
         $this->consoleLog('step : '.$this->step);
-        $this->consoleLog('status_pemohon : '.$this->status_pemohon);
         if(0<$this->step&&$this->step<11){
-            if($this->step==9){
-                $this->consoleLog('file : ');
-                //$this->consoleLog($this->file_denah_bangunan->temporaryUrl());
-            }
             if($this->rules!=null&&count($this->rules[$this->step])>0){
                 $rules = $this->rules[$this->step];
                 if($this->step==7){
@@ -267,7 +308,11 @@ class Wizard extends Component
                 }
                 $validatedData = $this->validate($rules);
             }
-            $this->step++;
+            if($this->step==10){
+                $this->step = 'preview';
+            }else{
+                $this->step++;
+            }
             if($this->step==6){
                 $this->mapCheck();
             }
@@ -336,6 +381,13 @@ class Wizard extends Component
 
     public function preview()
     {
+        if($this->nppbkc_id!=null){
+            $this->rules[9]=[];
+            $this->rules[10]=[];
+        }
+        if($this->npwp_usaha=='xx.xxx.xxx.x-xxx.xxx'){
+            $this->npwp_usaha='';
+        }
         $this->consoleLog('step : '.$this->step);
         if($this->rules!=null&&count($this->rules[$this->step])>0)
             $validatedData = $this->validate($this->rules[$this->step]);
@@ -428,6 +480,7 @@ class Wizard extends Component
                 }
             };
         }
+        
         $arr['province_id']=$this->province_id['value'];
         $arr['regency_id']=$this->regency_id['value'];
         $arr['district_id']=$this->district_id['value'];
@@ -448,7 +501,7 @@ class Wizard extends Component
         //$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
         try {
             $data = $this->buildData();
-
+            // dd($this->no_permohonan);
             if($this->no_permohonan==null||empty($this->no_permohonan)){
                 //generate auto number
                 $array_bln  = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
@@ -469,8 +522,13 @@ class Wizard extends Component
                 $data['no_permohonan_lokasi'] = $this->no_permohonan;
             }
             // dd($data);
-            $nppbkc = Nppbkc::create($data);//test
-
+            if($this->nppbkc_id==null)
+                $nppbkc = Nppbkc::create($data);
+            else{
+                $nppbkc = Nppbkc::findOrFail($this->nppbkc_id);
+                // dd($nppbkc);
+                $nppbkc->update($data);
+            }
             foreach(nppbkc_file_captions() as $name=>$title){
                 if($this->{$name}!=null){
                     $filename = $this->{$name}->storeAs('nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension());
@@ -490,20 +548,22 @@ class Wizard extends Component
                 }
             }
 
-            //file registrasi
-            $user = Auth::user();
-            $userRegistrationFile = $user->files()->OfName('file_registrasi_pengusaha_bkc')->first();
-            $file = $nppbkc->files()->save(
-                new NppbkcFile([
-                    'key'=>'user_'.$hash,
-                    'name'=>'registrasi_pengusaha_bkc',
-                    'title'=>'Data Registrasi Pengusaha BKC',
-                    'filename'=>$userRegistrationFile->filename,
-                    'original_filename'=>$userRegistrationFile->original_filename,
-                    'size'=>$userRegistrationFile->size,
-                    'ext'=>$userRegistrationFile->ext
-                ])
-            ); 
+            if($this->nppbkc_id==null){
+                //file registrasi
+                $user = Auth::user();
+                $userRegistrationFile = $user->files()->OfName('file_registrasi_pengusaha_bkc')->first();
+                $file = $nppbkc->files()->save(
+                    new NppbkcFile([
+                        'key'=>'user_'.$hash,
+                        'name'=>'registrasi_pengusaha_bkc',
+                        'title'=>'Data Registrasi Pengusaha BKC',
+                        'filename'=>$userRegistrationFile->filename,
+                        'original_filename'=>$userRegistrationFile->original_filename,
+                        'size'=>$userRegistrationFile->size,
+                        'ext'=>$userRegistrationFile->ext
+                    ])
+                ); 
+            }
 
             $nppbkc->save();
             $this->created_at = $nppbkc->created_at;

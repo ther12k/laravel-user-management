@@ -21,16 +21,16 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
         </div>
         <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
           <div class="flex-shrink-0 flex items-center">
-            <img class="h-16 w-16" src="{{asset('images/logo-128.png')}}" alt="">
+            <img class="h-16 w-16" src="{{asset('images/logopulpis.png')}}" alt="">
             <span class="text-white ml-4">NPPBKC</span>  
           </div>
           <div class="hidden sm:block sm:ml-10 items-center mt-4">
             <div class="flex space-x-4">
               <a href="{{ Request::route()->getName()!=='home' ? route('home'):'#'}}" 
-                class="{{ Request::route()->getName() ==  'home'  ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>
+                class="{{ Request::route()->getName() =='home' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>
               @cannot('viewAllNppbkc')
-              <a href="{{ Request::route()->getName()!=='add.nppbkc' ? route('add.nppbkc'):'#'}}" 
-                class="{{ Request::route()->getName()=='add.nppbkc' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Permohonan</a>
+              <a href="{{ Request::route()->getName()!=='nppbkc.add' ? route('nppbkc.add'):'#'}}" 
+                class="{{ Request::route()->getName()=='nppbkc.add' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Permohonan</a>
               @endcan
                 {{-- <a href="#" class=" text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Dashboard</a>
               
