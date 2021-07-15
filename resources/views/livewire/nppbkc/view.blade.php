@@ -9,16 +9,17 @@
 @endpush    
 
 <div x-cloak class="container mx-auto p-5 md:flex no-wrap md:-mx-2" x-data="app()" >
-
 <div class="w-full lg:w-9/12 mx-auto">
+	@if(!$isEdited)
 	<div class="mb-4 bg-white px-4 py-5">
 		<livewire:nppbkc.message />
 		<div class="tab-content tab-space flex ml-2">
 			<livewire:nppbkc.update-status :nppbkc="$nppbkc_id"/>
 		</div>
 	</div>
+	@endif
 	<div class="flex space-x-2">
-		<a href="#content" @click="activeTab = 1" :class="activeTab === 1 ? activeClass : inactiveClass">	
+		<a href="#content" :class="activeClass"  x-show="activeTab === 1">	
 			<div class="flex items-center space-x-2 font-semibold leading-8">
 				<span clas="text-green-500">
 					<x-heroicon-o-user class="h-6 w-6"/>
@@ -26,7 +27,16 @@
 				<span class="hidden xl:block">Data Pemohon</span>
 			</div>
 		</a>
-		<a href="#content" @click="activeTab = 2" :class="activeTab === 2 ? activeClass : inactiveClass">
+		<a href="#content" @click="activeTab = 1" :class="inactiveClass" x-show="activeTab !== 1">	
+			<div class="flex items-center space-x-2 font-semibold leading-8">
+				<span clas="text-green-500">
+					<x-heroicon-o-user class="h-6 w-6"/>
+				</span>
+				<span class="hidden xl:block">Data Pemohon</span>
+			</div>
+		</a>
+
+		<a href="#content"  :class="activeClass"  x-show="activeTab === 2">	
 			<div class="flex items-center space-x-2 font-semibold leading-8">
 				<span clas="text-green-500">
 					<x-heroicon-o-office-building class="h-6 w-6"/>
@@ -34,13 +44,30 @@
 				<span class="hidden xl:block">Data Usaha</span>
 			</div>	
 		</a>
-		<a href="#content" @click="activeTab = 3" :class="activeTab === 3 ? activeClass : inactiveClass">
+
+		<a href="#content" @click="activeTab = 2" :class="inactiveClass" x-show="activeTab !== 2">	
+			<div class="flex items-center space-x-2 font-semibold leading-8">
+				<span clas="text-green-500">
+					<x-heroicon-o-office-building class="h-6 w-6"/>
+				</span>
+				<span class="hidden xl:block">Data Usaha</span>
+			</div>	
+		</a>
+
+		<a href="#content" :class="activeClass"  x-show="activeTab === 3">	
 			<div class="flex items-center space-x-2 font-semibold leading-8">
 				<x-heroicon-o-location-marker class="h-6 w-6"/>
 				</span><span class="hidden xl:block">Lokasi</span>
 			</div>
 		</a>
-		<a href="#content" @click="activeTab = 4" :class="activeTab === 4 ? activeClass : inactiveClass">
+		<a href="#content" @click="activeTab = 3" :class="inactiveClass" x-show="activeTab !== 3">	
+			<div class="flex items-center space-x-2 font-semibold leading-8">
+				<x-heroicon-o-location-marker class="h-6 w-6"/>
+				</span><span class="hidden xl:block">Lokasi</span>
+			</div>
+		</a>
+
+		<a href="#content" :class="activeClass"  x-show="activeTab === 4">	
 			<div class="flex items-center space-x-2 font-semibold leading-8">
 				<span clas="text-green-500">
 					<x-heroicon-o-briefcase class="h-6 w-6"/>
@@ -48,7 +75,16 @@
 				<span class="hidden xl:block">Izin Usaha</span>
 			</div>
 		</a>
-		<a href="#content" @click="activeTab = 5" :class="activeTab === 5 ? activeClass : inactiveClass">
+		<a href="#content" @click="activeTab = 4" :class="inactiveClass" x-show="activeTab !== 4">	
+			<div class="flex items-center space-x-2 font-semibold leading-8">
+				<span clas="text-green-500">
+					<x-heroicon-o-briefcase class="h-6 w-6"/>
+				</span>
+				<span class="hidden xl:block">Izin Usaha</span>
+			</div>
+		</a>
+
+		<a href="#content" :class="activeClass"  x-show="activeTab === 5">	
 			<div class="flex items-center space-x-2 font-semibold leading-8">
 				<span clas="text-green-500">
 					<x-heroicon-o-paper-clip class="h-6 w-6"/>
@@ -56,7 +92,17 @@
 				<span class="hidden xl:block">Lampiran</span>
 			</div>
 		</a>
-		<livewire:nppbkc.annotation.tab-header show="{{ ($status_nppbkc>2) }}"/>
+		<a href="#content" @click="activeTab = 5" :class="inactiveClass" x-show="activeTab !== 5">	
+			<div class="flex items-center space-x-2 font-semibold leading-8">
+				<span clas="text-green-500">
+					<x-heroicon-o-paper-clip class="h-6 w-6"/>
+				</span>
+				<span class="hidden xl:block">Lampiran</span>
+			</div>
+		</a>
+		@if(!$isEdited)
+		<livewire:nppbkc.annotation.tab-header show="{{ $status_nppbkc==0||$status_nppbkc>1 }}"/>
+		@endif
 	</div>
 	<div class="bg-white mb-6 shadow-lg">
 		<div class="px-4 py-5">
@@ -66,7 +112,14 @@
 				</div>
 				<div class="text-gray-700">
 					<div class="grid md:grid-cols-2 text-sm">
-						@include('livewire.form.preview-input',['name'=>'nama_pemilik','text'=>'Nama Pemilik'])
+						{{-- <div class="grid grid-cols-2">
+							<div class="px-4 py-2 font-semibold flex-grow">Nama Pemilik</div>
+							<div class="px-4 py-2 flex-grow"> 
+								
+							</div>
+						</div>  --}}
+						<livewire:nppbkc.form.edit-field :nppbkcId="$id" :field="'nama_pemilik'" :value="$nama_pemilik" key="{{ now() }}">           
+						{{-- @include('livewire.form.preview-input',['name'=>'nama_pemilik','text'=>'Nama Pemilik','id'=>$id]) --}}
 						@include('livewire.form.preview-input',['name'=>'telp_pemilik','text'=>'Telp Pemilik']) 
 						@include('livewire.form.preview-input',['name'=>'npwp_pemilik','text'=>'NPWP Pemilik']) 
 						@include('livewire.form.preview-input',['name'=>'email_pemilik','text'=>'Email Pemilik'])
@@ -98,8 +151,13 @@
 				</div>
 				<div class="grid lg:grid-cols-2 text-sm">
 
+					@if(!$isEdited)
 					<div id="map" class='h-72' ></div>
+					@endif
+					@if(!$isEdited)
 					<div>
+					@endif
+						@if(!$isEdited)
 						<div class="flex items-center hover:opacity-75 mr-4 px-4">
 							<i class="mr-2"><br>
 								<x-heroicon-o-map class="h-6 w-6 text-indigo-500"/>
@@ -108,12 +166,14 @@
 							<a href="http://maps.google.com/maps?q={{$lokasi_latitude}},{{$lokasi_longitude}}" target="_blank" class="mt-1 text-indigo-500 font-bold">Open via google map</a>
 							<span class="ml-1 mt-1"> &nbsp;({{$lokasi_latitude}}, {{$lokasi_longitude}})</span>
 						</div>
+						@endif
 						@include('livewire.form.preview-input',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi'])
 						@include('livewire.form.preview-input',['name'=>'kegunaan','text'=>'Kegunaan']) 
-						@include('livewire.form.preview-input',['name'=>'lokasi','text'=>'Lokasi'])
 						@include('livewire.form.preview-input',['name'=>'alamat','text'=>'Alamat lengkap lokasi'])
 						
+					@if(!$isEdited)
 					</div>
+					@endif
 				</div>
 				{{-- <div class="grid md:grid-cols-2 text-sm">
 					@include('livewire.form.preview-input',['name'=>'province','text'=>'Provinsi'])
@@ -149,14 +209,14 @@
 				<div class="grid md:grid-cols-2 text-sm">
 					@if(isset($file_surat_permohonan_lokasi))
 					<div class="px-4 py-2 font-semibold flex">
-						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.downloadfile',['id'=>$file_surat_permohonan_lokasi->id])}}" class="text-blue-500 hover:text-indigo-700">
+						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.download-file',['id'=>$file_surat_permohonan_lokasi->key])}}" class="text-blue-500 hover:text-indigo-700">
 							{{$file_surat_permohonan_lokasi->title}}</a>
 					</div>
 					@endif
 					@if(isset($file_surat_permohonan_nppbkc))
 					@if($status_nppbkc>2)
 					<div class="px-4 py-2 font-semibold flex">
-						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.downloadfile',['id'=>$file_surat_permohonan_nppbkc->id])}}" class="text-blue-500 hover:text-indigo-700">
+						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.download-file',['id'=>$file_surat_permohonan_nppbkc->key])}}" class="text-blue-500 hover:text-indigo-700">
 							{{$file_surat_permohonan_nppbkc->title}}</a>
 					</div>
 					@endif
@@ -165,7 +225,7 @@
 				<div class="grid md:grid-cols-2 text-sm">
 					@foreach ($files as $file )
 					<div class="px-4 py-2 font-semibold flex">
-						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.downloadfile',['id'=>$file->id])}}" class="text-indigo-500 hover:text-indigo-700">{{nppbkc_file_captions($file->name)}}</a>
+						<x-heroicon-o-link class="h-6 w-6 mr-2 p-1"/><a href="{{route('nppbkc.download-file',['id'=>$file->key])}}" class="text-indigo-500 hover:text-indigo-700">{{$file->title}}</a>
 					</div>
 					@endforeach
 				</div>
@@ -175,20 +235,21 @@
 		</div>
 	</div>
 	<div class="h-1"></div>
-	{{-- @if($isOpen&&$status_nppbkc==2)
+	@if($isEdited)
 	<!-- Bottom Navigation -->	
 	<div class="fixed bottom-0 z-50 left-0 right-0 py-5 bg-white shadow-md">
 		<div class="max-w-3xl mx-auto px-4">
 			<div class="flex justify-between">
 				<div class="w-1/2">
 					<button
-						wire:click="closeModal()"
+						wire:click="cancelEdit()"
 						class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-white bg-red-500 hover:bg-red-600 font-medium border" 
 					>Kembali</button>
 				</div>
 
 				<div class="w-1/2 text-right">
 					<button
+						wire:click="saveEdit()"
 						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 					>Proses</button>
 				</div>
@@ -196,7 +257,7 @@
 		</div>
 	</div>
 	<!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->	
-	@endif --}}
+	@endif
 
 </div>
 @push('script')
@@ -226,7 +287,7 @@
 
 	window.addEventListener('showMap', event => {
 		defaultLocation =  [{{$lokasi_longitude}}, {{$lokasi_latitude}}];
-		loadPreviewMap();
+		//loadPreviewMap();
 	});
 
 	// 	flatpickr.localize(flatpickr.l10ns.id);
