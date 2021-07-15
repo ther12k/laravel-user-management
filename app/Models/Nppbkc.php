@@ -17,7 +17,7 @@ class Nppbkc extends Model
         'status_nppbkc','no_permohonan_lokasi','catatan_petugas',
         'status_pemohon','no_permohonan','nama_pemilik','alamat_pemilik','telp_pemilik','npwp_pemilik','email_pemilik',
         'jenis_usaha_bkc','jenis_bkc','nama_usaha','alamat_usaha','telp_usaha','npwp_usaha','email_usaha',
-        'jenis_lokasi','lokasi','kegunaan','village_id','rt_rw','alamat',
+        'jenis_lokasi','kegunaan','village_id','rt_rw','alamat',
         'lokasi_latitude','lokasi_longitude',
         'province_id','regency_id','district_id','village_id',
         'no_siup_mb','masa_berlaku_siup_mb_from','masa_berlaku_siup_mb_to','no_itp_mb',
