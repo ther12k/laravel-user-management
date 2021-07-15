@@ -122,7 +122,6 @@
             @include('livewire.form.preview-file',['name'=>'file_npwp_pemilik','text'=>'NPWP Pemilik'])
             @include('livewire.form.preview-file',['name'=>'file_ktp_pemilik','text'=>'KTP Pemilik'])
             @include('livewire.form.preview-file',['name'=>'file_surat_pernyataan','text'=>'Surat Pernyataan'])
-            @include('livewire.form.preview-file',['name'=>'file_data_registrasi','text'=>'Data Registrasi'])
             
         </div>
     </div>
