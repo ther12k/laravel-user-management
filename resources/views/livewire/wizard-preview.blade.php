@@ -71,7 +71,9 @@
         <div class="grid md:grid-cols-2 text-sm">
             @include('livewire.form.preview-input',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi'])
             @include('livewire.form.preview-input',['name'=>'kegunaan','text'=>'Kegunaan']) 
-            @include('livewire.form.preview-input',['name'=>'lokasi','text'=>'Lokasi'])
+        </div>
+        <div class="grid md:grid-cols-2 text-sm">
+        @include('livewire.form.preview-input',['name'=>'alamat','text'=>'Alamat Lengkap'])
         </div>
         <div class="grid md:grid-cols-2 text-sm">
             @include('livewire.form.preview-input',['name'=>'province','text'=>'Provinsi'])
@@ -79,7 +81,6 @@
             @include('livewire.form.preview-input',['name'=>'district','text'=>'Kecamatan'])
             @include('livewire.form.preview-input',['name'=>'village','text'=>'Kelurahan/Desa'])
             @include('livewire.form.preview-input',['name'=>'rt_rw','text'=>'RT/RW'])
-            @include('livewire.form.preview-input',['name'=>'alamat','text'=>'Alamat Lengkap'])
         </div>
         <div class="p-3 text-sm">
             <div id="map" class='h-72' ></div>
