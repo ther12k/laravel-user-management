@@ -15,11 +15,13 @@ class CreateNppbkcFilesTable extends Migration
     {
         Schema::create('nppbkc_files', function (Blueprint $table) {
             $table->id();
+            $table->string('key');
             $table->string('name');
             $table->string('title');
             $table->string('filename');
             $table->string('original_filename');
             $table->integer('size');
+            $table->string('ext');
             $table->tinyinteger('is_annotation')->default(0);
             $table->unsignedBigInteger('nppbkc_id');
             $table->foreign('nppbkc_id')
