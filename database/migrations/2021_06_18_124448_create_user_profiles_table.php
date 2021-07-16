@@ -20,6 +20,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('no_telp')->nullable();
             $table->string('npwp_foto')->nullable();
             $table->string('ktp_foto')->nullable();
+            $table->blameable();
             $table->timestamps();
         });
     }
