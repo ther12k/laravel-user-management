@@ -101,25 +101,30 @@
 			</div>
 		</a>
 		@if(!$isEdited)
-		<livewire:nppbkc.annotation.tab-header show="{{ $status_nppbkc==0||$status_nppbkc>1 }}"/>
+		<livewire:nppbkc.annotation.tab-header show="{{ $status_nppbkc==0||$status_nppbkc>2 }}"/>
 		@endif
 	</div>
 	<div class="bg-white mb-6 shadow-lg">
 		<div class="px-4 py-5">
 			<div x-show="activeTab === 1">
 				<div class="xl:hidden items-center space-x-2 font-semibold text-gray-900 leading-8">
-					<span class="tracking-wide">Data Pemohon {{ $status_pemohon=='dikuasakan' ?'(Dikuasakan)':''}}</span>
+					<span class="tracking-wide">Data Pemohon</span>
+					
+				</div>
+				<div class="text-gray-700">
+					
 				</div>
 				<div class="text-gray-700">
 					<div class="grid md:grid-cols-2 text-sm">
-						{{-- <div class="grid grid-cols-2">
-							<div class="px-4 py-2 font-semibold flex-grow">Nama Pemilik</div>
+						<div class="grid grid-cols-2">
+							<div class="px-4 py-2 font-semibold flex-grow">Status Pemohon</div>
 							<div class="px-4 py-2 flex-grow"> 
-								
+								{{ $status_pemohon=='dikuasakan' ?'Dikuasakan':'Sendiri'}}
 							</div>
-						</div>  --}}
-						<livewire:nppbkc.form.edit-field :nppbkcId="$id" :field="'nama_pemilik'" :value="$nama_pemilik" key="{{ now() }}">           
-						{{-- @include('livewire.form.preview-input',['name'=>'nama_pemilik','text'=>'Nama Pemilik','id'=>$id]) --}}
+						</div> 
+						<div class="grid grid-cols-2"></div>
+						{{-- <livewire:nppbkc.form.edit-field :nppbkcId="$id" :field="'nama_pemilik'" :value="$nama_pemilik" key="{{ now() }}">            --}}
+						@include('livewire.form.preview-input',['name'=>'nama_pemilik','text'=>'Nama Pemilik','id'=>$id])
 						@include('livewire.form.preview-input',['name'=>'telp_pemilik','text'=>'Telp Pemilik']) 
 						@include('livewire.form.preview-input',['name'=>'npwp_pemilik','text'=>'NPWP Pemilik']) 
 						@include('livewire.form.preview-input',['name'=>'email_pemilik','text'=>'Email Pemilik'])
@@ -170,7 +175,10 @@
 						@include('livewire.form.preview-input',['name'=>'jenis_lokasi','text'=>'Jenis Lokasi'])
 						@include('livewire.form.preview-input',['name'=>'kegunaan','text'=>'Kegunaan']) 
 						@include('livewire.form.preview-input',['name'=>'alamat','text'=>'Alamat lengkap lokasi'])
-						
+						<div class="grid grid-cols-2">
+							<div class="px-4 py-2 font-semibold flex-grow">&nbsp;</div>
+							<div class="px-4 py-2 flex-grow">{{$village}}, {{$district}}, {{$regency}} - {{$province}}</div>
+						</div>
 					@if(!$isEdited)
 					</div>
 					@endif
@@ -270,6 +278,7 @@
     const style = "streets-v11";
 	var defaultLocation;
 	var loaded = false;
+	var datepickerLoaded = false;
 	var skeleton;
 	var activeTab = 1;
 	function app(){
@@ -281,6 +290,7 @@
 	}
 
 	document.addEventListener('livewire:load', function () {
+		flatpickr.localize(flatpickr.l10ns.id);
 		defaultLocation =  [{{$lokasi_longitude}}, {{$lokasi_latitude}}];
 		loadPreviewMap();
 	})
@@ -289,6 +299,15 @@
 		defaultLocation =  [{{$lokasi_longitude}}, {{$lokasi_latitude}}];
 		//loadPreviewMap();
 	});
+
+
+	function removeDatepicker(){
+		console.log('remove datepicker if exists');
+		var elements = document.getElementsByClassName('flatpickr-calendar');
+		while(elements.length > 0){
+			elements[0].parentNode.removeChild(elements[0]);
+		}
+	}
 
 	// 	flatpickr.localize(flatpickr.l10ns.id);
 	// 	flatpickr('.datepicker',{
