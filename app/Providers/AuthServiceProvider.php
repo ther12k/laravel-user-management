@@ -33,14 +33,17 @@ class AuthServiceProvider extends ServiceProvider
                 ->line('TERIMA KASIH TELAH MELAKUKAN PENDAFTARAN USER!, Klik link dibawah ini.')
                 ->action('Aktivasi Registrasi', $url);
         });
+        Gate::define('userbiasa', function ($user = null) {
+            return $user&&$user->role=='user';
+        });
         Gate::define('viewWebTinker', function ($user = null) {
             return $user&&$user->role=='admin';
         });
         Gate::define('viewAllNppbkc', function ($user = null) {
             return $user&&$user->role!='user';
         });
-        Gate::define('updateNppbkc', function ($user = null) {
-            return $user&&$user->role=='officer';
+        Gate::define('updateStatusNppbkc', function ($user = null) {
+            return $user&&($user->role=='officer'||$user->role=='admin');
         });
     }
 }
