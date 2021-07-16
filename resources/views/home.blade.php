@@ -20,15 +20,17 @@
                   </div>
                   <div class="p-8">
                     <div class="uppercase tracking-wide text-lg text-indigo-500 font-semibold py-5">Welcome, {{ Auth::user()->name }}</div>
-                    <p class="block mt-1 text-lg font-medium text-gray-600 py-5 leading-8">
-                       Anda belum punya membuat pengajuan permohonan
-                       silahkan klik tombol dibawah untuk melanjutkan
-                    </p>
-                    <form>
-                    <button class="flex justify-center px-10 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring-indigo active:bg-indigo-700 transition duration-150 ease-in-out" formaction="{{route('nppbkc.add')}}">
-                        Input Permohonan
-                    </button>
-                    </form>
+                    @can('userbiasa')
+                        <p class="block mt-1 text-lg font-medium text-gray-600 py-5 leading-8">
+                        Anda belum punya membuat pengajuan permohonan
+                        silahkan klik tombol dibawah untuk melanjutkan
+                        </p>
+                        <form>
+                        <button class="flex justify-center px-10 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring-indigo active:bg-indigo-700 transition duration-150 ease-in-out" formaction="{{route('nppbkc.add')}}">
+                            Input Permohonan
+                        </button>
+                        </form>
+                    @endcan
                   </div>
                 </div>
             </div>
