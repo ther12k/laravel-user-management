@@ -12,13 +12,14 @@ use App\Models\NppbkcAnnotation;
 
 use App\Notifications\NppbkcAddedNotification;
 use PDF,Storage,QrCode;
+use Carbon\Carbon;
 
 class Modal extends ModalComponent
 {
     use WithFileUploads;
     public $nppbkc_id,$status_nppbkc,$catatan_petugas,$file_surat_tugas,$file_ba_periksa,$file_ba_wawancara;
     //tambahan 6 juli 2021
-    public $no_ba_periksa,$tanggal_ba_periksa;
+    public $no_ba_cek_lokasi,$tanggal_ba_cek_lokasi;
     public $petugas_files=
     [
         'file_surat_tugas'=>'Surat tugas periksa lokasi',
@@ -31,6 +32,17 @@ class Modal extends ModalComponent
             'file_surat_tugas' => 'required',
             'file_ba_periksa' => 'required',
             'file_ba_wawancara' => 'required',
+            'no_ba_cek_lokasi'=>'required',
+            'tanggal_ba_cek_lokasi'=>'required'
+    ];
+
+    protected $messages = [
+        'catatan_petugas.required' => 'Catatan harus diisi.',
+        'no_ba_cek_lokasi.required'=>'No BA harus diisi.',
+        'tanggal_ba_cek_lokasi.required'=>'Tanggal BA harus diisi.',
+        'file_surat_tugas.required'=>'File surat tugas harus diupload',
+        'file_ba_periksa.required'=>'File BA periksa harus diupload',
+        'file_ba_wawancara.required'=>'File BA wawancara harus diupload',
     ];
 
     public function mount($id)
@@ -64,7 +76,31 @@ class Modal extends ModalComponent
     {
         $nppbkc = Nppbkc::findOrFail($this->nppbkc_id);
         $nppbkc->status_nppbkc=2;
+        $nppbkc->catatan_petugas=$this->catatan_petugas;
         $nppbkc->save();
+        session(['message' => 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.']);
+        // $this->emit('nppbkcStatusUpdated',$nppbkc);
+        // $this->closeModal();
+        $this->closeModalWithEvents([
+            Message::getName() => ['nppbkcFlashMessage', [false]]
+            ,UpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
+        ]);
+    }
+
+    public function tolak_cek()
+    {
+        $this->validateOnly('catatan_petugas');
+        $nppbkc = Nppbkc::findOrFail($this->nppbkc_id);
+        $nppbkc->status_nppbkc=0;
+        $nppbkc->catatan_petugas=$this->catatan_petugas;
+        $nppbkc->save();
+
+        $data = [
+            'status_nppbkc'=>$nppbkc->status_nppbkc,
+            'catatan_petugas'=>$nppbkc->catatan_petugas
+        ];
+        $nppbkc->annotations()->save(new NppbkcAnnotation($data));
+
         session(['message' => 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
         // $this->closeModal();
@@ -119,8 +155,8 @@ class Modal extends ModalComponent
 
     public function complete()
     {
+        $this->validate();
         try {
-            $this->validate($this->rules);
             $nppbkc=Nppbkc::findOrFail($this->nppbkc_id);
             
             foreach($this->petugas_files as $name=>$title){
@@ -128,17 +164,21 @@ class Modal extends ModalComponent
                     $filename = $this->{$name}->storeAs('nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension());
                     $originalname = $this->{$name}->getClientOriginalName();
                     $size = $this->{$name}->getSize();
-                    $annotationName = 'annotation.'.str_replace("file_","",$name);
-                    $annotationFiles = $nppbkc->annotationFiles()->OfName($annotationName);
+                    $annotationFileName = 'annotation.'.str_replace("file_","",$name);
+                    $annotationFiles = $nppbkc->annotationFiles()->OfName($annotationFileName);
                     $count = $annotationFiles->count();
                     if($count==1){
                         $annotationFile =$annotationFiles->first();
+                        $hash = md5($annotationFileName.$nppbkc->id);
                         $annotationFile->update([
-                            'name'=>$annotationName,
+                            'key'=>$hash,
+                            'name'=>$annotationFileName,
                             'title'=>$title,
                             'filename'=>$filename,
                             'original_filename'=>$originalname,
-                            'size'=>$size
+                            'size'=>$size,
+                            'is_annotation'=>1,
+                            'ext'=>$this->{$name}->extension()
                         ]);
                     }
                     else{
@@ -146,88 +186,119 @@ class Modal extends ModalComponent
                             $this->consoleLog($count);
                             $annotationFiles->delete();
                         }
+                        $hash = md5($annotationFileName.$nppbkc->id);
                         $annotationFile = new NppbkcFile([
-                            'name'=>$annotationName,
+                            'key'=>$hash,
+                            'name'=>$annotationFileName,
                             'title'=>$title,
                             'filename'=>$filename,
                             'original_filename'=>$originalname,
                             'size'=>$size,
-                            'is_annotation'=>1
+                            'is_annotation'=>1,
+                            'ext'=>$this->{$name}->extension()
                         ]);
                         $nppbkc->files()->save($annotationFile);
                     }
                 }
             }
 
-            $pdfHTML = view('pdf.permohonan_nppbkc')->render();
-            $formats=[];
-            $replaces=[];
-            foreach($nppbkc->toArray() as $key=>$val){
-                if(isset($val)){
-                    $formats[]='['.strtoupper($key).']';
-                    if($key=='nama_usaha')
-                        $val=strtoupper($val);
-                    $replaces[]=$val;
-                }
-            }
-
-            $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
-            
-            //generate auto number
-            //TTD-000001/WBC.15/KPP.MP.04/2021
-
-            $nppbkc->no_permohonan = 'TTD-'.str_pad($nppbkc->id,6,"0",STR_PAD_LEFT).'/WBC.15/KPP.MP.04/'.date('Y');
+            $nppbkc->status_nppbkc=3;
             // while(Nppck::where('no_permohonan','=',$nppbkc->no_permohonan)->count()>0){
             //     $nppbkc->no_permohonan = str_pad($no++,6,"0",STR_PAD_LEFT).'/'.
             //     str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
             // }
-            $nppbkc->status_nppbkc=3;
+            $no = Nppbkc::whereNotNull('no_permohonan_nppbkc')->orderByDesc('id')->first();
+            if($no!=null){
+                $no = (int)explode('/', $no->no_permohonan_nppbkc)[0];
+            }else{
+                $no=0;
+            }
+            $nppbkc->no_permohonan = 'TTD-'.str_pad($no+1,6,"0",STR_PAD_LEFT).'/WBC.15/KPP.MP.04/'.date('Y');
             $nppbkc->catatan_petugas=$this->catatan_petugas;
+            $nppbkc->no_ba_cek_lokasi=$this->no_ba_cek_lokasi;
+            
+            $nppbkc->tanggal_ba_cek_lokasi=Carbon::createFromFormat('d-m-Y', trim($this->tanggal_ba_cek_lokasi))->format('Y-m-d');
             $nppbkc->save();
 
             $data = [
                 'status_nppbkc'=>$nppbkc->status_nppbkc,
                 'catatan_petugas'=>$nppbkc->catatan_petugas
             ];
+            $nppbkc->annotations()->save(new NppbkcAnnotation($data));
 
-            $annotation = $nppbkc->annotations()->OfStatus($nppbkc->status_nppbkc);
-            
-            if($annotation->count()==0){
-                $nppbkc->annotations()->save(new NppbkcAnnotation($data));
-            }else{
-                $annotation->update($data);
+            $pdfHTML = view('pdf.permohonan_nppbkc')->render();
+            $formats=[];
+            $replaces=[];
+            $dataPdf = $nppbkc->toArray();
+            $dataPdf['province'] = $nppbkc->province->name;
+            $dataPdf['regency'] = $nppbkc->regency->name;
+            $dataPdf['district'] = $nppbkc->district->name;
+            $dataPdf['village'] = $nppbkc->village->name;
+    
+            $createdBy = $nppbkc->createdBy()->first()->profile;
+            $dataPdf['nama_user'] = $createdBy->nama;
+            $dataPdf['pekerjaan_user'] = $createdBy->pekerjaan;
+            $dataPdf['email_user'] = $createdBy->email;
+            $dataPdf['alamat_user'] = $createdBy->alamat;
+            $dataPdf['telp_user'] = $createdBy->no_telp;
+            $dataPdf['email_user'] = $nppbkc->createdBy()->first()->email;
+            foreach($dataPdf as $key=>$val){
+                $formats[]='['.strtoupper($key).']';
+                if($key=='nama_usaha')
+                    $val=strtoupper($val);
+                if(strpos($key,'masa_berlaku')!==false||
+                    strpos($key,'tanggal')!==false){
+                        $val=Carbon::parse($val)->isoFormat('D MMMM Y');
+                    }
+                $val = '<strong>'.$val.'</strong>';
+                $replaces[]=$val;
+            }
+            $formats[]='[MAP_URL]';
+            $replaces[]='<strong>'.$nppbkc->lokasi_latitude.', '.$nppbkc->lokasi_longitude.'</strong>';
+    
+            $formats[]='[NO_PERMOHONAN]';
+            $replaces[]='<strong>'.$nppbkc->no_permohonan.'</strong>';
+    
+            $annotation = $nppbkc->annotations()->OfStatus(3)->first();
+            if($annotation!=null)
+            {
+                $annotationDate = $annotation->created_at->isoFormat('D MMMM Y');
+                
+                $formats[]='[TANGGAL_PERMOHONAN_NPPBKC]';
+                $replaces[]='<strong>'.$annotationDate .'</strong>';
+                $formats[]='[NO_BA_CEK_LOKASI]';
+                $replaces[]='<strong>'.$this->no_ba_cek_lokasi.'</strong>';
+                $formats[]='[TANGGAL_BA_CEK_LOKASI]';
+                $replaces[]='<strong>'.$this->tanggal_ba_cek_lokasi.'</strong>';
             }
 
-            $pdfHTML = str_replace('[NO_PERMOHONAN]',$nppbkc->no_permohonan,$pdfHTML);
-
-            $qrImage= base64_encode(
-                QrCode::format('png')->merge('http://w3adda.com/wp-content/uploads/2019/07/laravel.png', 0.2, true)
-                ->size(100)->errorCorrection('H')
-                ->generate(url('/nppbkc/download/'.$nppbkc->id))
-            );
-            $qrImage = '<img src="data:image/png;base64,'.$qrImage.'">';
-            $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
-            
-            $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
+            //replace all
+            $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
+    
             $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_nppbkc.pdf';
-            // $exists = Storage::disk('local')->exists($pdf_filename);
-            // if($exists){
-            //     Storage::delete($pdf_filename);
-            // }
-            Storage::put($pdf_filename, $pdf->output());
-            if($nppbkc->files())
-            $nppbkc->files()->save(
+            $hash = md5('file-permohonan-nppbkc'.$nppbkc->id);
+            $qrImage= base64_encode(
+                QrCode::format('png')
+                ->size(80)
+                ->generate(url('/nppbkc/download-file/'.$hash))
+            );
+            $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
+            $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
+            $file = $nppbkc->files()->save(
                                 new NppbkcFile([
+                                    'key'=>$hash,
                                     'name'=>'surat_permohonan_nppbkc',
                                     'title'=>'Surat Permohonan NPPBKC',
                                     'filename'=>$pdf_filename,
                                     'original_filename'=>'',
                                     'size'=>strlen($pdfHTML),
-                                    'is_annotation'=>2
+                                    'is_annotation'=>2,
+                                    'ext'=>'pdf'
                                 ])
                             );
-            $this->consoleLog('success');
-            $url = url($pdf_filename);
+            $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
+            Storage::put($pdf_filename, $pdf->output());
+
             $nppbkc->notify(new NppbkcAddedNotification([
                 'text' => "Permohonan NPPBKC baru ".$nppbkc->id,
                 'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan."* [Lihat](http://www.google.com)",
@@ -236,10 +307,11 @@ class Modal extends ModalComponent
             ]));
 
             session(['message' => 'Data telah diupdate ke status Permohonan NPPBKC.']);
+            
             $this->closeModalWithEvents([
                 Message::getName() => ['nppbkcFlashMessage', [false]]
-                ,NppbkcAnnotationView::getName() => ['annotationUpdated', [$nppbkc->id]]
-                ,NppbkcAnnotationTabHeader::getName() => ['annotationUpdated',[true]]
+                ,\App\Http\Livewire\Nppbkc\Annotation\View::getName() => ['annotationUpdated', [$nppbkc->id]]
+                ,\App\Http\Livewire\Nppbkc\Annotation\TabHeader::getName() => ['annotationUpdated',[true]]
                 ,UpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
             ]);
         }catch (\Exception $e) {
