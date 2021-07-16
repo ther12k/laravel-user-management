@@ -2,7 +2,8 @@
     <div class="md:w-1/3">
     <label for="inline-{{$name}}" class="font-bold mb-1 text-gray-700 block">{{$text}}</label>
     </div>
-    <div class="md:w-2/3 {{isset($tooltip) ? 'flex':''}} " x-data="{ showTooltip: false }"> 
+    <div class="md:w-2/3" x-data="{ showTooltip: false }"> 
+        <div class="flex">
         @isset($tooltip)
         <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-ful sm:mx-0 sm:h-10 sm:w-10" x-on:mouseover="showTooltip = true" x-on:mouseleave="showTooltip = false" >
             <div class="relative" x-cloak x-show.transition.origin.top="showTooltip">
@@ -18,10 +19,15 @@
         @endif
         <input       
             name="{{$name}}"
+            @if(isset($lazy))
+            wire:model.lazy="{{$name}}"
+            @else
             wire:model.defer="{{$name}}"
+            @endif
             type="{{ $type ?? 'text' }}"
             class="@error($name) border-red-500 @enderror w-full py-1 px-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
             placeholder="{{ $placeholder ?? 'Input '.$text.'...' }}"/>
+        </div>
         @error($name)
         <span class="error items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
 			{{ $message }}
