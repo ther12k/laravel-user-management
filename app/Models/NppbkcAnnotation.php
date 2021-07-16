@@ -14,7 +14,7 @@ class NppbkcAnnotation extends Model
     protected $fillable = ['status_nppbkc','catatan_petugas'];
     public function scopeOfStatus($query,$status_nppbkc)
     {
-        return $query->where('status_nppbkc', $status_nppbkc);
+        return $query->where('status_nppbkc', $status_nppbkc)->orderByDesc('id');
     }
     public function nppbkc()
     {
