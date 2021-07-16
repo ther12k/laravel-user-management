@@ -17,11 +17,18 @@
         <div class="px-4 font-semibold flex-grow">Nama Pemilik</div>
         <div x-show=!isEditing class="w-full">
             <span
-            class="text-gray-700 bg-gray-200 border-gray-600 p-1"
+            class="bg-gray-200 border-gray-600 @if($isChanged) text-red-600 @else text-gray-700  @endif p-1"
                 x-bind:class="{ 'text-gray-800': isVal }"
                 x-on:click="isEditing = true; $nextTick(() => focus())"
             >{{ $value }}</span>
         </div>
+        @error($newVal)
+        <div>
+            <span class="error items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                {{ $message }}
+            </span> 
+        </div>
+        @enderror
         <div x-show=isEditing>
             <div class="flex-grow" >
                 <input shadowless
@@ -33,7 +40,7 @@
                             x-on:keydown.enter="isEditing = false"
                             x-on:keydown.escape="isEditing = false"
                 />
-                <button type="button" class="px-1 ml-2 text-3xl" title="Cancel" x-on:click="isEditing = false">x</button>
+                <button type="button" class="px-1 ml-2 text-3xl text-red-600" title="Cancel" x-on:click="isEditing = false">x</button>
                 <button
                     type="submit"
                     class="px-1 ml-1 text-3xl font-bold text-green-600"
@@ -42,7 +49,8 @@
                 >✓</button>
             </div>
             <div>
-                <small class="text-xs text-gray-600">Enter untuk simpan, Esc cancel</small>
+                <small class="text-xs text-red-600">Esc cancel, </small>
+                <small class="text-xs text-green-600">Enter untuk simpan</small>
             </div>
         </div>
     </div>
