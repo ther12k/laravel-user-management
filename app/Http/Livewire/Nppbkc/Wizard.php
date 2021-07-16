@@ -56,7 +56,7 @@ class Wizard extends Component
             'jenis_bkc' => 'required',
         ],
         [
-            // 'no_permohonan'=>'nullable|unique:nppbkcs',
+            'no_permohonan'=>'nullable|unique:nppbkcs,id',
             'nama_usaha' => 'required|min:4',
             'alamat_usaha' => 'required',
             'telp_usaha' => 'required',
@@ -217,6 +217,9 @@ class Wizard extends Component
         if(isset($id)){
             $this->nppbkc_id = $id;
             $nppbkc = Nppbkc::findOrFail($id);
+            if($nppbkc->created_by!=Auth::user()->id){
+                abort(401);
+            }
             // foreach($nppbkc->toArray() as $key=>$val){
             //     $this->{$key} = $val;
             // }
@@ -296,7 +299,9 @@ class Wizard extends Component
         if($this->nppbkc_id!=null){
             $this->rules[9]=[];
             $this->rules[10]=[];
+            $this->rules[3]['no_permohonan']='nullable|unique:nppbkcs,no_permohonan,'.$this->nppbkc_id;
         }
+        // dd($this->rules);
         $this->consoleLog('step : '.$this->step);
         if(0<$this->step&&$this->step<11){
             if($this->rules!=null&&count($this->rules[$this->step])>0){
@@ -346,7 +351,7 @@ class Wizard extends Component
      */
     public function back()
     {
-        $this->no_permohonan='';
+        // $this->no_permohonan='';
         if($this->step==7){
             $this->mapCheck(true);
         }else if($this->step==6){
