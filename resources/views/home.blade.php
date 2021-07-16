@@ -9,10 +9,7 @@
         @if (Auth::check())  
             @if($hasData)   
             <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-5xl">
-            <livewire:nppbkcs-datatables
-                with="province, regency, district, village"
-                searchable="nama_pemilik,id" 
-            />
+            <livewire:nppbkcs-datatables sort="created_at|desc"/>
             </div>
             @else
             <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-4xl">
