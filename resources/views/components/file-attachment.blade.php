@@ -1,6 +1,6 @@
 @props([
     'file' => null,
-    'accept' => 'image/jpg,image/jpeg,image/png,application/pdf',
+    'accept' => 'image/jpg,image/jpeg,image/png,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel',
     'multiple' => false,
     'mode' => 'attachment',
     'profileClass' => 'w-20 h-10 rounded-full',
@@ -31,7 +31,7 @@
 x-cloak>
     @if(! $file || $mode === 'profile')
         @php $randomId = Str::random(6); @endphp
-        <label for="file-{{ $randomId }}" class="relative block leading-tight bg-white hover:bg-gray-100 cursor-pointer inline-flex items-center transition duration-500 ease-in-out group overflow-hidden
+        <label for="file-{{ $randomId }}" class="relative leading-tight bg-white hover:bg-gray-100 cursor-pointer inline-flex items-center transition duration-500 ease-in-out group overflow-hidden
             {{  $mode === 'profile' ? 'border group '. $profileClass : 'border-2 w-full pl-3 pr-4 rounded-lg border-dashed' }}
         "
         wire:loading.class="pointer-events-none"
@@ -59,7 +59,7 @@ x-cloak>
             {{-- Upload Progress --}}
             <div wire:loading.flex wire:target="{{ $attributes->wire('model')->value }}" wire:loading.class="w-full">
                 @if ($mode === 'profile' && $file)
-                    <div class="select-none text-sm text-indigo-500 flex flex-1 items-center justify-center text-center p-4 flex-1">
+                    <div class="select-none text-sm text-indigo-500 flex flex-1 items-center justify-center text-center p-4">
                         <svg class="animate-spin h-6 w-6 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -69,7 +69,7 @@ x-cloak>
 
                 @if ($mode === 'attachment')
                     <div class="text-center flex-1 p-4">
-                        <div class="mb-2">Uploading...</div>
+                        <div class="mb-2">Proses upload...</div>
                         <div>
                             <div class="h-3 relative max-w-lg mx-auto rounded-full overflow-hidden">
                                 <div class="w-full h-full bg-gray-200 absolute"></div>
@@ -94,7 +94,7 @@ x-cloak>
                                 </svg>
                             </div>
                         @else
-                            <span>Type invalid.</span>
+                            <span>Tipe file salah.</span>
                         @endif
                     </div>   
                 </div>
@@ -128,10 +128,10 @@ x-cloak>
     @endif
 
     @if ($mode === 'attachment')
-        {{-- Loading indicator for file remove --}}
+        {{-- Loading indicator for file Hapus --}}
         <div wire:loading.delay wire:loading.flex wire:target="removeUpload" wire:loading.class="w-full">
             <div class="text-sm text-red-500 bg-red-100 flex-1 p-1 text-center rounded">
-                Removing file...
+                Hapus file...
             </div>
         </div>   
 
@@ -173,7 +173,7 @@ x-cloak>
                                 wire:loading.attr="disabled" 
                                 type="button" 
                                 x-on:click.prevent="$wire.removeUpload('{{ $attributes->wire('model')->value }}', '{{ $f->getFilename() }}')" class="text-xs text-red-500 appearance-none hover:underline">
-                                Remove
+                                Hapus
                             </button>
                         </div>
                     </div>
@@ -210,7 +210,7 @@ x-cloak>
                                 wire:loading.attr="disabled" 
                                 type="button" 
                                 x-on:click.prevent="$wire.removeUpload('{{ $attributes->wire('model')->value }}', '{{ $file->getFilename() }}')" class="text-xs text-red-500 appearance-none hover:underline">
-                                Remove
+                                Hapus
                             </button>
                         </div>
                     </div>
