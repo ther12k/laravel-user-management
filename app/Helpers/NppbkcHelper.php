@@ -33,16 +33,17 @@ if (!function_exists('nppbkc_file_captions')) {
      */
     function nppbkc_file_captions($name=null)
     {
+               
         $captions = [
-            'file_denah_bangunan'=>'Denah Lokasi sekitar bangunan',
-            'file_denah_lokasi'=>'Denah',
-            'file_siup_mb'=>'SIUP MB',
-            'file_itp_mb'=>'ITP MB',
-            'file_nib'=>'NIB',
+            'file_denah_bangunan'=>'Denah di dalam Bangunan',
+            'file_denah_lokasi'=>'Denah Situasi sekitar lokasi',
+            'file_siup_mb'=>'SIUP-MB / SKMB',
+            'file_itp_mb'=>'ITP-MB',
+            'file_nib'=>'Nomor Induk Berusaha',
+            'file_npwp_usaha'=>'NPWP Usaha',
             'file_npwp_pemilik'=>'NPWP Pemilik',
             'file_ktp_pemilik'=>'KTP Pemilik',
             'file_surat_pernyataan'=>'Surat Pernyataan',
-            'file_data_registrasi'=>'Data Registrasi',
             'file_surat_kuasa'=>'Surat Kuasa'
         ];
         if($name==null) return $captions;
