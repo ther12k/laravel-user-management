@@ -17,7 +17,7 @@ class Profile
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if (!$user->hasProfile) {
+        if ($user->role=='user'&&!$user->hasProfile) {
             return redirect()->route('user.profile');
         }
         
