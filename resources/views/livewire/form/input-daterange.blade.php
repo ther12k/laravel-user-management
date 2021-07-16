@@ -5,14 +5,14 @@
     <div class="md:w-2/3 md:flex">
         <input 
             type="{{ $type ?? 'text' }}"
-            wire:model.defer="{{$name}}_from"
+            wire:model.lazy="{{$name}}_from"
             name = "{{$name}}_from"
             class="@error($name) border-red-500 @enderror datepicker w-32 py-1 px-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
             placeholder="Dari Tanggal">
         <span class="py-1 px-2 font-bold mb-1 text-gray-700 block">Sampai</span>
         <input 
             type="{{ $type ?? 'text' }}"
-            wire:model.defer="{{$name}}_to"
+            wire:model.lazy="{{$name}}_to"
             name = "{{$name}}_to"
             class="@error($name) border-red-500 @enderror datepicker w-32 py-1 px-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
             placeholder="Tanggal">
