@@ -23,7 +23,14 @@ class UsersTableSeeder extends Seeder
           'email' => 'rizkyz@gmail.com',
           'role' => 'admin',
           'email_verified_at'=>date("Y-m-d H:i:s"),
-          'password' => Hash::make('reapers123'),
+          'password' => Hash::make('rizkyz12345'),
+        ]);
+        DB::table('users')->insert([
+          'name' => 'Officer',
+          'email' => 'rizkyz@gmail.com',
+          'role' => 'officer',
+          'email_verified_at'=>date("Y-m-d H:i:s"),
+          'password' => Hash::make('rizkyz12345'),
         ]);
         DB::table('users')->insert([
           'name' => 'User Biasa',
