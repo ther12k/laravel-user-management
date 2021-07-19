@@ -15,6 +15,7 @@ class CreateOfficerProfilesTable extends Migration
     {
         Schema::create('officer_profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('nama')->nullable();
             $table->string('nip')->nullable();
             $table->blameable();
             $table->timestamps();
