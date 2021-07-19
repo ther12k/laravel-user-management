@@ -21,10 +21,10 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
         </div>
         <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
           <div class="flex-shrink-0 flex items-center">
-            <img class="h-16 w-16" src="{{asset('images/logopulpis.png')}}" alt="">
+            <img class="w-16" src="{{asset('images/logo-512.png')}}" alt="">
             <span class="text-white ml-4">NPPBKC</span>  
           </div>
-          <div class="hidden sm:block sm:ml-10 items-center mt-4">
+          <div class="hidden sm:block sm:ml-10 items-center">
             <div class="flex space-x-4">
               <a href="{{ Request::route()->getName()!=='home' ? route('home'):'#'}}" 
                 class="{{ Request::route()->getName() =='home' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>

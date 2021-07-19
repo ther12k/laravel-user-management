@@ -7,7 +7,7 @@
         </div>
         <a href="{{ route('home') }}" >
             {{-- <x-logo class="w-auto h-16 mx-auto text-indigo-600" /> --}}
-            <img class="w-64 mx-auto" src="{{asset('images/logo-348.png')}}" alt="">
+            <img class="w-64 mx-auto" src="{{asset('images/logo-512.png')}}" alt="">
         </a>
 
         <h2 class="text-3xl font-extrabold text-center text-gray-900 leading-9">
