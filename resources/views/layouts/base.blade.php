@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        @stack('meta')
         @hasSection('title')
 
             <title>@yield('title') - {{ config('app.name') }}</title>
@@ -44,8 +46,8 @@
         @stack('script')
         @livewire('livewire-ui-modal')
 
-        <script src="{{ secure_url('/vendor/livewire-ui/modal.js') }}" defer></script>
-        {{-- @livewireUIScripts --}}
+        {{-- <script src="{{ secure_url('/vendor/livewire-ui/modal.js') }}" defer></script> --}}
+        @livewireUIScripts
         @livewireScripts
     </body>
 </html>

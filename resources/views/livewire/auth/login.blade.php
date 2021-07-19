@@ -1,3 +1,8 @@
+@push('meta')
+<meta http-equiv="cache-control" content="private, max-age=0, no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+@endpush
 @section('title', 'Sign in to your account')
 
 <div>
