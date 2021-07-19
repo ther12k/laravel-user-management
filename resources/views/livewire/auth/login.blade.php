@@ -2,6 +2,9 @@
 
 <div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div wire:loading.delay class="z-50 static flex fixed left-0 top-0 bottom-0 w-full bg-gray-400 bg-opacity-50">
+            <img src="https://paladins-draft.com/img/circle_loading.gif" width="64" height="64" class="m-auto mt-1/4">
+        </div>
         <a href="{{ route('home') }}" >
             {{-- <x-logo class="w-auto h-16 mx-auto text-indigo-600" /> --}}
             <img class="w-64 mx-auto" src="{{asset('images/logo-348.png')}}" alt="">
