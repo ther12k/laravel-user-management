@@ -32,9 +32,9 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Relation::morphMap([
-            'user-profile' => 'App\Models\UserProfile',
-            'officer-profile' => 'App\Models\OfficerProfile',
-            'admin-profile' => 'App\Models\AdminProfile',
+            'UserProfile' => 'App\Models\UserProfile',
+            'OfficerProfile' => 'App\Models\OfficerProfile',
+            'AdminProfile' => 'App\Models\AdminProfile',
         ]);
     }
 }

@@ -54,15 +54,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function getHasAdminProfileAttribute()
     {
-      return $this->profile_type == 'admin-profile';
+      return $this->profile_type == 'AdminProfile';
     }
     public function getHasUserProfileAttribute()
     {
-      return $this->profile_type == 'user-profile';
+      return $this->profile_type == 'UserProfile';
     }
     public function getHasOfficerProfileAttribute()
     {
-      return $this->profile_type == 'officer-profile';
+      return $this->profile_type == 'OfficerProfile';
     }
     public function files()
     {
