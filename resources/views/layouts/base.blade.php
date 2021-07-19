@@ -43,7 +43,9 @@
 
         @stack('script')
         @livewire('livewire-ui-modal')
-        @livewireUIScripts
+
+        <script src="{{ secure_url('/vendor/livewire-ui/modal.js') }}" defer></script>
+        {{-- @livewireUIScripts --}}
         @livewireScripts
     </body>
 </html>
