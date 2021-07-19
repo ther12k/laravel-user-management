@@ -37,13 +37,13 @@ Route::middleware('guest')->group(function () {
 
     Route::get('register', Register::class)
         ->name('register');
+
+    Route::get('password/reset', Email::class)
+        ->name('password.request');
+    
+    Route::get('password/reset/{token}', Reset::class)
+        ->name('password.reset');
 });
-
-Route::get('password/reset', Email::class)
-    ->name('password.request');
-
-Route::get('password/reset/{token}', Reset::class)
-    ->name('password.reset');
 
 Route::middleware('auth')->group(function () {
 
