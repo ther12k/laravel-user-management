@@ -27,9 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
-        if(config('app.debug')!=true) {
-            \URL::forceScheme('https');
-        }
+        // if(config('app.debug')!=true) {
+        //     \URL::forceScheme('https');
+        // }
 
         Relation::morphMap([
             'UserProfile' => 'App\Models\UserProfile',
