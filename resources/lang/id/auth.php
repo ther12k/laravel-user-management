@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Akun anda tidak terdaftar.',
+    'failed' => 'email atau password salah.',
     'password' => 'Password Salah.',
     'throttle' => 'Terlalu banyak percobaan salah. Ulangi lagi dalam :seconds detik.',
 
