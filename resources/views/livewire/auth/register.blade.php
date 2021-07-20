@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="mt-6">
-                    @include('livewire.form.loading-button',['text'=>__('register.register')])
+                    @include('livewire.form.loading-button',['text'=>__('register.register'),'target'=>'register'])
                 </div>
             </form>
         </div>

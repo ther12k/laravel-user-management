@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="mt-6">
-                    @include('livewire.form.loading-button',['text'=>__('Reset password')])
+                    @include('livewire.form.loading-button',['text'=>__('Reset password'),'target'=>'resetPassword'])
                 </div>
             </form>
         </div>

@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="mt-6">
-                        @include('livewire.form.loading-button',['text'=>__('login.send_reset_link')])
+                        @include('livewire.form.loading-button',['text'=>__('login.send_reset_link'),'target'=>'sendResetPasswordLink'])
                     </div>
                 </form>
             @endif
