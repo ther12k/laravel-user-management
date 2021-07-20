@@ -400,8 +400,6 @@ class Wizard extends Component
         $this->step='preview';
     }
 
-
-
     private function generate_permohonan_cek_lokasi($nppbkc){
         $pdfHTML = view('pdf.permohonan_lokasi')->render();
         $formats=[];
@@ -464,7 +462,7 @@ class Wizard extends Component
                                 'is_annotation'=>2
                             ])
                         ); 
-        return $pdf_filename;
+        return $this->surat_permohonan_lokasi_url;
     }
 
     private function buildData(){
@@ -557,33 +555,49 @@ class Wizard extends Component
                 //file registrasi
                 $user = Auth::user();
                 $userRegistrationFile = $user->files()->OfName('file_registrasi_pengusaha_bkc')->first();
-                $file = $nppbkc->files()->save(
-                    new NppbkcFile([
-                        'key'=>'user_'.$hash,
-                        'name'=>'registrasi_pengusaha_bkc',
-                        'title'=>'Data Registrasi Pengusaha BKC',
-                        'filename'=>$userRegistrationFile->filename,
-                        'original_filename'=>$userRegistrationFile->original_filename,
-                        'size'=>$userRegistrationFile->size,
-                        'ext'=>$userRegistrationFile->ext
-                    ])
-                ); 
+                if($userRegistrationFile!=null){
+
+                    $file = $nppbkc->files()->save(
+                        new NppbkcFile([
+                            'key'=>'user_'.$hash,
+                            'name'=>'registrasi_pengusaha_bkc',
+                            'title'=>'Data Registrasi Pengusaha BKC',
+                            'filename'=>$userRegistrationFile->filename,
+                            'original_filename'=>$userRegistrationFile->original_filename,
+                            'size'=>$userRegistrationFile->size,
+                            'ext'=>$userRegistrationFile->ext
+                        ])
+                    ); 
+                }
             }
 
             $nppbkc->save();
             $this->created_at = $nppbkc->created_at;
-            $pdf_filename = $this->generate_permohonan_cek_lokasi($nppbkc);
-            $url = url($pdf_filename);
-            try{
-                $nppbkc->notify(new NppbkcAddedNotification([
-                    'text' => "Permohonan NPPBKC baru ".$nppbkc->id,
-                    'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](http://www.google.com)",
-                    'filename' =>$pdf_filename,
-                    'url' =>$pdf_filename
-                ]));
-            }catch (\Exception $e) {
-                $this->consoleLog($e);
+            $url = $this->generate_permohonan_cek_lokasi($nppbkc);
+
+            $url = route('nppbkc.view',[$nppbkc->id]);
+            if($this->nppbkc_id==null){
+                try{
+                    $nppbkc->notify(new NppbkcAddedNotification([
+                        'text' => "Permohonan Cek Lokasi".$nppbkc->id,
+                        'content' =>"*Permohonan cek lokasi baru, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](".$url.")",
+                        'url' =>$url
+                    ]));
+                }catch (\Exception $e) {
+                    $this->consoleLog($e);
+                }
+            }else{
+                try{
+                    $nppbkc->notify(new NppbkcAddedNotification([
+                        'text' => "Revisi Permohonan Cek Lokasi".$nppbkc->id,
+                        'content' =>"*Revisi Permohonan cek lokasi, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](".$url.")",
+                        'url' =>$url
+                    ]));
+                }catch (\Exception $e) {
+                    $this->consoleLog($e);
+                }
             }
+
             $this->step='complete';
         }catch (\Exception $e) {
             dd($e);

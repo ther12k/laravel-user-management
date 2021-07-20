@@ -78,6 +78,16 @@ class Modal extends ModalComponent
         $nppbkc->status_nppbkc=2;
         $nppbkc->catatan_petugas=$this->catatan_petugas;
         $nppbkc->save();
+        $url = route('nppbkc.view',[$nppbkc->id]);
+        try{
+            $nppbkc->notify(new NppbkcAddedNotification([
+                'text' => "Permohonan Cek lokasi disetujui",
+                'content' =>"*Permohonan cek lokasi disetujui oleh ".\Auth::user()->name.", no ".$nppbkc->no_permohonan."* [Lihat](".$url.")",
+                'url' =>$url
+            ]));
+        }catch (\Exception $e) {
+            $this->consoleLog($e);
+        };
         session(['message' => 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
         // $this->closeModal();
@@ -99,9 +109,19 @@ class Modal extends ModalComponent
             'status_nppbkc'=>$nppbkc->status_nppbkc,
             'catatan_petugas'=>$nppbkc->catatan_petugas
         ];
+        $url = route('nppbkc.view',[$nppbkc->id]);
         $nppbkc->annotations()->save(new NppbkcAnnotation($data));
-
-        session(['message' => 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.']);
+        try{
+            $nppbkc->notify(new NppbkcAddedNotification([
+                'text' => "Permohonan Cek lokasi ditolak",
+                'content' =>"*Permohonan cek lokasi ditolak oleh ".\Auth::user()->name.", no ".$nppbkc->no_permohonan."* [Lihat](".$url.")",
+                'url' =>$url
+            ]));
+        }catch (\Exception $e) {
+            dd($e);
+            $this->consoleLog($e);
+        };
+        session(['message' => 'Permohonan cek lokasi telah ditolak']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
         // $this->closeModal();
         $this->closeModalWithEvents([
@@ -127,6 +147,18 @@ class Modal extends ModalComponent
             }
             else
                 session(['message' => 'Permohonan cek lokasi telah disetujui.']);
+            
+            $url = route('nppbkc.view',[$nppbkc->id]);
+            try{
+                $nppbkc->notify(new NppbkcAddedNotification([
+                    'text' => "Permohonan NPPBKC ".($setuju==0?"ditolak":"disetujui"),
+                    'content' =>"*Permohonan NPPBKC lokasi ".($setuju==0?"ditolak":"disetujui")." oleh ".\Auth::user()->name.", no ".$nppbkc->no_permohonan."* [Lihat](".$url.")",
+                    'url' =>$url
+                ]));
+            }catch (\Exception $e) {
+                $this->consoleLog($e);
+            };
+
             // $this->emit('nppbkcStatusUpdated',$nppbkc);
             // $this->closeModal();
             $this->closeModalWithEvents([
@@ -277,10 +309,11 @@ class Modal extends ModalComponent
     
             $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_nppbkc.pdf';
             $hash = md5('file-permohonan-nppbkc'.$nppbkc->id);
+            $url = url('/nppbkc/download-file/'.$hash);
             $qrImage= base64_encode(
                 QrCode::format('png')
                 ->size(80)
-                ->generate(url('/nppbkc/download-file/'.$hash))
+                ->generate($url)
             );
             $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
             $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
@@ -299,12 +332,16 @@ class Modal extends ModalComponent
             $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
             Storage::put($pdf_filename, $pdf->output());
 
-            $nppbkc->notify(new NppbkcAddedNotification([
-                'text' => "Permohonan NPPBKC baru ".$nppbkc->id,
-                'content' =>"*Permohonan baru, no ".$nppbkc->no_permohonan."* [Lihat](http://www.google.com)",
-                'filename' =>$pdf_filename,
-                'url' =>$pdf_filename
-            ]));
+            $url = route('nppbkc.view',[$nppbkc->id]);
+            try{
+                $nppbkc->notify(new NppbkcAddedNotification([
+                    'text' => "Permohonan NPPBKC baru ",
+                    'content' =>"*Permohonan NPPBKC baru, no ".$nppbkc->no_permohonan."* [Lihat](".$url.")",
+                    'url' =>$url
+                ]));
+            }catch (\Exception $e) {
+                $this->consoleLog($e);
+            }
 
             session(['message' => 'Data telah diupdate ke status Permohonan NPPBKC.']);
             

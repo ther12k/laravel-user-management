@@ -38,18 +38,18 @@ class NppbkcAddedNotification extends Notification
 
     public function toTelegram() {
         
-        $url = url($this->data['url']);
-        //dd($url);
+        //$url = url($this->data['url']);
+        // dd($this->data['content']);
         //dd('/storage/'.$this->data['filename']);
         //dd($this->data['content']);
         if(env('APP_ENV')=='local')
             return TelegramMessage::create()->content($this->data['content']);
         return TelegramMessage::create()
-            ->content($this->data['content']) // Markdown supported.
+            ->content($this->data['content']); // Markdown supported.
             //->file('/storage/'.$this->data['filename'], 'photo'); // local file
             // OR
             // ->file('http://www.domain.com/file.pdf', 'document') // remote file
             //->button('Download',$url) // Inline Button
-            ->button('Download',$url); // Inline Button
+            //->button('Download',$url); // Inline Button
     }
 }
