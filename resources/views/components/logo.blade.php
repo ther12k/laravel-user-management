@@ -1,1 +1,1 @@
-<img class="w-64 mx-auto" src="{{secure_asset('images/logo-512.png')}}" alt="{{ config('app.name') }}">
+<img class="w-64 mx-auto" src="{{asset('images/logo-512.png')}}" alt="{{ config('app.name') }}">
