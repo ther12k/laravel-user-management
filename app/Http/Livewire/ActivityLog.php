@@ -15,7 +15,19 @@ class ActivityLog extends LivewireDatatable
     public function builder()
     {
         return \App\Models\ActivityLog::query()
-            ->leftJoin('nppbkcs', 'nppbkcs.id', 'activity_log.subject_id')
+            // ->leftJoin('nppbkcs', 'nppbkcs.id', 'activity_log.subject_id')
+            ->leftJoin('nppbkcs', function($join) 
+            {
+                $join->on('activity_log.subject_id', '=', 'nppbkcs.id');
+                $join->where('subject_type','App\Models\Nppbkc');
+        
+            })
+            // ->leftJoin('users', function($join) 
+            // {
+            //     $join->on('activity_log.subject_id', '=', 'users.id');
+            //     $join->where('subject_type','App\Models\User');
+        
+            // })
             ->leftJoin('users', 'users.id', 'activity_log.causer_id')
             ->orderByDesc('activity_log.created_at');
     }
