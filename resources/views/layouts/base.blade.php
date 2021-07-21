@@ -39,7 +39,6 @@
     </head>
 
     <body class="bg-gray-200">
-        <x-lean::console-log />
         @yield('body')
 
 
