@@ -28,9 +28,17 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
             <div class="flex space-x-4">
               <a href="{{ Request::route()->getName()!=='home' ? route('home'):'#'}}" 
                 class="{{ Request::route()->getName() =='home' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>
-              @cannot('viewAllNppbkc')
-              <a href="{{ Request::route()->getName()!=='nppbkc.add' ? route('nppbkc.add'):'#'}}" 
+              @can('addNppbkc')
+               <a href="{{ Request::route()->getName()!=='nppbkc.add' ? route('nppbkc.add'):'#'}}" 
                 class="{{ Request::route()->getName()=='nppbkc.add' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Permohonan</a>
+              @endcan
+              @can('manageUser')
+               <a href="{{ Request::route()->getName()!=='users' ? route('users'):'#'}}" 
+                class="{{ Request::route()->getName()=='users' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >User</a>
+              @endcan
+              @can('viewActivityLog')
+               <a href="{{ Request::route()->getName()!=='activity-log' ? route('activity-log'):'#'}}" 
+                class="{{ Request::route()->getName()=='activity-log' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Log</a>
               @endcan
                 {{-- <a href="#" class=" text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Dashboard</a>
               
