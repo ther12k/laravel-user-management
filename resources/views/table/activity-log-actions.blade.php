@@ -1,3 +1,4 @@
+@if($id!=null)
 <div class="flex justify-around align-middle">
     <a href="{{route('nppbkc.view',[$id])}}"  target="_blank"
         class="p-1 text-indigo-600 hover:bg-indigo-400 hover:text-white rounded">
@@ -5,3 +6,4 @@
         <x-heroicon-o-document-search class="w-6 h-6"/>
     </a>
 </div>
+@endif
