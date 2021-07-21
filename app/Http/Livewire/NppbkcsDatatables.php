@@ -20,9 +20,9 @@ class NppbkcsDatatables extends LivewireDatatable
     {
         $user = Auth::user();
         if(\Gate::allows('viewAllNppbkc')){
-            return Nppbkc::query();
+            return Nppbkc::query()->orderByDesc('nppbkcs.updated_at');
         }else{
-            return Nppbkc::query()->where('created_by','=',Auth::user()->id);
+            return Nppbkc::query()->where('created_by','=',Auth::user()->id)->orderByDesc('nppbkcs.updated_at');
         }
     }
     /**
@@ -56,8 +56,8 @@ class NppbkcsDatatables extends LivewireDatatable
                     ->label('Catatan Petugas')
                     ->truncate(30),
 
-            Column::callback('created_at', function ($created) {
-                return \Carbon\Carbon::parse($created)->isoFormat('HH:mm D MMMM Y');
+            Column::callback('updated_at', function ($created) {
+                return \Carbon\Carbon::parse($created)->isoFormat('HH:mm, D MMMM Y');
             })->label('Tanggal'),
 
             Column::callback(['id', 'nama_pemilik'], function ($id, $name) {
