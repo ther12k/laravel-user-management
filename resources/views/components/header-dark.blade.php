@@ -69,7 +69,10 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
                 @php
                     $bgcolor = '#f0e9e9';
                     $color = '#8b5d5d';
-                    if(\Auth::user()->role!='user'){
+                    if(\Auth::user()->role=='officer'){
+                        $color = '#ffffff';
+                        $bgcolor = '#5a67d8';
+                    }else if(\Auth::user()->role=='admin'){
                         $color = '#ffffff';
                         $bgcolor = '#8BC34A';
                     }
