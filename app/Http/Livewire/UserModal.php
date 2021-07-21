@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Barryvdh\Debugbar\Facade as Debugbar;
 use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -15,13 +16,12 @@ class UserModal extends ModalComponent
 
     public function rules()
     {
-        if($this->user_id=null)
-            return [
-                'name' => 'required',
-                'email' => 'required|email|max:255|unique:users,email',
-                'password' => 'required|min:8',
-            ];
-        
+        // if($this->user_id=null)
+        //     return [
+        //         'name' => 'required',
+        //         'email' => 'required|email|max:255|unique:users,email',
+        //         'password' => 'required|min:8',
+        //     ];
         return [
             'name' => 'required',
             'email' => 'required|email|max:255|unique:users,email,'.$this->user_id,
@@ -32,14 +32,12 @@ class UserModal extends ModalComponent
     public function mount($id,$action='edit')
     {
         $this->action = $action;
-        $this->consoleLog($id);
         if(isset($id)){
             $this->user_id = $id;
             $this->user = $user = User::findOrFail($id);
             $this->name=$user->name;
             $this->email=$user->email;
             $this->role=$user->role;
-            $this->consoleLog($this->user);
         }
     }
 
