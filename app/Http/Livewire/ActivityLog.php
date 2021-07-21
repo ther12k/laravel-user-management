@@ -16,7 +16,8 @@ class ActivityLog extends LivewireDatatable
     {
         return \App\Models\ActivityLog::query()
             ->leftJoin('nppbkcs', 'nppbkcs.id', 'activity_log.subject_id')
-            ->leftJoin('users', 'users.id', 'activity_log.causer_id');
+            ->leftJoin('users', 'users.id', 'activity_log.causer_id')
+            ->orderByDesc('activity_log.created_at');
     }
      /**
      * Write code on Method
