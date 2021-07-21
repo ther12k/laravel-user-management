@@ -9,9 +9,26 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\MailResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Spatie\Activitylog\Traits\LogsActivity;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, LogsActivity;
+    
+    protected static $logAttributes = [
+        'name',
+        'email',
+        'password',
+        'role'
+    ];
+    protected static $submitEmptyLogs = false;
+    protected static $logOnlyDirty = true;
+    protected static $logName = 'user';
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "User has been {$eventName}";
+    }
     
     protected $with = ['profile'];
  
