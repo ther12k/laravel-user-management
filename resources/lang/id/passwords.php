@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'wrong' => 'Password salah!',
+    'same-with-new' => 'Password baru sama dengan yang lama!',
     'reset' => 'Password anda telah direset!',
     'sent' => 'Kami telah mengirim link reset password ke email!',
     'throttled' => 'Terlalu banyak percobaan, silahkan tunggu.',
