@@ -34,13 +34,13 @@ class NppbkcsDatatables extends LivewireDatatable
     {
         return [
             Column::name('nama_pemilik')
-                ->label('Nama'),
+                ->label('Nama')->searchable(),
 
             Column::callback(['status_nppbkc','no_permohonan_lokasi', 'no_permohonan'], function ($status,$no_permohonan_lokasi, $no_permohonan) {
                 return ($status<3)
                     ? '<span class="text-gray-600">' . $no_permohonan . '</span>'
                     : '<span class="text-yellow-600">' . $no_permohonan . '</span>';
-            })->label('No Permohonan'),
+            })->label('No Permohonan')->searchable(),
 
             Column::callback(['status_nppbkc'], function ($status_nppbkc) {
                 return view('table.nppbkc-status', ['status' => $status_nppbkc]);
