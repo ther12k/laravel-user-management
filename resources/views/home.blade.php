@@ -8,17 +8,15 @@
         </h1> --}}
         @if (Auth::check())  
             @if($hasData)   
-            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-6xl">
-                <div class="relative">
-                    <livewire:nppbkcs-datatables sort="created_at|desc"/>
-                    @can('addNppbkc')
-                    <a href="{{route('nppbkc.add')}}"
-                        class="space-x-1 top-0 right-0 p-1 px-2 m-2 flex text-white hover:bg-indigo-700 bg-indigo-500 hover:text-indigo-100 rounded-lg absolute" >
-                        <x-heroicon-o-document-add class="w-6 h-6"/>
-                        <span class="">Tambah</span>
-                    </a>
-                    @endcan
-                </div>
+            <div class="relative">
+                <livewire:nppbkcs-datatables/>
+                @can('addNppbkc')
+                <a href="{{route('nppbkc.add')}}"
+                    class="space-x-1 top-0 right-0 p-2 flex text-white hover:bg-indigo-700 bg-indigo-500 hover:text-indigo-100 rounded-lg absolute" >
+                    <x-heroicon-o-document-add class="w-6 h-6"/>
+                    <span class="">Input Permohonan</span>
+                </a>
+                @endcan
             </div>
             @else
             <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-4xl">
