@@ -8,7 +8,7 @@
                 </div>
                 <div class="mt-3 sm:mt-0 sm:ml-4 sm:text-left w-full px-5">
                     <div class="mt-2" >
-                        <h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Add User</h1>
+                        <h1 class="flex-auto text-xl font-semibold text-purple-700 mb-4">Tambah User</h1>
                     </div>
                     <div class="mt-2" >
                         @include('livewire.form.input',['name'=>'name','text'=>'Nama'])
