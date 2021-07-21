@@ -21,14 +21,14 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "lasserafn/php-initial-avatar-generator": "^4.2",
-        "leanadmin/console-log": "^0.1.1",
         "livewire-ui/modal": "^0.1.7",
         "livewire/livewire": "^2.5",
         "mediconesystems/livewire-datatables": "^0.4.3",
-        "simplesoftwareio/simple-qrcode": "^3.0",
+        "simplesoftwareio/simple-qrcode": "^4.2.0",
         "spatie/laravel-activitylog": "^3.17"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
