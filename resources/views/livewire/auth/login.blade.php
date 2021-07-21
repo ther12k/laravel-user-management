@@ -1,6 +1,23 @@
+@push('meta')
+<meta http-equiv="cache-control" content="private, max-age=0, no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+@endpush
 @section('title', 'Sign in to your account')
 
 <div>
+@if (Auth::check())
+<div class="sm:mx-auto sm:w-full sm:max-w-md">
+    {{-- <div wire:loading.delay class="z-50 static flex fixed left-0 top-0 bottom-0 w-full bg-gray-400 bg-opacity-50">
+        <img src="https://paladins-draft.com/img/circle_loading.gif" width="64" height="64" class="m-auto mt-1/4">
+    </div> --}}
+    <a href="{{ route('home') }}" >
+        {{-- <x-logo class="w-auto h-16 mx-auto text-indigo-600" /> --}}
+        <x-logo class="w-auto h-16 mx-auto text-indigo-600" />
+    </a>
+
+</div>
+@else
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         {{-- <div wire:loading.delay class="z-50 static flex fixed left-0 top-0 bottom-0 w-full bg-gray-400 bg-opacity-50">
             <img src="https://paladins-draft.com/img/circle_loading.gif" width="64" height="64" class="m-auto mt-1/4">
@@ -25,6 +42,10 @@
 
     <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+
+            @error('email')
+            <p class="mt-2 mb-2 text-sm text-center text-red-600">{{ $message }}</p>
+            @enderror
             <form wire:submit.prevent="authenticate">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 leading-5">
@@ -35,9 +56,6 @@
                         <input wire:model.lazy="email" id="email" name="email" type="email" required autofocus class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('email') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red @enderror" />
                     </div>
 
-                    @error('email')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
                 </div>
 
                 <div class="mt-6">
@@ -70,9 +88,10 @@
                 </div>
 
                 <div class="mt-6">
-                    @include('livewire.form.loading-button',['text'=>__('login.sign_in')])
+                    @include('livewire.form.loading-button',['text'=>__('login.sign_in'),'target'=>'authenticate'])
                 </div>
             </form>
         </div>
     </div>
+@endif
 </div>

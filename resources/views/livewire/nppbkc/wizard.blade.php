@@ -175,15 +175,31 @@
 				</div>
 			</div>
 			<!-- /Top Navigation -->
-			<div wire:loading.delay class="py-5">
+			<div wire:loading.delay class="py-5" wire:target="stepCheck,back,preview,complete,stepCheckWMap">
 				@include('livewire.form.skeleton')
 			</div>
+			{{-- <div wire:loading.delay class="py-5" wire:target="stepCheckWMap">
+				@include('livewire.form.skeleton')
+			</div>
+			<div wire:loading.delay class="py-5" wire:target="preview">
+				@include('livewire.form.skeleton')
+			</div>
+			<div wire:loading.delay class="py-5" wire:target="complete">
+				@include('livewire.form.skeleton')
+			</div>
+			<div wire:loading.delay class="py-5" wire:target="back">
+				@include('livewire.form.skeleton')
+			</div> --}}
 			<!-- Step Content -->
-			<div wire:loading.remove.delay class="py-5">
+			<div wire:loading.remove wire:target="stepCheck,back,stepCheckWMap,preview" class="py-5">
 				@if($step==0)
 				<div x-show.transition.in="step === 0">
 					<div class="mb-6 py-5">
+						@if(!isset($nppbkc_id))
 						@include('livewire.form.disclaimer')
+						@else
+						@include('livewire.form.disclaimer-edit',['no'=>$no_permohonan])
+						@endif
 					</div>
 				</div>
 				@endif
@@ -415,7 +431,7 @@
 				</div>
 				@endif
 				@if($step=='preview')
-				<div x-show.transition.in="step === 'preview'">
+				<div x-show.transition.in="step === 'preview'" wire:loading.remove wire:target="complete">
 					@include('livewire.wizard-preview')
 				</div>
 				@endif

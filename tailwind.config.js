@@ -21,13 +21,18 @@ module.exports = {
             './resources/**/*.jsx',
             './resources/**/*.ts',
             './resources/**/*.tsx',
-            './resources/**/*.php',
             './resources/**/*.vue',
             './resources/**/*.twig',
-        ],
+            './resources/**/*.php',
+            './resources/views/vendor/livewire-ui/*.blade.php',
+            './storage/framework/views/*.php',
+          ],
         options: {
             defaultExtractor: (content) => content.match(/[\w-/.:]+(?<!:)/g) || [],
             whitelistPatterns: [/-active$/, /-enter$/, /-leave-to$/, /show$/],
+            safelist: [
+                'sm:max-w-2xl'
+            ]
         },
     },
     plugins: [

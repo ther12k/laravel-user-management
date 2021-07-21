@@ -7,12 +7,13 @@
             Daftar
         </h1> --}}
         @if (Auth::check())     
-            <livewire:datatable
-            model="App\Models\ActivityLog"
-            with="user"
-            include="user.name|User,log_name,description,created_at,updated_at,properties"
-            exclude="subject_type, causer_type, subject_id"
-            >
+            {{-- <livewire:datatable
+                model="App\Models\ActivityLog"
+                with="user"
+                include="user.name|User,log_name,description,created_at,updated_at,properties"
+                exclude="subject_type, causer_type, subject_id"
+                > --}}
+                <livewire:activity-log />
         @else
         
         @endif

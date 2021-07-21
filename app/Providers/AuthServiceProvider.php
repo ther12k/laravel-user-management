@@ -39,11 +39,24 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('viewWebTinker', function ($user = null) {
             return $user&&$user->role=='admin';
         });
+        Gate::define('addNppbkc', function ($user = null) {
+            return $user&&$user->role=='user';
+        });
         Gate::define('viewAllNppbkc', function ($user = null) {
             return $user&&$user->role!='user';
         });
         Gate::define('updateStatusNppbkc', function ($user = null) {
-            return $user&&($user->role=='officer'||$user->role=='admin');
+            if(env('APP_ENV')=='local')
+                return $user&&($user->role=='officer'||$user->role=='admin');
+
+            //officer only
+            return $user&&($user->role=='officer');
+        });
+        Gate::define('manageUser', function ($user = null) {
+            return $user&&$user->role=='admin';
+        });
+        Gate::define('viewActivityLog', function ($user = null) {
+            return $user&&$user->role=='admin';
         });
     }
 }

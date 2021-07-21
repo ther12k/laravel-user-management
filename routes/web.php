@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\NppbkcController;
 
 use App\Http\Livewire\Auth\Login;
@@ -64,7 +65,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/update-profile',\App\Http\Livewire\UpdateProfile::class)->name('user.profile');
 
     Route::middleware(['verified','profile'])->group(function () {
+        Route::get('/update-password',\App\Http\Livewire\UpdatePassword::class)->name('user.password');
+
         Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/users', [UserController::class, 'index'])->name('users');
         // Route::get('/nppbkc-wizard', function () {
         //     return view('nppbkc-wizard');
         // });
@@ -85,10 +89,13 @@ Route::middleware('auth')->group(function () {
     
         Route::get('/activity-log', function () {
             return view('activity-log');
-        });
+        })->name('activity-log');
+
+
         Route::get('/nppbkc', [NppbkcController::class, 'index']);
         Route::get('/nppbkc/permohonan_lokasi_pdf', [NppbkcController::class, 'permohonan_lokasi_pdf']);
         Route::get('/nppbkc/permohonan_nppbkc_pdf', [NppbkcController::class, 'permohonan_nppbkc_pdf']);
         // Route::get('/users', App\Http\Livewire\Users::class)->name('users');
+
     });
 });

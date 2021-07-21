@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOfficerProfilesTable extends Migration
+class AddDeleteAtToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateOfficerProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('officer_profiles', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama')->nullable();
-            $table->string('nip')->nullable();
-            $table->blameable();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +26,9 @@ class CreateOfficerProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('officer_profiles');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->softDeletes();
+        });
     }
 }

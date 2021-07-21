@@ -1,1 +1,1 @@
-<img class="w-64 mx-auto" src="{{asset('images/logo-512.png')}}" alt="{{ config('app.name') }}">
+<img class="w-{{$w??'64'}} mx-auto" src="{{asset('images/logo-512.png',parse_url(url('/'), PHP_URL_SCHEME) == 'HTTPS')}}" alt="{{ config('app.name') }}">

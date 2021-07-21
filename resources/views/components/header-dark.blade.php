@@ -28,9 +28,17 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
             <div class="flex space-x-4">
               <a href="{{ Request::route()->getName()!=='home' ? route('home'):'#'}}" 
                 class="{{ Request::route()->getName() =='home' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Dashboard</a>
-              @cannot('viewAllNppbkc')
-              <a href="{{ Request::route()->getName()!=='nppbkc.add' ? route('nppbkc.add'):'#'}}" 
+              @can('addNppbkc')
+               <a href="{{ Request::route()->getName()!=='nppbkc.add' ? route('nppbkc.add'):'#'}}" 
                 class="{{ Request::route()->getName()=='nppbkc.add' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Permohonan</a>
+              @endcan
+              @can('manageUser')
+               <a href="{{ Request::route()->getName()!=='users' ? route('users'):'#'}}" 
+                class="{{ Request::route()->getName()=='users' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >User</a>
+              @endcan
+              @can('viewActivityLog')
+               <a href="{{ Request::route()->getName()!=='activity-log' ? route('activity-log'):'#'}}" 
+                class="{{ Request::route()->getName()=='activity-log' ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium ' : 'text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white' }}" >Log</a>
               @endcan
                 {{-- <a href="#" class=" text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white" x-state:on="Current" x-state:off="Default" aria-current="page" x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">Dashboard</a>
               
@@ -61,7 +69,10 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
                 @php
                     $bgcolor = '#f0e9e9';
                     $color = '#8b5d5d';
-                    if(\Auth::user()->role!='user'){
+                    if(\Auth::user()->role=='officer'){
+                        $color = '#ffffff';
+                        $bgcolor = '#5a67d8';
+                    }else if(\Auth::user()->role=='admin'){
                         $color = '#ffffff';
                         $bgcolor = '#8BC34A';
                     }
@@ -76,6 +87,9 @@ Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class
               <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" x-ref="menu-items" x-description="Dropdown menu, show/hide based on menu state." x-bind:aria-activedescendant="activeDescendant" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" @keydown.arrow-up.prevent="onArrowUp()" @keydown.arrow-down.prevent="onArrowDown()" @keydown.tab="open = false" @keydown.enter.prevent="open = false; focusButton()" @keyup.space.prevent="open = false; focusButton()" style="display: none;">
                 {{-- <a href="#" class="block px-4 py-2 text-sm text-gray-700" x-state:on="Active" x-state:off="Not Active" :class="{ 'bg-gray-100': activeIndex === 0 }" role="menuitem" tabindex="-1" id="user-menu-item-0" @mouseenter="activeIndex = 0" @mouseleave="activeIndex = -1" @click="open = false; focusButton()">Your Profile</a>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" :class="{ 'bg-gray-100': activeIndex === 1 }" role="menuitem" tabindex="-1" id="user-menu-item-1" @mouseenter="activeIndex = 1" @mouseleave="activeIndex = -1" @click="open = false; focusButton()">Settings</a> --}}
+                <a class="block px-4 py-2 text-sm text-gray-700" :class="{ 'bg-gray-100': activeIndex === 1 }" role="menuitem" tabindex="-1" id="user-menu-item-2" @mouseenter="activeIndex = 1" @mouseleave="activeIndex = -1" @click="open = false; focusButton()" href="{{ route('user.password') }}">
+                    {{ __('Update password') }}
+                </a>
                 <a class="block px-4 py-2 text-sm text-gray-700" :class="{ 'bg-gray-100': activeIndex === 2 }" role="menuitem" tabindex="-1" id="user-menu-item-2" @mouseenter="activeIndex = 2" @mouseleave="activeIndex = -1" @click="open = false; focusButton()" href="{{ route('logout') }}"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}

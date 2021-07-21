@@ -20,9 +20,9 @@ class NppbkcsDatatables extends LivewireDatatable
     {
         $user = Auth::user();
         if(\Gate::allows('viewAllNppbkc')){
-            return Nppbkc::query();
+            return Nppbkc::query()->orderByDesc('nppbkcs.updated_at');
         }else{
-            return Nppbkc::query()->where('created_by','=',Auth::user()->id);
+            return Nppbkc::query()->where('created_by','=',Auth::user()->id)->orderByDesc('nppbkcs.updated_at');
         }
     }
     /**
@@ -34,13 +34,13 @@ class NppbkcsDatatables extends LivewireDatatable
     {
         return [
             Column::name('nama_pemilik')
-                ->label('Nama'),
+                ->label('Nama')->searchable(),
 
             Column::callback(['status_nppbkc','no_permohonan_lokasi', 'no_permohonan'], function ($status,$no_permohonan_lokasi, $no_permohonan) {
                 return ($status<3)
                     ? '<span class="text-gray-600">' . $no_permohonan . '</span>'
                     : '<span class="text-yellow-600">' . $no_permohonan . '</span>';
-            })->label('No Permohonan'),
+            })->label('No Permohonan')->searchable(),
 
             Column::callback(['status_nppbkc'], function ($status_nppbkc) {
                 return view('table.nppbkc-status', ['status' => $status_nppbkc]);
@@ -56,8 +56,8 @@ class NppbkcsDatatables extends LivewireDatatable
                     ->label('Catatan Petugas')
                     ->truncate(30),
 
-            Column::callback('created_at', function ($created) {
-                return \Carbon\Carbon::parse($created)->isoFormat('HH:mm D MMMM Y');
+            Column::callback('updated_at', function ($created) {
+                return \Carbon\Carbon::parse($created)->isoFormat('HH:mm, D MMMM Y');
             })->label('Tanggal'),
 
             Column::callback(['id', 'nama_pemilik'], function ($id, $name) {

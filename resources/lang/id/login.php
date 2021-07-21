@@ -14,6 +14,7 @@ return [
     */
 
     'title' => 'Login',
+    'password' => 'Password',
     'or' => 'Atau',    
     'create_account' => 'Buat akun baru',
     'sign_in' => 'Masuk',

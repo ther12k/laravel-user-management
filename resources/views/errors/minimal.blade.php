@@ -15,14 +15,14 @@
         <link rel="manifest" href="/site.webmanifest">
 
         <!-- Favicon -->
-		<link rel="shortcut icon" href="{{ secure_url(asset('favicon.ico')) }}">
+		<link rel="shortcut icon" href="{{ url(asset('favicon.ico')) }}">
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
         <!-- Styles -->
         
-        <link rel="stylesheet" href="{{ secure_url(mix('css/app.css')) }}">
+        <link rel="stylesheet" href="{{ url(mix('css/app.css')) }}">
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">

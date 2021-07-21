@@ -20,10 +20,10 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->truncate(); //for cleaning earlier data to avoid duplicate entries
         DB::table('users')->insert([
           'name' => 'Rizky',
-          'email' => 'rizkyz@gmail.com',
+          'email' => 'admin@nppbkc.com',
           'role' => 'admin',
           'email_verified_at'=>date("Y-m-d H:i:s"),
-          'password' => Hash::make('rizkyz12345'),
+          'password' => Hash::make('admin12345'),
         ]);
         DB::table('users')->insert([
           'name' => 'Officer',
@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
           'email' => 'rizevarza@gmail.com',
           'role' => 'user',
           'email_verified_at'=>date("Y-m-d H:i:s"),
-          'password' => Hash::make('password'),
+          'password' => Hash::make('rizevarza12345'),
         ]);
     }
 }
