@@ -8,7 +8,7 @@
         </h1> --}}
         @if (Auth::check())  
             @if($hasData)   
-            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-5xl">
+            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-6xl">
             <livewire:nppbkcs-datatables sort="created_at|desc"/>
             </div>
             @else
