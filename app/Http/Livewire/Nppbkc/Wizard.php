@@ -584,7 +584,7 @@ class Wizard extends Component
                 'text' => "Permohonan Cek Lokasi ".$nppbkc->no_permohonan,
                 'content' =>"*Permohonan cek lokasi baru, no ".$nppbkc->no_permohonan_lokasi."*",
                 'url_title'=>'Cek Permohonan',
-                'url' =>'http://nppbkc.herokuapp.com/nppbkc/1',
+                'url' =>$url,
                 'filepath'=>$nppbkc->files()->OfName('surat_permohonan_lokasi')->first()->filename,
                 'filename'=>$nppbkc->id.'_surat_permohonan_lokasi.pdf'
             ];
