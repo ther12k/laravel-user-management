@@ -3,7 +3,8 @@
 use Illuminate\Support\Str;
 
 $DATABASE_URL=parse_url('postgres://ikxfsrekqjyxtb:c7b6ee03223a29677b4330ccc407e8386ba2af03a6dfe6e1b2439bd838df6bd7@ec2-35-174-35-242.compute-1.amazonaws.com:5432/d1lcuaklag5mr0');
-$heroku_mysqlurl = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$heroku_mysqlurl = parse_url('mysql://sapn98aeo4wo58g0:o13812pbqgyg85ee@ohunm00fjsjs1uzy.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/z3pxul70lrv20zmf');
 
 $host = $heroku_mysqlurl["host"];
 $username = $heroku_mysqlurl["user"];
@@ -71,12 +72,11 @@ return [
         ],
 
         'heroku_mysql' => [
-            'driver' => 'mysql',
+            'driver' => 'mariadb',
             'host' => $host,
             'database' => $database,
             'username' => $username,
             'password' => $password,
-            'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
