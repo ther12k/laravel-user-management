@@ -439,8 +439,8 @@ class Wizard extends Component
         // if($exists){
         //     Storage::delete($pdf_filename);
         // }
-        $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
-        $this->surat_permohonan_lokasi_url = url('/nppbkc/download-file/'.$hash);
+        // $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
+        // $this->surat_permohonan_lokasi_url = url('/nppbkc/download-file/'.$hash);
         $qrImage= base64_encode(
             QrCode::format('png')
             ->size(80)
@@ -452,7 +452,7 @@ class Wizard extends Component
         Storage::put($pdf_filename, $pdf->output());     
         $file = $nppbkc->files()->save(
                             new NppbkcFile([
-                                'key'=>$hash,
+                                'key'=>$nppbkc->hash,
                                 'name'=>'surat_permohonan_lokasi',
                                 'title'=>'Surat Permohonan Pengecekan Lokasi',
                                 'filename'=>$pdf_filename,
@@ -462,7 +462,6 @@ class Wizard extends Component
                                 'is_annotation'=>2
                             ])
                         ); 
-        return $this->surat_permohonan_lokasi_url;
     }
 
     private function buildData(){
@@ -573,8 +572,10 @@ class Wizard extends Component
 
             $nppbkc->save();
             $this->created_at = $nppbkc->created_at;
-            $url = $this->generate_permohonan_cek_lokasi($nppbkc);
 
+            $nppbkc->hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
+            $this->surat_permohonan_lokasi_url = url('/nppbkc/download-file/'.$nppbkc->hash);
+            $this->generate_permohonan_cek_lokasi($nppbkc);
             $url = route('nppbkc.view',[$nppbkc->id]);
             if($this->nppbkc_id==null){
                 try{
