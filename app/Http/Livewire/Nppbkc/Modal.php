@@ -87,7 +87,7 @@ class Modal extends ModalComponent
             ]));
         }catch (\Exception $e) {
             
-            Debugbar::error($e);
+            Debugbar::error($e);Sentry\captureException($exception);
         };
         session(['message' => 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
@@ -119,9 +119,7 @@ class Modal extends ModalComponent
                 'url' =>$url
             ]));
         }catch (\Exception $e) {
-            dd($e);
-            
-            Debugbar::error($e);
+            Debugbar::error($e);Sentry\captureException($exception);
         };
         session(['message' => 'Permohonan cek lokasi telah ditolak']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
@@ -159,7 +157,7 @@ class Modal extends ModalComponent
                 ]));
             }catch (\Exception $e) {
                 
-                Debugbar::error($e);
+                Debugbar::error($e);Sentry\captureException($exception);
             };
 
             // $this->emit('nppbkcStatusUpdated',$nppbkc);
@@ -343,7 +341,7 @@ class Modal extends ModalComponent
                 ]));
             }catch (\Exception $e) {
                 
-                Debugbar::error($e);
+                Debugbar::error($e);Sentry\captureException($exception);
             }
 
             session(['message' => 'Data telah diupdate ke status Permohonan NPPBKC.']);

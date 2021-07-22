@@ -29,7 +29,9 @@ use Illuminate\Support\Facades\Route;
 // Route::redirect('/', '/login');
 Route::get('/nppbkc/download-file/{id}', [NppbkcController::class, 'download'])
     ->name('nppbkc.download-file');
-
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});
 Route::get('/', function () {
     return view('home');
 })->middleware(['auth','verified']);

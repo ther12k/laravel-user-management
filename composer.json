@@ -25,6 +25,7 @@
         "livewire-ui/modal": "^0.1.7",
         "livewire/livewire": "^2.5",
         "mediconesystems/livewire-datatables": "^0.4.3",
+        "sentry/sentry-laravel": "^2.7",
         "simplesoftwareio/simple-qrcode": "^4.2.0",
         "spatie/laravel-activitylog": "^3.17",
         "ybr-nx/laravel-mariadb": "^1.0"

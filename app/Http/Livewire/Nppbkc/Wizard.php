@@ -295,6 +295,7 @@ class Wizard extends Component
      */
     public function stepCheck()
     {   
+        sleep(2);
         // dd($this);
         if($this->nppbkc_id!=null){
             $this->rules[9]=[];
@@ -585,7 +586,7 @@ class Wizard extends Component
                         'url' =>$url
                     ]));
                 }catch (\Exception $e) {
-                    Debugbar::error($e);
+                    Debugbar::error($e);Sentry\captureException($exception);
                 }
             }else{
                 try{
@@ -595,7 +596,7 @@ class Wizard extends Component
                         'url' =>$url
                     ]));
                 }catch (\Exception $e) {
-                    Debugbar::error($e);
+                    Debugbar::error($e);Sentry\captureException($exception);
                 }
             }
 
