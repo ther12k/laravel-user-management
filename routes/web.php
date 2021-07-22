@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::redirect('/', '/login');
+Route::get('/nppbkc/download-file/{id}', [NppbkcController::class, 'download'])
+         >name('nppbkc.download-file');
 
 Route::get('/', function () {
     return view('home');
@@ -80,8 +82,7 @@ Route::middleware('auth')->group(function () {
     
         Route::get('/nppbkc/surat-permohonan-lokasi/{id}', [NppbkcController::class, 'surat_permohonan_lokasi'])
             ->name('nppbkc.surat-permohonan-lokasi');
-            Route::get('/nppbkc/download-file/{id}', [NppbkcController::class, 'download'])
-                ->name('nppbkc.download-file');
+            
         Route::get('/nppbkc/generatenppbkc/{id}', [NppbkcController::class, 'generate_nppbkc'])
             ->name('nppbkc.generate');
         Route::get('/nppbkc/generate-cek-lokasi/{id}', [NppbkcController::class, 'generate_permohonan_cek_lokasi'])
