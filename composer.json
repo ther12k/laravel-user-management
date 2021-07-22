@@ -25,7 +25,8 @@
         "livewire/livewire": "^2.5",
         "mediconesystems/livewire-datatables": "^0.4.3",
         "simplesoftwareio/simple-qrcode": "^4.2.0",
-        "spatie/laravel-activitylog": "^3.17"
+        "spatie/laravel-activitylog": "^3.17",
+        "ybr-nx/laravel-mariadb": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
