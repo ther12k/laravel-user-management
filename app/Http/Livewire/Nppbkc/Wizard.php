@@ -217,7 +217,7 @@ class Wizard extends Component
         if(isset($id)){
             $this->nppbkc_id = $id;
             $nppbkc = Nppbkc::findOrFail($id);
-            if($nppbkc->created_by!=Auth::user()->id){
+            if($nppbkc->created_by!=Auth::user()->id||$nppbkc->status_nppbkc!=0){
                 abort(401);
             }
             // foreach($nppbkc->toArray() as $key=>$val){
