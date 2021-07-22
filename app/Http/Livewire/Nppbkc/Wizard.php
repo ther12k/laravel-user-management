@@ -302,7 +302,7 @@ class Wizard extends Component
             $this->rules[3]['no_permohonan']='nullable|unique:nppbkcs,no_permohonan,'.$this->nppbkc_id;
         }
         // dd($this->rules);
-        $this->consoleLog('step : '.$this->step);
+        // $this->consoleLog('step : '.$this->step);
         if(0<$this->step&&$this->step<11){
             if($this->rules!=null&&count($this->rules[$this->step])>0){
                 $rules = $this->rules[$this->step];
@@ -331,7 +331,7 @@ class Wizard extends Component
     public function stepCheckWMap($lokasi)
     {   
         $this->setLokasiGeo($lokasi);
-        $this->consoleLog('stepwmap : lng, lat -> '.$this->lokasi_longitude.','.$this->lokasi_latitude);
+        // $this->consoleLog('stepwmap : lng, lat -> '.$this->lokasi_longitude.','.$this->lokasi_latitude);
         if(0<$this->step&&$this->step<11){
             //dd($this->rules[$this->step]);
             if($this->rules!=null&&count($this->rules[$this->step])>0)
@@ -357,7 +357,7 @@ class Wizard extends Component
         }else if($this->step==6){
             $this->lokasi_longitude='';
             $this->lokasi_latitude='';
-            $this->consoleLog('resetted lng, lat -> '.$this->lokasi_longitude.','.$this->lokasi_latitude);
+            // $this->consoleLog('resetted lng, lat -> '.$this->lokasi_longitude.','.$this->lokasi_latitude);
         }
         if($this->step=='preview'){
             $this->step=10;  
@@ -372,7 +372,7 @@ class Wizard extends Component
 
     protected function mapCheck(){
         $text='';
-        $this->consoleLog('lng, lat -> '.$this->lokasi_longitude.','.$this->lokasi_latitude);
+        // $this->consoleLog('lng, lat -> '.$this->lokasi_longitude.','.$this->lokasi_latitude);
         if(!isset($this->lokasi_longitude)||empty($this->lokasi_longitude)){
             $this->village = Village::find($this->village_id['value'])->name;
             $this->district = District::find($this->district_id['value'])->name;
@@ -393,7 +393,7 @@ class Wizard extends Component
         if($this->npwp_usaha=='xx.xxx.xxx.x-xxx.xxx'){
             $this->npwp_usaha='';
         }
-        $this->consoleLog('step : '.$this->step);
+        // $this->consoleLog('step : '.$this->step);
         if($this->rules!=null&&count($this->rules[$this->step])>0)
             $validatedData = $this->validate($this->rules[$this->step]);
         $this->dispatchBrowserEvent('render',['step'=>'preview']);
@@ -585,7 +585,7 @@ class Wizard extends Component
                         'url' =>$url
                     ]));
                 }catch (\Exception $e) {
-                    $this->consoleLog($e);
+                    Debugbar::error($e);
                 }
             }else{
                 try{
@@ -595,7 +595,7 @@ class Wizard extends Component
                         'url' =>$url
                     ]));
                 }catch (\Exception $e) {
-                    $this->consoleLog($e);
+                    Debugbar::error($e);
                 }
             }
 
