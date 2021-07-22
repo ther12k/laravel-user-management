@@ -105,4 +105,9 @@ class Nppbkc extends Model
     {
         return env('TELEGRAM_CHANNEL_ID');
     }
+
+    public function routeNotificationForMail($notification)
+    { 
+        return [$this->createdBy->email => $this->createdBy->name];
+    }
 }

@@ -11,6 +11,8 @@ use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 use NotificationChannels\Telegram\TelegramFile;
 
+use Storage;
+
 class NppbkcAddedNotification extends Notification
 {
     use Queueable;
@@ -33,7 +35,7 @@ class NppbkcAddedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return [TelegramChannel::class];
+        return [TelegramChannel::class,'mail'];
     }
 
     public function toTelegram() {
@@ -42,14 +44,31 @@ class NppbkcAddedNotification extends Notification
         // dd($this->data['content']);
         //dd('/storage/'.$this->data['filename']);
         //dd($this->data['content']);
-        if(env('APP_ENV')=='local')
-            return TelegramMessage::create()->content($this->data['content']);
-        return TelegramMessage::create()
-            ->content($this->data['content']); // Markdown supported.
-            //->file('/storage/'.$this->data['filename'], 'photo'); // local file
-            // OR
-            // ->file('http://www.domain.com/file.pdf', 'document') // remote file
-            //->button('Download',$url) // Inline Button
-            //->button('Download',$url); // Inline Button
+        // if(env('APP_ENV')=='local')
+        //     return TelegramMessage::create()->content($this->data['content']);
+        $telegram = null;
+        if(isset($this->data['filename'])){
+            $telegram = TelegramFile::create()
+                ->content($this->data['content'])
+                ->file(Storage::get($this->data['filepath']), 'document',$this->data['filename']); // local file;
+        }else{
+            $telegram = TelegramMessage::create()->content($this->data['content'].' [Lihat]('.$this->data['url'].')');
+        }
+
+        if(env('APP_ENV')=='local'){
+            return $telegram;
+        }
+        return $telegram->button('View',$this->data['url']); // Inline Button
+    }
+
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->error()
+                    ->greeting('Halo halo')
+                    ->subject('Halo halo')
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', $this->data['url'])
+                    ->line('Thank you for using our application!');
     }
 }
