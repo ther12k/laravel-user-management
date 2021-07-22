@@ -24,7 +24,7 @@ class UserModal extends ModalComponent
         //     ];
         return [
             'name' => 'required',
-            'email' => 'required|email|max:255|unique:users,email,'.$this->user_id,
+            'email' => 'required|email|max:255|unique:nppbkc_users,email,'.$this->user_id,
             'password' => 'sometimes|nullable|min:8',
         ];
     }
