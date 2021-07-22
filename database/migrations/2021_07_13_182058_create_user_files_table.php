@@ -25,7 +25,7 @@ class CreateUserFilesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
+                ->on('nppbkc_users')
                 ->onDelete('cascade');
             $table->blameable();
             $table->timestamps();
