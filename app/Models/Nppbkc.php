@@ -15,7 +15,8 @@ class Nppbkc extends Model
     
     protected $fillable = [
         'status_nppbkc','no_permohonan_lokasi','catatan_petugas',
-        'status_pemohon','no_permohonan','nama_pemilik','alamat_pemilik','telp_pemilik','npwp_pemilik','email_pemilik',
+        'status_pemohon','no_permohonan','no_permohonan_nppbkc',
+        'nama_pemilik','alamat_pemilik','telp_pemilik','npwp_pemilik','email_pemilik',
         'jenis_usaha_bkc','jenis_bkc','nama_usaha','alamat_usaha','telp_usaha','npwp_usaha','email_usaha',
         'jenis_lokasi','kegunaan','village_id','rt_rw','alamat',
         'lokasi_latitude','lokasi_longitude',
@@ -28,8 +29,8 @@ class Nppbkc extends Model
     //protected static $recordEvents = ['created','updated','deleted'];
     protected static $logAttributes = [
         'status_nppbkc','created_by', 'updated_by',
-        'no_permohonan_lokasi','catatan_petugas',
-        'status_pemohon','no_permohonan','nama_pemilik','alamat_pemilik','telp_pemilik','npwp_pemilik','email_pemilik',
+        'no_permohonan','no_permohonan_nppbkc','no_permohonan_lokasi','catatan_petugas',
+        'status_pemohon','nama_pemilik','alamat_pemilik','telp_pemilik','npwp_pemilik','email_pemilik',
         'jenis_usaha_bkc','jenis_bkc','nama_usaha','alamat_usaha','telp_usaha','npwp_usaha','email_usaha',
         'jenis_lokasi','kegunaan','village_id','rt_rw','alamat',
         'lokasi_latitude','lokasi_longitude',
@@ -103,5 +104,10 @@ class Nppbkc extends Model
     public function routeNotificationForTelegram()
     {
         return env('TELEGRAM_CHANNEL_ID');
+    }
+
+    public function routeNotificationForMail($notification)
+    { 
+        return [$this->createdBy->email => $this->createdBy->name];
     }
 }
