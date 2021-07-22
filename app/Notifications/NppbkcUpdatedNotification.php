@@ -35,7 +35,7 @@ class NppbkcUpdatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return [TelegramChannel::class];
+        return [TelegramChannel::class,'mail'];
     }
 
     public function toTelegram() {
@@ -63,19 +63,34 @@ class NppbkcUpdatedNotification extends Notification
 
     public function toMail($notifiable)
     {
+        $storagePath = Storage::disk('local')->getAdapter()->getPathPrefix();
         $data = $this->data;
+        if(!isset($data['message'])){
+            $data['message']='Bersamaan dengan email ini, kami mengirimkan attachment salinan surat permohonan anda,'.
+                                'selanjutnya silahkan pantau permohonan anda melalui link dibawah ini';
+        };
         $mail = (new MailMessage)
                     ->greeting($data['greeting'])
-                    ->subject($data['subject'])
+                    ->subject($data['text'])
                     ->line($data['message']);
         if(isset($data['red'])){
             $mail = $mail->error();
         }
         if(isset($data['url'])){
-            $mail = $mail->action($data['url_title'], $data['url']);
+            $mail = $mail->action(isset($data['url_title'])?$data['url_title']:'Cek Permohonan', $data['url']);
         } 
         if(isset($data['add_message'])){
             $mail = $mail->line($data['add_message']);
+        }
+        if(isset($this->data['filename'])){
+            $mail = $mail->attach($storagePath.$data['filepath'], [
+                'as' => $data['filename'],
+                'mime' => 'application/pdf',
+            ]);
+
+            // $mail = $mail->attachFromStorage($data['filepath'], $data['filename'], [
+            //     'mime' => 'application/pdf'
+            // ]);
         }
         return $mail;
     }
