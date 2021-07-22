@@ -17,22 +17,22 @@ class UsersTableSeeder extends Seeder
     {
         $this->command->info('create user table seeder...');
         
-        DB::table('users')->truncate(); //for cleaning earlier data to avoid duplicate entries
-        DB::table('users')->insert([
+        DB::table('nppbkc_users')->truncate(); //for cleaning earlier data to avoid duplicate entries
+        DB::table('nppbkc_users')->insert([
           'name' => 'Rizky',
           'email' => 'admin@nppbkc.com',
           'role' => 'admin',
           'email_verified_at'=>date("Y-m-d H:i:s"),
           'password' => Hash::make('admin12345'),
         ]);
-        DB::table('users')->insert([
+        DB::table('nppbkc_users')->insert([
           'name' => 'Officer',
           'email' => 'rizkyz@gmail.com',
           'role' => 'officer',
           'email_verified_at'=>date("Y-m-d H:i:s"),
           'password' => Hash::make('rizkyz12345'),
         ]);
-        DB::table('users')->insert([
+        DB::table('nppbkc_users')->insert([
           'name' => 'User Biasa',
           'email' => 'rizevarza@gmail.com',
           'role' => 'user',
