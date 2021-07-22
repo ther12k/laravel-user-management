@@ -86,7 +86,8 @@ class Modal extends ModalComponent
                 'url' =>$url
             ]));
         }catch (\Exception $e) {
-            $this->consoleLog($e);
+            
+            Debugbar::error($e);
         };
         session(['message' => 'Permohonan cek lokasi telah disetujui, silahkan melanjutkan cek lokasi.']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
@@ -119,7 +120,8 @@ class Modal extends ModalComponent
             ]));
         }catch (\Exception $e) {
             dd($e);
-            $this->consoleLog($e);
+            
+            Debugbar::error($e);
         };
         session(['message' => 'Permohonan cek lokasi telah ditolak']);
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
@@ -156,7 +158,8 @@ class Modal extends ModalComponent
                     'url' =>$url
                 ]));
             }catch (\Exception $e) {
-                $this->consoleLog($e);
+                
+                Debugbar::error($e);
             };
 
             // $this->emit('nppbkcStatusUpdated',$nppbkc);
@@ -215,7 +218,6 @@ class Modal extends ModalComponent
                     }
                     else{
                         if($count>0){
-                            $this->consoleLog($count);
                             $annotationFiles->delete();
                         }
                         $hash = md5($annotationFileName.$nppbkc->id);
@@ -340,7 +342,8 @@ class Modal extends ModalComponent
                     'url' =>$url
                 ]));
             }catch (\Exception $e) {
-                $this->consoleLog($e);
+                
+                Debugbar::error($e);
             }
 
             session(['message' => 'Data telah diupdate ke status Permohonan NPPBKC.']);
