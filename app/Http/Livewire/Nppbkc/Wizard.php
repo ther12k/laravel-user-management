@@ -13,9 +13,10 @@ use App\Models\Village;
 use App\Models\Nppbkc;
 use App\Models\NppbkcFile;
 
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 use Carbon\Carbon;
-use App\Notifications\NppbkcAddedNotification;
+use App\Notifications\NppbkcUpdatedNotification;
 use PDF,Auth,Hash,QrCode;
 
 class Wizard extends Component
@@ -295,12 +296,12 @@ class Wizard extends Component
      */
     public function stepCheck()
     {   
-        sleep(2);
+        // sleep(2);
         // dd($this);
         if($this->nppbkc_id!=null){
             $this->rules[9]=[];
             $this->rules[10]=[];
-            $this->rules[3]['no_permohonan']='nullable|unique:nppbkcs,no_permohonan,'.$this->nppbkc_id;
+            $this->rules[3]['no_permohonan']='nullable';
         }
         // dd($this->rules);
         // $this->consoleLog('step : '.$this->step);
@@ -578,32 +579,28 @@ class Wizard extends Component
             $this->surat_permohonan_lokasi_url = url('/nppbkc/download-file/'.$nppbkc->hash);
             $this->generate_permohonan_cek_lokasi($nppbkc);
             $url = route('nppbkc.view',[$nppbkc->id]);
+            $notif = [
+                'text' => "Permohonan Cek Lokasi ".$nppbkc->no_permohonan,
+                'content' =>"*Permohonan cek lokasi baru, no ".$nppbkc->no_permohonan_lokasi."*",
+                'url' =>'http://nppbkc.herokuapp.com/nppbkc/1',
+                'filepath'=>$nppbkc->files()->OfName('surat_permohonan_lokasi')->first()->filename,
+                'filename'=>$nppbkc->id.'_surat_permohonan_lokasi.pdf'
+            ];
             if($this->nppbkc_id==null){
-                try{
-                    $nppbkc->notify(new NppbkcAddedNotification([
-                        'text' => "Permohonan Cek Lokasi".$nppbkc->id,
-                        'content' =>"*Permohonan cek lokasi baru, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](".$url.")",
-                        'url' =>$url
-                    ]));
-                }catch (\Exception $e) {
-                    Debugbar::error($e);Sentry\captureException($exception);
-                }
-            }else{
-                try{
-                    $nppbkc->notify(new NppbkcAddedNotification([
-                        'text' => "Revisi Permohonan Cek Lokasi".$nppbkc->id,
-                        'content' =>"*Revisi Permohonan cek lokasi, no ".$nppbkc->no_permohonan_lokasi."* [Lihat](".$url.")",
-                        'url' =>$url
-                    ]));
-                }catch (\Exception $e) {
-                    Debugbar::error($e);Sentry\captureException($exception);
-                }
+                $notif['text'] = "Revisi Permohonan Cek Lokasi ".$nppbkc->no_permohonan;
+                $notif['content'] ="*Revisi Permohonan cek lokasi, no ".$nppbkc->no_permohonan_lokasi."*";
+            }
+
+            try{
+                $nppbkc->notify(new NppbkcUpdatedNotification($notif));
+            }catch (\Exception $e) {
+                Debugbar::error($e);\Sentry\captureException($e);
             }
 
             $this->step='complete';
         }catch (\Exception $e) {
-            dd($e);
             $this->step='preview';
+            \Sentry\captureException($e);
         }
     }
 

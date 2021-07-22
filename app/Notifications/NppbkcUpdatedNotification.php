@@ -13,7 +13,7 @@ use NotificationChannels\Telegram\TelegramFile;
 
 use Storage;
 
-class NppbkcAddedNotification extends Notification
+class NppbkcUpdatedNotification extends Notification
 {
     use Queueable;
 
@@ -35,22 +35,22 @@ class NppbkcAddedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return [TelegramChannel::class,'mail'];
+        return [TelegramChannel::class];
     }
 
     public function toTelegram() {
         
         //$url = url($this->data['url']);
-        // dd($this->data['content']);
+        // dd($this->data);
         //dd('/storage/'.$this->data['filename']);
         //dd($this->data['content']);
-        // if(env('APP_ENV')=='local')
-        //     return TelegramMessage::create()->content($this->data['content']);
         $telegram = null;
+        $storagePath = Storage::disk('local')->getAdapter()->getPathPrefix();
         if(isset($this->data['filename'])){
             $telegram = TelegramFile::create()
                 ->content($this->data['content'])
-                ->file(Storage::get($this->data['filepath']), 'document',$this->data['filename']); // local file;
+                ->document($storagePath.$this->data['filepath'],$this->data['filename']);
+                // ->document(Storage::get('/'.$this->data['filepath']),$this->data['filename']); // local file;
         }else{
             $telegram = TelegramMessage::create()->content($this->data['content'].' [Lihat]('.$this->data['url'].')');
         }
@@ -63,12 +63,20 @@ class NppbkcAddedNotification extends Notification
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->error()
-                    ->greeting('Halo halo')
-                    ->subject('Halo halo')
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', $this->data['url'])
-                    ->line('Thank you for using our application!');
+        $data = $this->data;
+        $mail = (new MailMessage)
+                    ->greeting($data['greeting'])
+                    ->subject($data['subject'])
+                    ->line($data['message']);
+        if(isset($data['red'])){
+            $mail = $mail->error();
+        }
+        if(isset($data['url'])){
+            $mail = $mail->action($data['url_title'], $data['url']);
+        } 
+        if(isset($data['add_message'])){
+            $mail = $mail->line($data['add_message']);
+        }
+        return $mail;
     }
 }
