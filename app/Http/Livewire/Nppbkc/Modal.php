@@ -140,7 +140,7 @@ class Modal extends ModalComponent
         // $this->emit('nppbkcStatusUpdated',$nppbkc);
         // $this->closeModal();
         $this->closeModalWithEvents([
-            Message::getName() => ['nppbkcFlashMessage', [false]]
+            Message::getName() => ['nppbkcFlashMessage', [true]]
             ,UpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
         ]);
     }
