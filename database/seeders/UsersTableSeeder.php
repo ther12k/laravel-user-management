@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
     {
         $this->command->info('create user table seeder...');
         
-        //DB::table('users')->truncate(); //for cleaning earlier data to avoid duplicate entries
+        DB::table('users')->truncate(); //for cleaning earlier data to avoid duplicate entries
         DB::table('users')->insert([
           'name' => 'Rizky',
           'email' => 'admin@nppbkc.com',

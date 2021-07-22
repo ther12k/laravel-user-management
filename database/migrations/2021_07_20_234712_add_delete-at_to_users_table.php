@@ -13,7 +13,7 @@ class AddDeleteAtToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('nppbkc_users', function (Blueprint $table) {
             //
             $table->softDeletes();
         });
@@ -26,7 +26,7 @@ class AddDeleteAtToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('nppbkc_users', function (Blueprint $table) {
             //
             $table->softDeletes();
         });
