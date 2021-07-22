@@ -13,6 +13,9 @@ class CreateNppbkcTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('nppbkc_files');
+        Schema::dropIfExists('nppbkc_annotations');
+        Schema::dropIfExists('nppbkcs');
         Schema::create('nppbkcs', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('status_nppbkc')->default(1);

@@ -13,6 +13,7 @@ class CreateNppbkcAnnotationsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('nppbkc_annotations');
         Schema::create('nppbkc_annotations', function (Blueprint $table) {
             $table->id();
             $table->tinyinteger('status_nppbkc');
