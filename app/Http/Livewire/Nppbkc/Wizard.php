@@ -588,7 +588,7 @@ class Wizard extends Component
                 'filepath'=>$nppbkc->files()->OfName('surat_permohonan_lokasi')->first()->filename,
                 'filename'=>$nppbkc->id.'_surat_permohonan_lokasi.pdf'
             ];
-            if($this->nppbkc_id==null){
+            if($this->nppbkc_id!=null){
                 $notif['text'] = "Revisi Permohonan Cek Lokasi ".$nppbkc->no_permohonan;
                 $notif['content'] ="*Revisi Permohonan cek lokasi, no ".$nppbkc->no_permohonan_lokasi."*";
             }
