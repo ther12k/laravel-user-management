@@ -17,18 +17,16 @@
                     <div class="mt-2" >
                         @include('livewire.form.textarea',['name'=>'catatan_petugas','text'=>'Catatan Petugas'])
                     </div>
-                    <div wire:loading.delay class="py-5">
-                        @include('livewire.form.skeleton')
-                    </div>
                 </div>
             </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <button wire:click.prevent="setuju_cek()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Setuju
+                
+                @include('livewire.form.loading-text',['text'=>__('Setuju'),'target'=>'setuju_cek'])
             </button>
             <button wire:click.prevent="tolak_cek()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Ditolak
+                @include('livewire.form.loading-text',['text'=>__('Ditolak'),'target'=>'tolak_cek'])
             </button>
             <button wire:click="$emit('closeModal')" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                 Cancel
@@ -37,8 +35,8 @@
         @endif
         @if($status_nppbkc==2)
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" x-data="flatpickr('#datepicker',{dateFormat:'d-m-Y'})">
-            <h1 class="text-xl font-semibold text-purple-700 mb-4">Penerimaan Permohonan Penerbitan NPPBKC</h1>
-			<div wire:loading.remove.delay >
+            <h1 class="text-xl font-semibold text-purple-700 mb-4 px-5">Penerimaan Permohonan Penerbitan NPPBKC</h1>
+			<div wire:loading.remove.delay class="px-5" wire:target="complete" >
 
                 @include('livewire.form.textarea',['name'=>'catatan_petugas','text'=>'Catatan Petugas'])
                 @include('livewire.form.input',['name'=>'no_ba_cek_lokasi','text'=>'Nomor Berita Acara'])
@@ -62,7 +60,7 @@
                 @endforeach
                 </div>
             </div>
-            <div wire:loading.delay class="py-5">
+            <div wire:loading.delay class="py-5 px-5"  wire:target="complete">
                 @include('livewire.form.skeleton')
             </div>
         </div>
@@ -93,10 +91,12 @@
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <button wire:click.prevent="keputusan(1)" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Disetujui
+                
+                @include('livewire.form.loading-text',['text'=>__('Disetujui'),'target'=>'keputusan'])
             </button>
-            <button wire:click.prevent="keputusan(0)" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                Tidak Disetujui
+            <button wire:click.prevent="keputusan_tolak()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                
+                @include('livewire.form.loading-text',['text'=>__('Tidak Disetujui'),'target'=>'keputusan_tolak'])
             </button>
             <button wire:click="$emit('closeModal')" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                 Cancel

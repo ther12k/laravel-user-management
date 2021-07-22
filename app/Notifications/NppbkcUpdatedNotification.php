@@ -73,7 +73,7 @@ class NppbkcUpdatedNotification extends Notification
                     ->greeting($data['greeting'])
                     ->subject($data['text'])
                     ->line($data['message']);
-        if(isset($data['red'])){
+        if(isset($data['error'])){
             $mail = $mail->error();
         }
         if(isset($data['url'])){
