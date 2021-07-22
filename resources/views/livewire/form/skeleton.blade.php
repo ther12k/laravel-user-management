@@ -13,7 +13,7 @@
       
     </span>
 </div>
-<div class="md:flex grids grid-cols-2 py-2">
+<div class="md:flex grids grid-cols-2 py-2 space-x-2">
     <a class="bg-gray-400 h-6 animate-pulse w-40 inline-flex items-center md:mb-2 lg:mb-0">
       
     </a>
@@ -22,7 +22,7 @@
     </span>
     
 </div>
-<div class="md:flex grids grid-cols-2 py-2">
+<div class="md:flex grids grid-cols-2 py-2 space-x-2">
     <a class="bg-gray-400 h-6 animate-pulse w-56 inline-flex items-center md:mb-2 lg:mb-0">
       
     </a>
@@ -30,7 +30,7 @@
       
     </span>
 </div>
-<div class="md:flex grids grid-cols-2 py-2">
+<div class="md:flex grids grid-cols-2 py-2 space-x-2">
     <a class="bg-gray-400 h-6 animate-pulse w-40 inline-flex items-center md:mb-2 lg:mb-0">
       
     </a>

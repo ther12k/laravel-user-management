@@ -175,7 +175,7 @@
 				</div>
 			</div>
 			<!-- /Top Navigation -->
-			<div wire:loading.delay class="py-5" wire:target="stepCheck,back,preview,complete,stepCheckWMap">
+			<div wire:loading.delay class="p-5 justify-center " wire:target="stepCheck,back,preview,complete,stepCheckWMap">
 				@include('livewire.form.skeleton')
 			</div>
 			{{-- <div wire:loading.delay class="py-5" wire:target="stepCheckWMap">
@@ -443,45 +443,59 @@
 	<div class="fixed bottom-0 z-50 left-0 right-0 py-5 bg-white shadow-md" x-show="step != 'complete'">
 		<div class="max-w-3xl mx-auto px-4">
 			<div class="flex justify-between">
-				<div class="w-1/2">
+				<div>
 					<button
 						wire:loading.attr="disabled"
 						x-show="step > 1 || step==='preview'"
 						wire:click="back()"
-						class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
-					>Previous</button>
+						class="flex w-32  justify-center focus:outline-none  py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+					>
+                    @include('livewire.form.loading-text',['text'=>__('Kembali'),'target'=>'back'])
+					</button>
 					<button
 						wire:loading.attr="disabled"
 						x-show="step === 1"
 						wire:click="back()"
-						class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
-					>Disclaimer</button>
+						class="flex w-32  justify-center focus:outline-none  py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+					>
+                    @include('livewire.form.loading-text',['text'=>__('Disclaimer'),'target'=>'back'])
+					</button>
 				</div>
 
-				<div class="w-1/2 text-right">
+				<div>
 					<button
 					wire:loading.attr="disabled"
 						x-show="step < 10 && step!==6"
 						wire:click="stepCheck()"
-						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-					>Next</button>
+						class="flex w-432 justify-center focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+					>
+                    @include('livewire.form.loading-text',['text'=>__('Selanjutnya'),'target'=>'stepCheck'])
+					</button>
 					<button
 					wire:loading.attr="disabled"
 						x-show="step === 6"
 						wire:click="stepCheckWMap(defaultLocation)"
-						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-					>Next</button>
+						class="flex w-32  justify-center focus:outline-none  border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+					>
+					@include('livewire.form.loading-text',['text'=>__('Selanjutnya'),'target'=>'stepCheckWMap'])
+					</button>
 					<button
 						wire:click="preview()"
 						x-show="step === 10"
-						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-					>Preview</button>
+						class="flex w-32  justify-center focus:outline-none  border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+					>
+				
+					@include('livewire.form.loading-text',['text'=>__('Preview'),'target'=>'preview'])
+					</button>
 					<button
 						wire:loading.attr="disabled"
 						wire:click="complete()"
 						x-show="step === 'preview'"
-						class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-					>Complete</button>
+						class="flex w-32  justify-center focus:outline-none  border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+					>
+
+					@include('livewire.form.loading-text',['text'=>__('Complete'),'target'=>'complete'])
+					</button>
 				</div>
 			</div>
 		</div>
