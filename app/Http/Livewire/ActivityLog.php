@@ -28,7 +28,7 @@ class ActivityLog extends LivewireDatatable
             //     $join->where('subject_type','App\Models\User');
         
             // })
-            ->leftJoin('users', 'users.id', 'activity_log.causer_id')
+            ->leftJoin('nppbkc_users', 'nppbkc_users.id', 'activity_log.causer_id')
             ->orderByDesc('activity_log.created_at');
     }
      /**
@@ -40,7 +40,7 @@ class ActivityLog extends LivewireDatatable
     {
         //include="user.name|User,log_name,description,created_at,updated_at,properties"
         return [
-            Column::name('users.name')->label('Nama user')->searchable(),
+            Column::name('nppbkc_users.name')->label('Nama user')->searchable(),
             Column::name('log_name')->label('Log')->searchable(),
             Column::name('description')->label('Deskripsi')->searchable(),
 

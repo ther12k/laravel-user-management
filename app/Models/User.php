@@ -13,6 +13,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    protected $table = 'nppbkc_users';
     use HasFactory, Notifiable, SoftDeletes, LogsActivity;
     
     protected static $logAttributes = [
