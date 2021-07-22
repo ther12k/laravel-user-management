@@ -13,6 +13,7 @@ class CreateUserFilesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('user_files');
         Schema::create('user_files', function (Blueprint $table) {
             $table->id();
             $table->string('key');
