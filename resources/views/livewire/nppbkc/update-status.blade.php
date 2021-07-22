@@ -47,7 +47,7 @@
     </div>
     @if($nppbkc->status_nppbkc>1)
     <button class="flex-auto text-sm font-semibold text-purple-700 mb-4 outline-none" @if($nppbkc->status_nppbkc>2) x-on:click="activeTab = 6" @endif>
-            Diupdate @can('viewAllNppbkc')oleh {{$nppbkc->updatedBy->name}}, @endcan{{\Carbon\Carbon::parse($nppbkc->updated_at)->isoFormat('HH:mm D MMMM Y')}}
+            Diupdate @can('viewAllNppbkc')oleh {{$nppbkc->updatedBy->name??''}}, @endcan{{\Carbon\Carbon::parse($nppbkc->updated_at)->isoFormat('HH:mm D MMMM Y')}}
     </button>
     @endif
     
