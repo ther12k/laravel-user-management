@@ -13,6 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('nppbkc_users');
         Schema::create('nppbkc_users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
