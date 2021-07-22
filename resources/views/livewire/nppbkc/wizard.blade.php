@@ -191,7 +191,7 @@
 				@include('livewire.form.skeleton')
 			</div> --}}
 			<!-- Step Content -->
-			<div wire:loading.remove wire:target="stepCheck,back,stepCheckWMap,preview" class="py-5">
+			<div wire:loading.remove wire:target="stepCheck,back,stepCheckWMap,preview,complete" class="py-5">
 				@if($step==0)
 				<div x-show.transition.in="step === 0">
 					<div class="mb-6 py-5">
@@ -431,7 +431,7 @@
 				</div>
 				@endif
 				@if($step=='preview')
-				<div x-show.transition.in="step === 'preview'" wire:loading.remove wire:target="complete">
+				<div x-show.transition.in="step === 'preview'">
 					@include('livewire.wizard-preview')
 				</div>
 				@endif
