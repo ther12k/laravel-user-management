@@ -12,7 +12,7 @@ class NppbkcFile extends Model
     protected $fillable = ['key','name','title','filename','original_filename','size','ext','is_annotation'];
     public function scopeOfName($query,$name)
     {
-        return $query->where('name', $name);
+        return $query->where('name', $name)->orderByDesc('id');
     }
     public function scopeOfKey($query,$key)
     {
