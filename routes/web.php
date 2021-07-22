@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::redirect('/', '/login');
 Route::get('/nppbkc/download-file/{id}', [NppbkcController::class, 'download'])
-         >name('nppbkc.download-file');
+    ->name('nppbkc.download-file');
 
 Route::get('/', function () {
     return view('home');
