@@ -34,7 +34,14 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-
+        'nppbkc' => [
+            'driver' => 'local',
+            'root' => storage_path('app/nppbkc'),
+        ],
+        'user' => [
+            'driver' => 'local',
+            'root' => storage_path('app/user'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
