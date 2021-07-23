@@ -105,10 +105,6 @@
 						<p class="py-2">Selanjutnya Saudara dapat memonitoring permohonan pada halaman utama.</p>
 					</div>
 					<button
-						wire:click="back()"
-						class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
-					>Back</button>
-					<button
 						onclick="window.location='{{ route("home") }}'"
 						class="w-40 block mx-auto focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
 						{{-- class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"  --}}
