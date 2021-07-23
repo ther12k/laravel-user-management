@@ -12,7 +12,7 @@ use Hash;
 class UserModal extends ModalComponent
 {
     public $action;
-    public $user_id,$name,$email,$role,$user,$password;
+    public $user_id,$name,$email,$role='user',$user,$password;
 
     public function rules()
     {
