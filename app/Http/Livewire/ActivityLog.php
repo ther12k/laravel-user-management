@@ -7,13 +7,17 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-
+use Gate;
 class ActivityLog extends LivewireDatatable
 {
     protected $listeners = ['refresh' => '$refresh'];
     public $model = \App\Models\ActivityLog::class;
+
     public function builder()
     {
+        if (!Gate::allows('viewActivityLog')) {
+            abort('401');
+        }
         return \App\Models\ActivityLog::query()
             // ->leftJoin('nppbkcs', 'nppbkcs.id', 'activity_log.subject_id')
             ->leftJoin('nppbkcs', function($join) 

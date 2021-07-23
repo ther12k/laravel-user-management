@@ -8,7 +8,7 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-
+use Gate;
 class Users extends LivewireDatatable
 {
     protected $listeners = ['refresh' => '$refresh'];
@@ -20,6 +20,9 @@ class Users extends LivewireDatatable
      */
     public function columns()
     {
+        if (!Gate::allows('manageUser')) {
+            abort('401');
+        }
         return [
             Column::name('name')->label('Nama')->searchable(),
             Column::name('email')->label('E-mail')->searchable(),

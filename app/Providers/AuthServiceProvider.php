@@ -36,9 +36,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('userbiasa', function ($user = null) {
             return $user&&$user->role=='user';
         });
-        Gate::define('viewWebTinker', function ($user = null) {
-            return $user&&$user->role=='admin';
-        });
         Gate::define('addNppbkc', function ($user = null) {
             return $user&&$user->role=='user';
         });
@@ -56,6 +53,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user&&$user->role=='admin';
         });
         Gate::define('viewActivityLog', function ($user = null) {
+            return $user&&$user->role=='admin';
+        });
+        Gate::define('viewWebTinker', function ($user = null) {
             return $user&&$user->role=='admin';
         });
     }
