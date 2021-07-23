@@ -164,6 +164,7 @@ class Modal extends ModalComponent
             if($setuju==0){
                 $alertFlash = true;
                 session(['message' => 'Permohonan cek lokasi telah ditolak.']);
+                $notif['error']='';
             }
             else
                 session(['message' => 'Permohonan cek lokasi telah disetujui.']);
@@ -171,7 +172,6 @@ class Modal extends ModalComponent
             $url = route('nppbkc.view',[$nppbkc->id]);
 
             $notif = [
-                'error'=>'',
                 'greeting' => 'Hi '.$nppbkc->createdBy->name,
                 'message' =>'Permohonan NPPBKC anda dengan dengan no '.$nppbkc->no_permohonan.',  telah '.($setuju==0?"ditolak":"disetujui"),
                 'text' => "Permohonan NPPBKC ".($setuju==0?"ditolak":"disetujui"),
@@ -179,7 +179,7 @@ class Modal extends ModalComponent
                 'url_title'=>'Cek Permohonan',
                 'url' =>$url
             ];
-    
+
             try{
                 $nppbkc->notify(new NppbkcUpdatedNotification($notif));
             }catch (\Exception $e) {

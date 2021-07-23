@@ -52,7 +52,7 @@ class NppbkcUpdatedNotification extends Notification
                 ->document($storagePath.$this->data['filepath'],$this->data['filename']);
                 // ->document(Storage::get('/'.$this->data['filepath']),$this->data['filename']); // local file;
         }else{
-            $telegram = TelegramMessage::create()->content($this->data['content'].' [Lihat]('.$this->data['url'].')');
+            $telegram = TelegramMessage::create()->content($this->data['content']);
         }
 
         if(env('APP_ENV')=='local'){
