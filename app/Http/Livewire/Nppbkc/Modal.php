@@ -386,7 +386,7 @@ class Modal extends ModalComponent
                 ,UpdateStatus::getName() => ['nppbkcStatusUpdated', [$nppbkc]]
             ]);
         }catch (\Exception $e) {
-            Sentry\captureException($e);
+            \Sentry\captureException($e);
         }
     }
 }
