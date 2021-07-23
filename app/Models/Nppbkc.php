@@ -75,12 +75,12 @@ class Nppbkc extends Model
 
     public function nppbkcFiles()
     {
-        return $this->hasMany(NppbkcFile::class)->where('is_annotation',0);
+        return $this->hasMany(NppbkcFile::class)->where('is_annotation',0)->orderByDesc('id');
     }
 
     public function annotationFiles()
     {
-        return $this->hasMany(NppbkcFile::class)->where('is_annotation',1);
+        return $this->hasMany(NppbkcFile::class)->where('is_annotation',1)->orderByDesc('id');
     }
 
     public function province()

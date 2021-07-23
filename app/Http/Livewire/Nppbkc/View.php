@@ -72,10 +72,15 @@ class View extends Component
                 abort(401);
             }
         }
-
+        $lampiran = [];
+        foreach($nppbkc->nppbkcFiles->all() as $file){
+            if(!array_key_exists($file->filename,$lampiran)){
+                $lampiran[$file->filename] = $file;
+            }
+        }
         $this->data = array_merge($nppbkc->toArray(),
             [
-                'files'=>$nppbkc->nppbkcFiles->all(),
+                'files'=>$lampiran,
                 'file_surat_permohonan_lokasi'=>$nppbkc->files()->OfName('surat_permohonan_lokasi')->orderByDesc('id')->first(),
                 'file_surat_permohonan_nppbkc'=>$nppbkc->files()->OfName('surat_permohonan_nppbkc')->orderByDesc('id')->first(),
                 'petugas_files'=>$nppbkc->annotationFiles->all()
