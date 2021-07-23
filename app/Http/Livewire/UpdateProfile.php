@@ -91,7 +91,7 @@ class UpdateProfile extends Component
         if($user->hasUserProfile){
             foreach($this->rules as $name=>$value){
                 if(strpos($name,'file')!== false){
-                    $filename = $this->{$name}->storeAs('user/'.$user->id, $user->id.'_'.$name.'.'.$this->{$name}->extension());
+                    $filename = $this->{$name}->storeAs($user->id, $user->id.'_'.$name.'.'.$this->{$name}->extension(),'user');
                     $originalname = $this->{$name}->getClientOriginalName();
                     $size = $this->{$name}->getSize();
                     $hash = md5($name.$user->id);

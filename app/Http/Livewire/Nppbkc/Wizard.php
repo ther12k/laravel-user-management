@@ -535,7 +535,7 @@ class Wizard extends Component
             }
             foreach(nppbkc_file_captions() as $name=>$title){
                 if($this->{$name}!=null){
-                    $filename = $this->{$name}->storeAs('nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension());
+                    $filename = $this->{$name}->storeAs(date('Ymd').'/nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension(),'nppbkc');
                     $originalname = $this->{$name}->getClientOriginalName();
                     $size = $this->{$name}->getSize();
                     $hash = md5($this->hashKey.'-'.$name.$nppbkc->id);

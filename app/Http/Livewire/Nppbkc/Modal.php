@@ -220,7 +220,7 @@ class Modal extends ModalComponent
             
             foreach($this->petugas_files as $name=>$title){
                 if($this->{$name}!=null){
-                    $filename = $this->{$name}->storeAs('nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension());
+                    $filename = $this->{$name}->storeAs(date('Ymd').'/nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension(),'nppbkc');
                     $originalname = $this->{$name}->getClientOriginalName();
                     $size = $this->{$name}->getSize();
                     $annotationFileName = 'annotation.'.str_replace("file_","",$name);
@@ -272,6 +272,7 @@ class Modal extends ModalComponent
                 $no=0;
             }
             $nppbkc->no_permohonan = 'TTD-'.str_pad($no+1,6,"0",STR_PAD_LEFT).'/WBC.15/KPP.MP.04/'.date('Y');
+            $nppbkc->no_permohonan = 'NPPBKC-'.$nppbkc->no_permohonan_lokasi;
             $nppbkc->catatan_petugas=$this->catatan_petugas;
             $nppbkc->no_ba_cek_lokasi=$this->no_ba_cek_lokasi;
             
