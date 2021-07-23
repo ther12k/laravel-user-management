@@ -100,9 +100,7 @@
 				<span class="hidden xl:block">Lampiran</span>
 			</div>
 		</a>
-		@if(!$isEdited)
-		<livewire:nppbkc.annotation.tab-header show="{{ $status_nppbkc==0||$status_nppbkc>2 }}"/>
-		@endif
+		<livewire:nppbkc.annotation.tab-header show="{{ $status_nppbkc==0||$status_nppbkc>1 }}"/>
 	</div>
 	<div class="bg-white mb-6 shadow-lg">
 		<div class="px-4 py-5">
