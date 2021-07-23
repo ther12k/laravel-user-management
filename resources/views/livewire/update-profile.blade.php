@@ -8,7 +8,7 @@
 </style>
 @endpush   
 <div class="container mx-auto p-5">
-    <div x-data="app()" x-cloak>
+    <div  x-cloak>
         @if(session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
@@ -44,8 +44,10 @@
                         <div class="w-1/2 text-right">
                             <button
 								wire:click="update"
-                                class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
-                            >Save</button>
+                                class="w-40 inline-flex justify-center focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 
+                            >
+                            @include('livewire.form.loading-text',['text'=>__('Simpan'),'target'=>'update'])
+                            </button>
                         </div>
                     </div>
                 </div>
