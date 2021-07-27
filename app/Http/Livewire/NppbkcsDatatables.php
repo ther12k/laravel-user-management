@@ -42,8 +42,8 @@ class NppbkcsDatatables extends LivewireDatatable
                     : '<span class="text-yellow-600">' . $no_permohonan . '</span>';
             })->label('No Permohonan')->searchable(),
 
-            Column::callback(['status_nppbkc'], function ($status_nppbkc) {
-                return view('table.nppbkc-status', ['status' => $status_nppbkc]);
+            Column::callback(['id','status_nppbkc'], function ($id,$status_nppbkc) {
+                return view('table.nppbkc-status', ['id'=>$id,'status' => $status_nppbkc]);
             })->label('Status')->filterable([
                 ['id'=>'1','name'=>'Aju Cek Lokasi'],
                 ['id'=>'2','name'=>'Setuju Cek Lokasi'],
