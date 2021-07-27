@@ -16,6 +16,6 @@ class NppbkcFile extends Model
     }
     public function scopeOfKey($query,$key)
     {
-        return $query->where('key', $key);
+        return $query->where('key', $key)->orderByDesc('id');
     }
 }
