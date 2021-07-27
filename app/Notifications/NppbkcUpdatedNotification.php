@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
-use NotificationChannels\Telegram\TelegramFile;
+use App\Helpers\TelegramFileWStorage;
 
 use Storage;
 
@@ -45,11 +45,11 @@ class NppbkcUpdatedNotification extends Notification
         //dd('/storage/'.$this->data['filename']);
         //dd($this->data['content']);
         $telegram = null;
-        $storagePath = Storage::disk('local')->getAdapter()->getPathPrefix();
+        // $storagePath = Storage::disk('nppbkc')->getAdapter()->getPathPrefix();
         if(isset($this->data['filename'])){
-            $telegram = TelegramFile::create()
-                ->content($this->data['content'])
-                ->document($storagePath.$this->data['filepath'],$this->data['filename']);
+            $telegram = TelegramFileWStorage::create()
+                ->file([Storage::disk('nppbkc'),$this->data['filepath']],'document',$this->data['filename'])
+                ->content($this->data['content']);
                 // ->document(Storage::get('/'.$this->data['filepath']),$this->data['filename']); // local file;
         }else{
             $telegram = TelegramMessage::create()->content($this->data['content']);
@@ -63,7 +63,8 @@ class NppbkcUpdatedNotification extends Notification
 
     public function toMail($notifiable)
     {
-        $storagePath = Storage::disk('local')->getAdapter()->getPathPrefix();
+        $storagePath = Storage::disk('nppbkc')->getAdapter()->getPathPrefix();
+    
         $data = $this->data;
         if(!isset($data['message'])){
             $data['message']='Bersamaan dengan email ini, kami mengirimkan attachment salinan surat permohonan anda,'.
@@ -83,10 +84,21 @@ class NppbkcUpdatedNotification extends Notification
             $mail = $mail->line($data['add_message']);
         }
         if(isset($this->data['filename'])){
-            $mail = $mail->attach($storagePath.$data['filepath'], [
-                'as' => $data['filename'],
-                'mime' => 'application/pdf',
-            ]);
+            $content = Storage::disk('nppbkc')->get($data['filepath']);
+            $mail = $mail->attachData($content,$data['filename']);
+            // $mail = $mail->attachData($content,[
+            //     'as' => $data['filename'],
+            //     'mime' => 'application/pdf',
+            // ]);
+
+            // $mail = $mail->attachFromStorage($data['filepath'], $data['filename'], [
+            //     'mime' => 'application/pdf'
+            // ]);
+        }
+        if(isset($this->data['ttd_filename'])){
+            $content = Storage::disk('nppbkc')->get($data['ttd_filepath']);
+            
+            $mail = $mail->attachData($content,$data['ttd_filename']);
 
             // $mail = $mail->attachFromStorage($data['filepath'], $data['filename'], [
             //     'mime' => 'application/pdf'
