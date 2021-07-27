@@ -27,8 +27,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::redirect('/', '/login');
-Route::get('/nppbkc/download-file/{id}', [NppbkcController::class, 'download'])
+Route::get('/nppbkc/download-file/{id}', [NppbkcController::class, 'downloadFile'])
     ->name('nppbkc.download-file');
+Route::get('/nppbkc/view-file/{id}', [NppbkcController::class, 'viewFile'])
+    ->name('nppbkc.view-file');
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
 });
@@ -89,6 +91,8 @@ Route::middleware('auth')->group(function () {
             ->name('nppbkc.generate');
         Route::get('/nppbkc/generate-cek-lokasi/{id}', [NppbkcController::class, 'generate_permohonan_cek_lokasi'])
             ->name('nppbkc.generate-cek-lokasi');
+        Route::get('/nppbkc/generate-ttd/{id}', [NppbkcController::class, 'generate_ttd_cek_lokasi'])
+            ->name('nppbkc.generate-ttd');
     
         Route::get('/activity-log', function () {
             return view('activity-log');
