@@ -48,9 +48,17 @@ return [
         ],
 
         'user' => [
-            'driver' => 'local',
-            'root' => storage_path('app/user'),
+            'driver' => 'ftp',
+            'host' => 'ftp.damfinime.site',
+            'username' => 'nppbkc@nppbkc.bcpalangkaraya.com',
+            'password' => 'nppbkc',
+            'root' => 'nppbkc/storage/app/user',
         ],
+
+        // 'user' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/user'),
+        // ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
