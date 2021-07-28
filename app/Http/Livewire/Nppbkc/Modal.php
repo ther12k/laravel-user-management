@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class Modal extends ModalComponent
 {
     use WithFileUploads;
-    public $nppbkc_id,$status_nppbkc,$catatan_petugas,$file_surat_tugas,$file_ba_periksa,$file_ba_wawancara;
+    public $nppbkc_id,$status_nppbkc,$catatan_petugas,$file_surat_tugas,$file_ba_periksa,$file_ba_wawancara,$file_keputusan;
     //tambahan 6 juli 2021
     public $no_ba_cek_lokasi,$tanggal_ba_cek_lokasi;
     public $petugas_files=
@@ -25,6 +25,10 @@ class Modal extends ModalComponent
         'file_surat_tugas'=>'Surat tugas periksa lokasi',
         'file_ba_periksa'=>'Berita acara periksa lokasi',
         'file_ba_wawancara'=>'Berita acara wawancara'
+    ];
+    public $keputusan_files=
+    [
+        'file_keputusan'=>'Surat Keputusan'
     ];
 
     protected $rules = [
@@ -153,12 +157,59 @@ class Modal extends ModalComponent
     public function keputusan($setuju)
     {
         $nppbkc = Nppbkc::findOrFail($this->nppbkc_id);
+        $validatedData = $this->validate([
+            'file_keputusan' => 'required'
+        ],
+        [
+            'file_keputusan.required' => 'File harus diupload!',
+        ]);
         if($setuju==0)
             $nppbkc->status_nppbkc=4;
         else
             $nppbkc->status_nppbkc=5;
         if($nppbkc->isDirty()){
             // dd('changed');
+            foreach($this->keputusan_files as $name=>$title){
+                if($this->{$name}!=null){
+                    $filename = $this->{$name}->storeAs(date('Ymd').'/nppbkc/'.$nppbkc->id, $name.'.'.$this->{$name}->extension(),'nppbkc');
+                    $originalname = $this->{$name}->getClientOriginalName();
+                    $size = $this->{$name}->getSize();
+                    $annotationFileName = 'annotation.'.str_replace("file_","",$name);
+                    $annotationFiles = $nppbkc->annotationFiles()->OfName($annotationFileName);
+                    $count = $annotationFiles->count();
+                    if($count==1){
+                        $annotationFile =$annotationFiles->first();
+                        $hash = md5($annotationFileName.$nppbkc->id);
+                        $annotationFile->update([
+                            'key'=>$hash,
+                            'name'=>$annotationFileName,
+                            'title'=>$title,
+                            'filename'=>$filename,
+                            'original_filename'=>$originalname,
+                            'size'=>$size,
+                            'is_annotation'=>1,
+                            'ext'=>$this->{$name}->extension()
+                        ]);
+                    }
+                    else{
+                        if($count>0){
+                            $annotationFiles->delete();
+                        }
+                        $hash = md5($annotationFileName.$nppbkc->id);
+                        $annotationFile = new NppbkcFile([
+                            'key'=>$hash,
+                            'name'=>$annotationFileName,
+                            'title'=>$title,
+                            'filename'=>$filename,
+                            'original_filename'=>$originalname,
+                            'size'=>$size,
+                            'is_annotation'=>1,
+                            'ext'=>$this->{$name}->extension()
+                        ]);
+                        $nppbkc->files()->save($annotationFile);
+                    }
+                }
+            }
             $nppbkc->save();
             $alertFlash = false;
             if($setuju==0){
@@ -265,14 +316,16 @@ class Modal extends ModalComponent
             //     $nppbkc->no_permohonan = str_pad($no++,6,"0",STR_PAD_LEFT).'/'.
             //     str_replace(' ','_',strtoupper($data['nama_usaha'])).'/'.$bln.'/'.date('Y');
             // }
-            $no = Nppbkc::whereNotNull('no_permohonan_nppbkc')->orderByDesc('id')->first();
+            
+            $no = Nppbkc::whereNotNull('ttd_permohonan_nppbkc')->orderByDesc('id')->first();
             if($no!=null){
-                $no = (int)explode('/', $no->no_permohonan_nppbkc)[0];
+                $no = (int)(explode('-',explode('/', $no->ttd_permohonan_nppbkc)[0])[1]);
             }else{
                 $no=0;
             }
-            $nppbkc->no_permohonan = 'TTD-'.str_pad($no+1,6,"0",STR_PAD_LEFT).'/WBC.15/KPP.MP.04/'.date('Y');
-            $nppbkc->no_permohonan = 'NPPBKC-'.$nppbkc->no_permohonan_lokasi;
+
+            $nppbkc->ttd_permohonan_nppbkc = 'TTD-'.str_pad($no+1,6,"0",STR_PAD_LEFT).'/NPPBKC/WBC.15/KPP.MP.04/'.date('Y');
+            $nppbkc->no_permohonan = $nppbkc->no_permohonan_nppbkc ='NPPBKC-'.$nppbkc->no_permohonan_lokasi;
             $nppbkc->catatan_petugas=$this->catatan_petugas;
             $nppbkc->no_ba_cek_lokasi=$this->no_ba_cek_lokasi;
             
@@ -336,7 +389,7 @@ class Modal extends ModalComponent
     
             $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_surat_permohonan_nppbkc.pdf';
             $hash = md5('file-permohonan-nppbkc'.$nppbkc->id);
-            $url = url('/nppbkc/download-file/'.$hash);
+            $url = url('/nppbkc/view-file/'.$hash);
             $qrImage= base64_encode(
                 QrCode::format('png')
                 ->size(80)
@@ -357,17 +410,17 @@ class Modal extends ModalComponent
                                 ])
                             );
             $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
-            Storage::put($pdf_filename, $pdf->output());
+            Storage::disk('nppbkc')->put($pdf_filename, $pdf->output());
 
-            $url = route('nppbkc.view',[$nppbkc->id]);
+            $viewurl = route('nppbkc.view',[$nppbkc->id]);
 
             $notif = [
                 'greeting' => 'Hi '.$nppbkc->createdBy->name,
-                'text' => "Permohonan NPPBKC ".$nppbkc->no_permohonan,
+                'text' => "TTD Permohonan Penerbitan NPPBKC ".$nppbkc->no_permohonan,
+                'content' =>"*Permohonan no ".$nppbkc->no_permohonan.", dengan tanda terima : ".$nppbkc->ttd_permohonan_nppbkc.", telah diupdate oleh ".\Auth::user()->name."*",
                 'message' =>'Bersamaan dengan email ini, kami mengirimkan attachment salinan surat permohonan anda dengan no '.$nppbkc->no_permohonan.', selanjutnya anda tinggal menunggu hasil keputusan yang juga dapat dipantau melalui link dibawah',
-                'content' =>"*Permohonan no ".$nppbkc->no_permohonan.", telah diupdate oleh ".\Auth::user()->name."*",
                 'url_title'=>'Cek Permohonan',
-                'url' =>$url,
+                'url' =>$viewurl,
                 'filepath'=>$nppbkc->files()->OfName('surat_permohonan_nppbkc')->first()->filename,
                 'filename'=>$nppbkc->id.'_surat_permohonan_nppbkc.pdf'
             ];
