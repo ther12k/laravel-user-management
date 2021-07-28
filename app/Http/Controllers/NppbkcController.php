@@ -16,7 +16,7 @@ class NppbkcController extends Controller
     //
     public function downloadFile($id,$view=false){
         $file = NppbkcFile::OfKey($id)->first();
-        dd($file->filename);
+        // dd($file->filename);
         if($file==null)
             return abort('404');
         if($view){
