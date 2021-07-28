@@ -85,6 +85,16 @@
                         <p class="text-sm text-gray-500">
                         Apakah Permohonan ini akan disetujui atau tidak?
                         </p>
+                    </div> 
+                    <div class="mt-2">
+                        <label for="file_keputusan" class="font-bold mb-1 text-gray-700 block">File Keputusan</label>
+                        <x-file-attachment class="@error($name) border-red-500 @enderror " wire:model="file_keputusan" 
+                        :file="$file_keputusan" :preview-h="12" :preview_w="24"/>
+                        @error($file_keputusan) 
+                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                            {{ $message }}
+                        </span> 
+                        @enderror
                     </div>
                 </div>
             </div>
