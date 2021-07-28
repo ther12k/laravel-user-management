@@ -91,7 +91,17 @@
 									<td class="w-72">
 										<a href="{{$surat_permohonan_lokasi_url}}" target="_blank" class="flex font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
 											<x-heroicon-o-download class="w-6 h-6" />
-											<span class="ml-1">{{$no_permohonan}}</span>	 
+											<span class="ml-1">{{$ttd_permohonan_lokasi??''}}</span>	 
+										</a> 
+									</td>
+								</tr>
+								<tr>
+									<td class="w-52">No Permohonan</td>
+									<td class="w-1">:</td>
+									<td class="w-72">
+										<a href="{{$surat_permohonan_lokasi_url}}" target="_blank" class="flex font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+											<x-heroicon-o-download class="w-6 h-6" />
+											<span class="ml-1">{{$no_permohonan??''}}</span>	 
 										</a> 
 									</td>
 								</tr>
@@ -104,6 +114,11 @@
 						</p>
 						<p class="py-2">Selanjutnya Saudara dapat memonitoring permohonan pada halaman utama.</p>
 					</div>
+					{{-- <button
+						wire:loading.attr="disabled"
+						wire:click="back()"
+						class="flex w-32  justify-center focus:outline-none  py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+					>Back</button> --}}
 					<button
 						onclick="window.location='{{ route("home") }}'"
 						class="w-40 block mx-auto focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium" 

@@ -40,6 +40,7 @@ class Wizard extends Component
     public $file_nib,$file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     public $successMessage = '';
     public $created_at,$surat_permohonan_lokasi_url;
+    public $ttd_permohonan_lokasi;
 
     protected $rules = [
         [],
@@ -441,27 +442,76 @@ class Wizard extends Component
         // if($exists){
         //     Storage::delete($pdf_filename);
         // }
-        // $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
-        // $this->surat_permohonan_lokasi_url = url('/nppbkc/download-file/'.$hash);
+
+        $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
+        
         $qrImage= base64_encode(
             QrCode::format('png')
             ->size(80)
-            ->generate($this->surat_permohonan_lokasi_url)
+            ->generate(url('/nppbkc/view-file/'.$hash))
         );
         $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
         $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
         $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
-        Storage::put($pdf_filename, $pdf->output());     
+        Storage::disk('nppbkc')->put($pdf_filename, $pdf->output());     
         $file = $nppbkc->files()->save(
                             new NppbkcFile([
-                                'key'=>$nppbkc->hash,
-                                'name'=>'surat_permohonan_lokasi',
+                                'key'=>$hash,
+                                'name'=>'surat_permohonan_cek_lokasi',
                                 'title'=>'Surat Permohonan Pengecekan Lokasi',
                                 'filename'=>$pdf_filename,
                                 'original_filename'=>'',
                                 'size'=>strlen($pdfHTML),
                                 'ext'=>'.pdf',
                                 'is_annotation'=>2
+                            ])
+                        ); 
+    }
+    
+    public function generate_ttd_cek_lokasi($nppbkc){
+        $pdfHTML = view('pdf.ttd_permohonan_lokasi')->render();
+        $formats=[];
+        $replaces=[];
+        $dataPdf = $nppbkc->toArray();
+        $formats[]='[NAMA_PEMILIK]';
+        $replaces[]=$nppbkc->nama_pemilik;
+        $formats[]='[NO_TTD_PERMOHONAN]';
+        $replaces[]='<strong>'.$nppbkc->ttd_permohonan_lokasi.'</strong>';
+        $formats[]='[NO_PERMOHONAN]';
+        $replaces[]=$nppbkc->no_permohonan_lokasi;
+        
+        $formats[]='[WAKTU_PENGAJUAN]';
+        $replaces[]='<strong>'.$nppbkc->created_at->isoFormat('HH:mm, D MMMM Y').'</strong>';
+        $formats[]='[TANGGAL_PENGAJUAN]';
+        $replaces[]='<strong>'.$nppbkc->created_at->isoFormat('D MMMM Y').'</strong>';
+
+        //replace all
+        $pdfHTML = str_replace($formats,$replaces,$pdfHTML);
+        
+        $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_ttd_permohonan_cek_lokasi.pdf';
+        
+        $hash = md5($this->hashKey.'-ttd-cek-lokasi'.$nppbkc->id);  
+        $qrImage= base64_encode(
+            QrCode::format('png')
+            ->size(80)
+            ->generate(url('/nppbkc/view-file/'.$hash))
+        );
+        $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
+        $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
+
+        $pdf = PDF::loadHTML($pdfHTML)->setPaper('a4', 'potrait');
+        Storage::disk('nppbkc')->put($pdf_filename, $pdf->output());   
+
+        $file = $nppbkc->files()->save(
+                            new NppbkcFile([
+                                'key'=>$hash,
+                                'name'=>'ttd_permohonan_cek_lokasi',
+                                'title'=>'TTD Permohonan Pengecekan Lokasi',
+                                'filename'=>$pdf_filename,
+                                'original_filename'=>'',
+                                'size'=>strlen($pdfHTML),
+                                'ext'=>'.pdf',
+                                'is_annotation'=>9
                             ])
                         ); 
     }
@@ -506,6 +556,7 @@ class Wizard extends Component
         try {
             $data = $this->buildData();
             // dd($this->no_permohonan);
+
             if($this->no_permohonan==null||empty($this->no_permohonan)){
                 //generate auto number
                 $array_bln  = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
@@ -525,13 +576,26 @@ class Wizard extends Component
             }else{
                 $data['no_permohonan_lokasi'] = $this->no_permohonan;
             }
+
             // dd($data);
-            if($this->nppbkc_id==null)
+            $no = Nppbkc::whereNotNull('ttd_permohonan_lokasi')->orderByDesc('id')->first();
+            if($no!=null){
+                $no = (int)(explode('-',explode('/', $no->ttd_permohonan_lokasi)[0])[1]);
+            }else{
+                $no=0;
+            }
+            $data['ttd_permohonan_lokasi'] = $this->ttd_permohonan_lokasi = 'TTD-'.str_pad($no+1,6,"0",STR_PAD_LEFT).'/CEKLOK/WBC.15/KPP.MP.04/'.date('Y');
+            
+
+            if($this->nppbkc_id==null){
                 $nppbkc = Nppbkc::create($data);
-            else{
+            }else{
+                $nppbkc = Nppbkc::where('id', $this->nppbkc_id)
+                            ->update($data); 
+                if(!$nppbkc){
+                    throw new ModelNotFoundException('nppbkc not updated : '.$this->nppbkc_id);
+                }
                 $nppbkc = Nppbkc::findOrFail($this->nppbkc_id);
-                // dd($nppbkc);
-                $nppbkc->update($data);
             }
             foreach(nppbkc_file_captions() as $name=>$title){
                 if($this->{$name}!=null){
@@ -573,20 +637,22 @@ class Wizard extends Component
             }
 
             $nppbkc->save();
+            
             $this->created_at = $nppbkc->created_at;
-
-            $nppbkc->hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
-            $this->surat_permohonan_lokasi_url = url('/nppbkc/download-file/'.$nppbkc->hash);
             $this->generate_permohonan_cek_lokasi($nppbkc);
+            $this->generate_ttd_cek_lokasi($nppbkc);
             $url = route('nppbkc.view',[$nppbkc->id]);
             $notif = [
                 'greeting' => 'Hi '.$nppbkc->createdBy->name,
-                'text' => "Permohonan Cek Lokasi ".$nppbkc->no_permohonan,
-                'content' =>"*Permohonan cek lokasi baru, no ".$nppbkc->no_permohonan_lokasi."*",
+                'text' => "TTD Permohonan Cek Lokasi ".$nppbkc->no_permohonan,
+                'content' =>"*Permohonan cek lokasi baru, no ".$nppbkc->no_permohonan_lokasi." dengan tanda terima : ".$nppbkc->ttd_permohonan_lokasi."*",
+                'message'=>'Bersamaan dengan email ini, kami mengirimkan attachment salinan surat permohonan anda dan tanda teriman permohonan anda, selanjutnya silahkan pantau permohonan anda melalui link dibawah ini',
                 'url_title'=>'Cek Permohonan',
                 'url' =>$url,
-                'filepath'=>$nppbkc->files()->OfName('surat_permohonan_lokasi')->first()->filename,
-                'filename'=>$nppbkc->id.'_surat_permohonan_lokasi.pdf'
+                'filepath'=>$nppbkc->files()->OfName('surat_permohonan_cek_lokasi')->first()->filename,
+                'filename'=>$nppbkc->id.'_surat_permohonan_cek_lokasi.pdf',
+                'ttd_filepath'=>$nppbkc->files()->OfName('ttd_permohonan_cek_lokasi')->first()->filename,
+                'ttd_filename'=>$nppbkc->id.'_ttd_permohonan_cek_lokasi.pdf'
             ];
             if($this->nppbkc_id!=null){
                 $notif['text'] = "Revisi Permohonan Cek Lokasi ".$nppbkc->no_permohonan;
@@ -602,7 +668,8 @@ class Wizard extends Component
             $this->step='complete';
         }catch (\Exception $e) {
             $this->step='preview';
-            \Sentry\captureException($e);
+            dd($e);
+            Debugbar::error($e);\Sentry\captureException($e);
         }
     }
 
