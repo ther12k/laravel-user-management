@@ -70,6 +70,7 @@ class Wizard extends Component
             'jenis_lokasi' => 'required',
             'kegunaan' => 'required'
         ],
+        //5
         [
             'village_id' => 'required',
         ],
@@ -92,6 +93,7 @@ class Wizard extends Component
         [
             'tanggal_kesiapan_cek_lokasi'=>'required'
         ],
+        //9
         [
             'file_denah_bangunan'=>'required',
             'file_denah_lokasi'=>'required',
@@ -165,6 +167,7 @@ class Wizard extends Component
         'village_idUpdated' => 'setVillageId',
         //'setLokasiGeo'=>'setLokasiGeo'
     ];
+    private $shouldRender = true;
 
     public function setLokasiGeo($lokasi_geo)
     {
@@ -177,21 +180,26 @@ class Wizard extends Component
     public function setProvinceId($id)
     {
         $this->province_id = $id;
+        $this->shouldRender = false;
+        // $this->dispatchBrowserEvent('provinceUpdated');
     }
 
     public function setRegencyId($id)
     {
         $this->regency_id = $id;
+        $this->shouldRender = false;
     }
 
     public function setDistrictId($id)
     {
         $this->district_id = $id;
+        $this->shouldRender = false;
     }
 
     public function setVillageId($id)
     {
         $this->village_id = $id;
+        $this->shouldRender = false;
     }
 
     public function updated($field){
@@ -281,6 +289,10 @@ class Wizard extends Component
 
     public function render()
     {
+        if(!$this->shouldRender){
+            $this->shouldRender = true;
+            return '';
+        }
         //dd($this->status_pemohon);
         return view('livewire.nppbkc.wizard')
                     ->extends('layouts.app');
