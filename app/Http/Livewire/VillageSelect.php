@@ -36,4 +36,10 @@ class VillageSelect extends LivewireSelect
             'description' => optional($village)->name,
         ];
     }
+    public function render()
+    {
+        $view = parent::render();
+        $this->emit('villageLoaded');
+        return $view;
+    }
 }

@@ -36,4 +36,11 @@ class DistrictSelect extends LivewireSelect
             'description' => optional($district)->name,
         ];
     }
+
+    public function render()
+    {
+        $view = parent::render();
+        $this->emit('districtLoaded');
+        return $view;
+    }
 }

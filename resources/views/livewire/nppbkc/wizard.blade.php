@@ -553,16 +553,91 @@
 		}
 		return formatted;
 	}
+
+    window.onload = function() {
+
+		document.getElementsByName("regency_id")[0].setAttribute("disabled","disabled");
+		document.getElementsByName("district_id")[0].setAttribute("disabled","disabled");
+		document.getElementsByName("village_id")[0].setAttribute("disabled","disabled");
+		document.getElementsByName('province_id')[0].addEventListener('change', function() {
+			document.getElementsByName("regency_id")[0].setAttribute("disabled","disabled");
+			document.getElementsByName("district_id")[0].setAttribute("disabled","disabled");
+			document.getElementsByName("village_id")[0].setAttribute("disabled","disabled");
+		});
+		Livewire.on('regencyLoaded', (data) => {
+			document.getElementsByName("regency_id")[0].removeAttribute("disabled");
+		});
+
+		document.getElementsByName('regency_id')[0].addEventListener('change', function() {
+			document.getElementsByName("district_id")[0].setAttribute("disabled","disabled");
+			document.getElementsByName("village_id")[0].setAttribute("disabled","disabled");
+		});
+		Livewire.on('districtLoaded', (data) => {
+			document.getElementsByName("district_id")[0].removeAttribute("disabled");
+		});
+
+
+		document.getElementsByName('district_id')[0].addEventListener('change', function() {
+			document.getElementsByName("village_id")[0].setAttribute("disabled","disabled");
+		});
+		Livewire.on('villageLoaded', (data) => {
+			document.getElementsByName("village_id")[0].removeAttribute("disabled");
+		});
+	};
+	/*
+	window.onload = function() {
+		document.getElementsByName('province_id')[0].addEventListener('change', function() {
+			document.getElementById("regencyView").classList.add('hidden');
+			document.getElementById("districtView").classList.add('hidden');
+			document.getElementById("villageView").classList.add('hidden');
+			document.getElementById("regencyView").classList.remove('md-flex');
+			document.getElementById("districtView").classList.remove('md-flex');
+			document.getElementById("villageView").classList.remove('md-flex');
+		});
+		Livewire.on('regencyLoaded', (data) => {
+			document.getElementById("regencyView").classList.remove('hidden');
+			document.getElementById("regencyView").classList.add('md-flex');
+		});
+
+		document.getElementsByName('regency_id')[0].addEventListener('change', function() {
+			document.getElementById("districtView").classList.add('hidden');
+			document.getElementById("villageView").classList.add('hidden');
+			document.getElementById("districtView").classList.remove('md-flex');
+			document.getElementById("villageView").classList.remove('md-flex');
+		});
+		Livewire.on('districtLoaded', (data) => {
+			document.getElementById("districtView").classList.remove('hidden');
+			document.getElementById("districtView").classList.add('md-flex');
+		});
+
+
+		document.getElementsByName('district_id')[0].addEventListener('change', function() {
+			document.getElementById("villageView").classList.add('hidden');
+			document.getElementById("villageView").classList.remove('md-flex');
+		});
+		Livewire.on('villageLoaded', (data) => {
+			document.getElementById("villageView").classList.remove('hidden');
+			document.getElementById("villageView").classList.add('md-flex');
+		});
+	};
+	*/
+
+	window.addEventListener('updateRegency', event => {
+		console.log('province_idUpdated');
+			console.log(data);
+	});
+	
 	function app() {
 		console.log('init app');
 		return {
 			step : @entangle('step'),
 			skeleton : false,
-			lokasi_longitude : @entangle($lokasi_longitude),
-			lokasi_latitude : @entangle($lokasi_latitude),
-			status_pemohon:@entangle('status_pemohon')
+			regencyShow : false,
+			// lokasi_longitude : @entangle($lokasi_longitude),
+			// lokasi_latitude : @entangle($lokasi_latitude),
+			status_pemohon: @entangle('status_pemohon')
 		}
-	}
+	};
 
 	window.addEventListener('showMap', event => {
 		console.log('listener show map');

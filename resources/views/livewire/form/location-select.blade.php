@@ -15,26 +15,26 @@
         @enderror
     </div>
 </div>
-<div class="md:flex md:items-center mb-6">
+<div class="md:flex md:items-center mb-6" id="regencyView">
     <div class="md:w-1/3">
         <label for="inline-regency_id" class="font-bold mb-1 text-gray-700 block">Kabupaten/Kota</label>
     </div>
     <div class="md:w-2/3 relative">
         <livewire:regency-select
-            name="regency_id"
-            placeholder="Pilih Kabupaten/Kota"
-            :value="request('regency_id')"
-            :depends-on="['province_id']"
-            :depends-on-values="['province_id' => request('province_id')]"
-        />
+                name="regency_id"
+                placeholder="Pilih Kabupaten/Kota"
+                :value="request('regency_id')"
+                :depends-on="['province_id']"
+                :depends-on-values="['province_id' => request('province_id')]"
+            />
         @error('regency_id') 
         <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-			{{ $message }}
-		</span> 
+            {{ $message }}
+        </span> 
         @enderror
     </div>
 </div>
-<div class="md:flex md:items-center mb-6">
+<div class="md:flex md:items-center mb-6"  id="districtView">
     <div class="md:w-1/3">
         <label for="inline-district_id" class="font-bold mb-1 text-gray-700 block">Kecamatan</label>
     </div>
@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<div class="md:flex md:items-center mb-6">
+<div class="md:flex md:items-center mb-6"  id="villageView">
     <div class="md:w-1/3">
         <label for="inline-village_id" class="font-bold mb-1 text-gray-700 block">Kelurahan/Desa</label>
     </div>

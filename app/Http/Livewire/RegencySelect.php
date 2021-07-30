@@ -39,4 +39,10 @@ class RegencySelect extends LivewireSelect
             'description' => optional($regency)->name,
         ];
     }
+    public function render()
+    {
+        $view = parent::render();
+        $this->emit('regencyLoaded');
+        return $view;
+    }
 }

@@ -33,7 +33,6 @@ class ProvinceSelect extends LivewireSelect
     public function selectedOption($value = null)
     {
         $province = Province::find($value);
-
         return [
             'value' => $province->id,
             'description' => $province->name,
