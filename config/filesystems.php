@@ -34,31 +34,31 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-        // 'nppbkc' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/nppbkc'),
-        // ],
-
         'nppbkc' => [
-            'driver' => 'ftp',
-            'host' => 'ftp.damfinime.site',
-            'username' => 'nppbkc@nppbkc.bcpalangkaraya.com',
-            'password' => 'nppbkc',
-            'root' => 'nppbkc/storage/app/nppbkc',
+            'driver' => 'local',
+            'root' => storage_path('app/nppbkc'),
         ],
 
-        'user' => [
-            'driver' => 'ftp',
-            'host' => 'ftp.damfinime.site',
-            'username' => 'nppbkc@nppbkc.bcpalangkaraya.com',
-            'password' => 'nppbkc',
-            'root' => 'nppbkc/storage/app/user',
-        ],
+        // 'nppbkc' => [
+        //     'driver' => 'ftp',
+        //     'host' => 'ftp.damfinime.site',
+        //     'username' => 'nppbkc@nppbkc.bcpalangkaraya.com',
+        //     'password' => 'nppbkc',
+        //     'root' => 'nppbkc/storage/app/nppbkc',
+        // ],
 
         // 'user' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/user'),
+        //     'driver' => 'ftp',
+        //     'host' => 'ftp.damfinime.site',
+        //     'username' => 'nppbkc@nppbkc.bcpalangkaraya.com',
+        //     'password' => 'nppbkc',
+        //     'root' => 'nppbkc/storage/app/user',
         // ],
+
+        'user' => [
+            'driver' => 'local',
+            'root' => storage_path('app/user'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
