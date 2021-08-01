@@ -23,7 +23,9 @@ class Nppbkc extends Model
         'province_id','regency_id','district_id','village_id',
         'no_siup_mb','masa_berlaku_siup_mb_from','masa_berlaku_siup_mb_to','no_itp_mb',
         'masa_berlaku_itp_mb_from','masa_berlaku_itp_mb_to','no_izin_nib',
-        'tanggal_nib','tanggal_kesiapan_cek_lokasi'
+        'tanggal_nib','tanggal_kesiapan_cek_lokasi',
+        'ttd_permohonan_lokasi','ttd_permohonan_nppbkc'
+
     ];
 
     //protected static $recordEvents = ['created','updated','deleted'];
@@ -37,7 +39,8 @@ class Nppbkc extends Model
         'province_id','regency_id','district_id','village_id',
         'no_siup_mb','masa_berlaku_siup_mb_from','masa_berlaku_siup_mb_to','no_itp_mb',
         'masa_berlaku_itp_mb_from','masa_berlaku_itp_mb_to','no_izin_nib',
-        'tanggal_nib','tanggal_kesiapan_cek_lokasi'
+        'tanggal_nib','tanggal_kesiapan_cek_lokasi',
+        'ttd_permohonan_lokasi','ttd_permohonan_nppbkc'
     ];
     protected static $submitEmptyLogs = false;
     protected static $logOnlyDirty = true;

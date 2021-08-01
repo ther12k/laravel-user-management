@@ -39,7 +39,7 @@ class Wizard extends Component
     public $file_denah_bangunan,$file_denah_lokasi,$file_siup_mb,$file_itp_mb,$file_surat_kuasa;
     public $file_nib,$file_npwp_pemilik,$file_npwp_usaha,$file_ktp_pemilik,$file_surat_pernyataan,$file_data_registrasi;
     public $successMessage = '';
-    public $created_at,$surat_permohonan_lokasi_url;
+    public $created_at,$surat_permohonan_lokasi_url='',$surat_ttd_lokasi_url='';
     public $ttd_permohonan_lokasi;
 
     protected $rules = [
@@ -456,11 +456,11 @@ class Wizard extends Component
         // }
 
         $hash = md5($this->hashKey.'-cek-lokasi'.$nppbkc->id);
-        
+        $url = url('/nppbkc/view-file/'.$hash);
         $qrImage= base64_encode(
             QrCode::format('png')
             ->size(80)
-            ->generate(url('/nppbkc/view-file/'.$hash))
+            ->generate($url)
         );
         $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
         $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
@@ -478,6 +478,7 @@ class Wizard extends Component
                                 'is_annotation'=>2
                             ])
                         ); 
+        return $url;
     }
     
     public function generate_ttd_cek_lokasi($nppbkc){
@@ -503,10 +504,11 @@ class Wizard extends Component
         $pdf_filename = date('Ymd').'/nppbkc/'.$nppbkc->id.'/'.$nppbkc->id.'_ttd_permohonan_cek_lokasi.pdf';
         
         $hash = md5($this->hashKey.'-ttd-cek-lokasi'.$nppbkc->id);  
+        $url = url('/nppbkc/view-file/'.$hash);
         $qrImage= base64_encode(
             QrCode::format('png')
             ->size(80)
-            ->generate(url('/nppbkc/view-file/'.$hash))
+            ->generate($url)
         );
         $qrImage = '<img src="data:image/png;base64,'.$qrImage.'" style="margin-top:2px;margin-bottom:2px">';
         $pdfHTML = str_replace('[QRCODE]',$qrImage,$pdfHTML);
@@ -526,6 +528,7 @@ class Wizard extends Component
                                 'is_annotation'=>9
                             ])
                         ); 
+        return $url;
     }
 
     private function buildData(){
@@ -651,8 +654,8 @@ class Wizard extends Component
             $nppbkc->save();
             
             $this->created_at = $nppbkc->created_at;
-            $this->generate_permohonan_cek_lokasi($nppbkc);
-            $this->generate_ttd_cek_lokasi($nppbkc);
+            $this->surat_permohonan_lokasi_url = $this->generate_permohonan_cek_lokasi($nppbkc);
+            $this->surat_ttd_lokasi_url = $this->generate_ttd_cek_lokasi($nppbkc);
             $url = route('nppbkc.view',[$nppbkc->id]);
             $notif = [
                 'greeting' => 'Hi '.$nppbkc->createdBy->name,
